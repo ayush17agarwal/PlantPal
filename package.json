@@ -10,6 +10,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "i": "^0.3.6",
+    "mysql": "^2.18.1",
     "react": "16.13.1",
     "react-native": "0.63.3"
   },
