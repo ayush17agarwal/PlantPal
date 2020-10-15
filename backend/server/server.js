@@ -1,19 +1,17 @@
 const express = require('express');
 // eslint-disable-next-line no-unused-vars
 const db = require('./mysql/db');
+// create db.js on your own since it has sensitive passwords!!!!!
 
+//including the routes
 var user = require('./mysql/routes/user.routes');
 
 const app = express();
 
+//user information
 app.use('/users', user);
 
-app.use(function (req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
+//Server port and stuff. DON'T TOUCH!!!!!!
 module.exports = app;
 
 const port = process.env.PORT || 3000;
