@@ -1,12 +1,18 @@
 const express = require('express');
 // eslint-disable-next-line no-unused-vars
 const db = require('./mysql/db');
+const mongo = require('./mongodb/db');
 // create db.js on your own since it has sensitive passwords!!!!!
+
+const cors = require('cors');
 
 //including the routes
 var user = require('./mysql/routes/user.routes');
 
 const app = express();
+
+app.use(cors());
+app.use(express.json());
 
 //user information
 app.use('/users', user);

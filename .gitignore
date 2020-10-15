@@ -60,3 +60,6 @@ buck-out/
 
 # database configuration and connection
 ./backend/server/mysql/db.js
+
+# .env
+./backend/server/.env
