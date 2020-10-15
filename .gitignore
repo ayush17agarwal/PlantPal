@@ -59,4 +59,4 @@ buck-out/
 /ios/Pods/
 
 # config
-./backend/server/config
+./backend/server/mysql/db.js
