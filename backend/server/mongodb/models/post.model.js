@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const PostSchema = new Schema({
   image: {
-    binData: Buffer,
+    data: Buffer,
     contentType: String,
   },
   username: {

@@ -1,6 +1,20 @@
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
+const climates = [
+  'Tropical wet',
+  'Tropical wet and dry',
+  'Semiarid',
+  'Desert (arid)',
+  'Mediterranean',
+  'Humid subtropical',
+  'Marine West Coast',
+  'Humid continental',
+  'Subarctic',
+  'Tundra',
+  'Icecap',
+  'Highland',
+];
 
 const TipSchema = new Schema({
   tip_info: {
@@ -9,10 +23,10 @@ const TipSchema = new Schema({
     trim: true,
     default: '',
   },
-  region: {
+  climate: {
     type: String,
     required: true,
-    enum: ['Forest', 'Grassland', 'Tundra', 'Desert', 'Ice Sheet', 'NONE'],
+    enum: climates,
     default: 'NONE',
   },
   likes: {
