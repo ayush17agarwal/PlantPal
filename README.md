@@ -6,7 +6,7 @@ CS411 Group Project
 
 * Use [setup link](https://reactnative.dev/docs/environment-setup) to setup your environment. Be sure to click the 'React Native CLI Quickstart' tab
 
-###iOS
+### iOS
 
 Set up 
 * in the terminal, run ```npm i react-native-cli -g``` to set up react-native
