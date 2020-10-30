@@ -14,7 +14,7 @@ Set up
 
 Updating files
 * in the project folder PlantPal, run ```npm install```
-* in the ios folder, run ```ios install```
+* in the ios folder, run ```pod install```
 
 Run app
 To run the app on the iOS emulator, run ```react-native run-ios```
