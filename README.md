@@ -17,4 +17,5 @@ Updating files
 * in the ios folder, run ```pod install```
 
 Run app
-* To run the app on the iOS emulator, run ```react-native run-ios``` or ```npx react-native run-ios```
+* to run the app on the iOS emulator, run ```react-native run-ios``` or ```npx react-native run-ios```
+* sometimes you need to relaunch the app multiple times in order for the program to start
