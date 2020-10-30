@@ -12,7 +12,7 @@ Set up
 * in the terminal, run ```npm i react-native-cli -g``` to set up react-native
 * brew install cocoapods with the command ```brew install cocoapods```
 
-Updating files
+Every time you want to run it 
 * in the project folder PlantPal, run ```npm install```
 * in the ios folder, run ```pod install```
 
