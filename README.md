@@ -10,11 +10,12 @@ CS411 Group Project
 
 Set up 
 * in the terminal, run ```npm i react-native-cli -g``` to set up react-native
-* brew install ```brew install cocoapods```
+* brew install cocoapods with the command ```brew install cocoapods```
 
-Updating files
+Every time you want to run it 
 * in the project folder PlantPal, run ```npm install```
-* in the ios folder, run ```ios install```
+* in the ios folder, run ```pod install```
 
 Run app
-To run the app on the iOS emulator, run ```react-native run-ios```
+* to run the app on the iOS emulator, run ```react-native run-ios``` or ```npx react-native run-ios```
+* sometimes you need to relaunch the app multiple times in order for the program to start
