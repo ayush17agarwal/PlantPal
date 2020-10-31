@@ -3,11 +3,11 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Header } from 'react-native-elements';
 import { Left, Right, Icon } from 'native-base';
 
-class Garden extends Component {
+class Search extends Component {
     render(){
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Garden Screen</Text>
+            <Text>Search Screen</Text>
             </View>
         );
     }
@@ -17,4 +17,4 @@ const styles = StyleSheet.create({
         flex: 1
     }
 });
-export default Garden;
+export default Search;
