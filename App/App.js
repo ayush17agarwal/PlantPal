@@ -12,10 +12,12 @@
 
 
 import React from 'react';
-import { SafeAreaView, StyleSheet, ScrollView, View, Text, StatusBar, Button, } from 'react-native';
+import { SafeAreaView, StyleSheet, ScrollView, View, Text, StatusBar, Button, Image } from 'react-native';
 import { Header, LearnMoreLinks, Colors, DebugInstructions, ReloadInstructions, } from 'react-native/Libraries/NewAppScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Garden from './Components/Garden';
 
 
 function HomeScreen({navigation}) {
@@ -38,14 +40,71 @@ function DetailsScreen() {
 }
 
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
+function MyTabs() {
+  return (
+    <Tab.Navigator
+      initialRouteName="Home"
+      tabBarOptions={{
+        // showIcon: true,
+        style: {
+          backgroundColor: '#000000',
+        }
+        // activeTintColor: '#e91e63'
+
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ focused }) => {
+            const image = focused
+            ? require('./Assets/leaf.png')
+            : require('./Assets/leaf.png')
+            return (
+                <Image
+                    source={image}
+                    style={{height:25, width:25}}/>
+            )}
+        }}/>
+      <Tab.Screen
+        name="Details"
+        component={DetailsScreen}
+        options={{
+          tabBarLabel: 'Details',
+          // tabBarIcon: ({ color, size }) => (
+            // return (<Image
+            //   style={{ width: 50, height: 50 }}
+            //   source={require('./Assets/leaf.png')}/>);
+            // ),
+        }}
+      />
+      <Tab.Screen
+        name="Garden"
+        component={Garden}
+        options={{
+          tabBarLabel: 'Garden',
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
 const App: () => React$Node = () => {
   return (
     <>
     <NavigationContainer>
-      <Stack.Navigator>
+      {/* <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Details" component={DetailsScreen} />
-      </Stack.Navigator>
+      </Stack.Navigator> */}
+      <MyTabs/>
+      {/* <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Details" component={DetailsScreen} />
+      </Tab.Navigator> */}
     </NavigationContainer>
 
       {/* <StatusBar barStyle="dark-content" />

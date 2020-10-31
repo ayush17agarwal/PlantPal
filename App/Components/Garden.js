@@ -4,21 +4,16 @@ import { Header } from 'react-native-elements';
 import { Left, Right, Icon } from 'native-base';
 
 class Garden extends Component {
-    static navigationOptions = {
-        drawerIcon: ({ tintColor }) => (
-            <Icon name="Garden" style={{ fontSize: 24, color: tintColor }} />
-        )
-    }
+    // static navigationOptions = {
+    //     // drawerIcon: ({ tintColor }) => (
+    //     //     <Icon name="Garden" style={{ fontSize: 24, color: tintColor }} />
+    //     // )
+    // }
 
     render(){
         return (
-            <View style={styles.container}>
-                <Header
-                    leftComponent={<Icon name="menu" onPress={() => this.props.navigation.openDrawer()} />}
-                />
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                    <Text>Home Page</Text>
-                </View>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <Text>Garden Screen</Text>
             </View>
         );
     }
