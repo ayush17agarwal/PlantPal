@@ -85,26 +85,26 @@ const App: () => React$Node = () => {
             // <>
             // {/* <PlantCard plant={plant}></PlantCard> */}
             // </>
-            <Card containerStyle={card_styles.Card}>
-              <Card.Title>{plant.nickname}</Card.Title>
-              <Card.Divider/>
-              <Text>Name: {plant.name}</Text>
-              <View>
-                <Image
-                  source={'./Assets/leaf.png'}
-                  resizeMode={'contain'} 
-                  style={{width: 50, height: 50}}/>
-              </View>
-              <View>
-                <Table>
-                  <TableWrapper>
-                    <Row data={["date planted", plant.datePlanted]}></Row>
-                    <Row data={["last watered", plant.lastWatered]}></Row>
-                    <Row data={["health", plant.health]}></Row>
-                  </TableWrapper>
-                </Table>
-              </View>
-            </Card>
+            // <Card containerStyle={card_styles.Card}>
+            //   <Card.Title>{plant.nickname}</Card.Title>
+            //   <Card.Divider/>
+            //   <Text>Name: {plant.name}</Text>
+            //   <View>
+            //     <Image
+            //       source={'./Assets/leaf.png'}
+            //       resizeMode={'contain'} 
+            //       style={{width: 50, height: 50}}/>
+            //   </View>
+            //   <View>
+            //     <Table>
+            //       <TableWrapper>
+            //         <Row data={["date planted", plant.datePlanted]}></Row>
+            //         <Row data={["last watered", plant.lastWatered]}></Row>
+            //         <Row data={["health", plant.health]}></Row>
+            //       </TableWrapper>
+            //     </Table>
+            //   </View>
+            // </Card>
           )
         })
         }
