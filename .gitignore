@@ -58,8 +58,5 @@ buck-out/
 # CocoaPods
 /ios/Pods/
 
-# database configuration and connection
-./backend/server/mysql/db.js
-
 # .env
-./backend/server/.env
+*.env
