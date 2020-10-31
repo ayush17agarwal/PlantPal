@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Header } from 'react-native-elements';
-import { Left, Right, Icon } from 'native-base';
 
 class Search extends Component {
     render(){
