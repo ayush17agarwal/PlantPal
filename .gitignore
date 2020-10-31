@@ -62,4 +62,4 @@ buck-out/
 ./backend/server/mysql/db.js
 
 # .env
-./backend/server/.env
+*.env
