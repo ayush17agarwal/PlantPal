@@ -2,17 +2,61 @@ const express = require('express');
 const db = require('./../db');
 var router = express.Router();
 
-// experimental API call. Feel free to use it
-// as boilerplate code for any other routes!
-router.get('/', (req, res) => {
-  let sql = 'SELECT * FROM user';
-  db.query(sql, (err, results) => {
+//request looks something like /signin?user=<username>&passwd=<password>
+router.get('/signin', (req, res) => {
+  let sql =
+    'SELECT user_id, first_name FROM user WHERE username = ? AND passwd = MD5(?)';
+  db.query(sql, [req.query.user, req.query.passwd], (err, results) => {
     if (err) {
       throw err;
     }
     res.send(results);
-    console.log('Users fetched...');
+    console.log('User fetched...');
   });
 });
+
+//signup POST Request with email, username, name, password
+
+router.post('/signup', (req, res) => {
+  let sql =
+    'INSERT INTO plantpal.user (first_name, last_name, email, username, passwd) VALUES(?, ?, ?, ?, MD5(?))';
+  let {first_name, last_name, email, user, passwd} = req.body;
+
+  db.query(
+    sql,
+    [first_name, last_name, email, user, passwd],
+    (err, results) => {
+      if (err) {
+        throw err;
+      }
+      res.send(results);
+      console.log('User created...');
+    },
+  );
+});
+
+//Update User Information POST Request (One for each field that is updateable)
+
+// UPDATE plantpal.user SET username='blah' WHERE user_id = 1;
+
+//return user information GET Request
+
+// SELECT * FROM plantpal.user WHERE user_id = 2;
+
+// advanced type of function (finds all plants that a user owns)
+
+// SELECT plant_id, nickname FROM plantpal.garden NATURAL JOIN plantpal.plant WHERE user_id = 2
+
+// advanced typ of function 2
+
+// SELECT count(*), avg(health) FROM plantpal.plant GROUP BY garden_id;
+
+//create a plant POST Request
+
+//delete a plant DELETE Request
+
+//return plant information GET Request
+
+//water a plant POST Request
 
 module.exports = router;

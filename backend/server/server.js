@@ -8,6 +8,7 @@ const cors = require('cors');
 
 //including the routes
 var user = require('./mysql/routes/user.routes');
+var garden = require('./mysql/routes/garden.routes');
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 
 //user information
 app.use('/users', user);
+app.use('/gardens', garden);
 
 //Server port and stuff. DON'T TOUCH!!!!!!
 module.exports = app;
