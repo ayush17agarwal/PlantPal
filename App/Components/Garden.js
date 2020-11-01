@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { Button } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Plant from "./Plant";
+import { View, Text, StyleSheet, Button } from 'react-native';
+import Plant from './Plant';
 
-const Tab = createBottomTabNavigator();
-// class Garden extends Component {
 const Garden = ({ navigation }) => {
     // render(){
     return (
