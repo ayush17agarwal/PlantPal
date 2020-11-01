@@ -15,25 +15,25 @@ router.get('/signin', (req, res) => {
   });
 });
 
-//signin GET Request with username and password
-
-//SELECT user_id, first_name FROM plantpal.User WHERE username = 'djfakl;djf' AND passwd = MD5('adklfja');
-
 //signup POST Request with email, username, name, password
 
-// INSERT INTO plantpal.user (first_name, last_name, email, username, passwd) VALUES('Jo', 'last', 'balkja', 'djfakl;djf', MD5('adklfja'));
+router.post('/signup', (req, res) => {
+  let sql =
+    'INSERT INTO plantpal.user (first_name, last_name, email, username, passwd) VALUES(?, ?, ?, ?, MD5(?))';
+  let {first_name, last_name, email, user, passwd} = req.body;
 
-//create new garden POST Request with x fields
-
-// INSERT INTO plantpal.garden(user_id, garden_name, climate) VALUES(1, 'desktop', 'dry');
-
-//delete a garden DELETE Request with garden name
-
-// DELETE FROM plantpal.garden WHERE garden_id = 2;
-
-//return all gardens for a user
-
-//SELECT * FROM plantpal.garden WHERE user_id = 1;
+  db.query(
+    sql,
+    [first_name, last_name, email, user, passwd],
+    (err, results) => {
+      if (err) {
+        throw err;
+      }
+      res.send(results);
+      console.log('User created...');
+    },
+  );
+});
 
 //Update User Information POST Request (One for each field that is updateable)
 
