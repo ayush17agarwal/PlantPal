@@ -26,11 +26,8 @@
     "nodemon": "^2.0.5",
     "react": "16.13.1",
     "react-native": "0.63.3",
-<<<<<<< HEAD
     "react-native-dropdown-menu": "^2.0.0",
-=======
     "react-native-data-table": "^0.2.1",
->>>>>>> megha
     "react-native-elements": "^3.0.0-alpha.1",
     "react-native-gesture-handler": "^1.8.0",
     "react-native-menu-button": "^1.0.0",
