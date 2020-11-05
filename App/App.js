@@ -2,31 +2,11 @@ import React, { Component } from 'react';
 import { Header, LearnMoreLinks, Colors, DebugInstructions, ReloadInstructions, } from 'react-native/Libraries/NewAppScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import TabNav from "./Components/Navigation/TabNav";
-// import React, {Component} from 'react';
-// import NavBar from './Components/HeaderBar'
-// COMPONENTS
-
-
-// export default class App extends Component {
-//  render() {
-//    return (
-//      <HeaderBar/>
-//    );
-//  }
-// }
-
-
-import { SafeAreaView, StyleSheet, ScrollView, View, Text, Image, StatusBar } from 'react-native';
-import { Header, LearnMoreLinks, Colors, DebugInstructions, ReloadInstructions, } from 'react-native/Libraries/NewAppScreen';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { Card, ListItem, Button, Icon } from 'react-native-elements'
+import { StyleSheet, ScrollView, View, Text, Image } from 'react-native';
+import { Card } from 'react-native-elements'
 import { Container, Content, Body, Title, Tab} from 'native-base';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
-
-// import { PlantCard } from './Components/PlantCard'
 import { color } from 'react-native-reanimated';
-
 
 const Plants = [
   {
@@ -55,7 +35,6 @@ const Plants = [
 const App: () => React$Node = () => {
   return (
     <NavigationContainer>
-      <TabNav/>
       <Content>
         {
           Plants.map((plantItem) => {
@@ -64,13 +43,14 @@ const App: () => React$Node = () => {
           })
         }
         </Content>
+      <TabNav/>
     </NavigationContainer>     
   );
 };
 
 const PlantCard = (props) => {
   return(
-    <Card containerStyle={card_styles.Card}>
+    <Card containerStyle={styles.Card}>
       <Card.Title>{props.plant.nickname}</Card.Title>
       <Card.Divider/>
       <Text>Name: {props.plant.name}</Text>
@@ -93,12 +73,10 @@ const PlantCard = (props) => {
   );
 }
 
-const card_styles = StyleSheet.create({
+const styles = StyleSheet.create({
   Card: {
     backgroundColor: '#7CA784'
-  }
-});
-const styles = StyleSheet.create({
+  },
   scrollView: {
     backgroundColor: Colors.lighter,
   },
