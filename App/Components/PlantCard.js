@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, Text, Image, StatusBar } from 'react-native';
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
 import {Container, Content, Body, Title, Tab} from 'native-base';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 
-const PlantCard = ({plant}) => (
-    <Card containerStyle={card_styles.Card}>
-        <Card.Title>{this.plant.nickname}</Card.Title>
+/// PUT THIS INTO APP.JS TO MAKE IT WORK 
+const PlantCard = (props) => {
+    return(
+      <Card containerStyle={card_styles.Card}>
+        <Card.Title>{props.plant.nickname}</Card.Title>
         <Card.Divider/>
-        <Text>Name: {this.plant.name}</Text>
+        <Text>Name: {props.plant.name}</Text>
         <View>
         <Image
             source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
@@ -18,14 +20,15 @@ const PlantCard = ({plant}) => (
         <View>
         <Table>
             <TableWrapper>
-            <Row data={["date planted", this.plant.datePlanted]}></Row>
-            <Row data={["last watered", this.plant.lastWatered]}></Row>
-            <Row data={["health", this.plant.health]}></Row>
+            <Row data={["date planted", props.plant.datePlanted]}></Row>
+            <Row data={["last watered", props.plant.lastWatered]}></Row>
+            <Row data={["health", props.plant.health]}></Row>
             </TableWrapper>
         </Table>
         </View>
     </Card>
-);
+    );
+  }
 
 
 const card_styles = StyleSheet.create({
