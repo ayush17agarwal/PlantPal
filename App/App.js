@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Header, LearnMoreLinks, Colors, DebugInstructions, ReloadInstructions, } from 'react-native/Libraries/NewAppScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import TabNav from "./Components/Navigation/TabNav";
+
 import { StyleSheet, ScrollView, View, Text, Image } from 'react-native';
 import { Card } from 'react-native-elements'
 import { Container, Content, Body, Title, Tab} from 'native-base';
@@ -35,14 +36,14 @@ const Plants = [
 const App: () => React$Node = () => {
   return (
     <NavigationContainer>
-      <Content>
+      {/* <Content>
         {
           Plants.map((plantItem) => {
         
             return ( <PlantCard plant={plantItem}/> );
           })
         }
-        </Content>
+        </Content> */}
       <TabNav/>
     </NavigationContainer>     
   );
