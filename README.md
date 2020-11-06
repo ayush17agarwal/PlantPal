@@ -20,4 +20,4 @@ Every time you want to run it
 Run app
 * to run the app on the iOS emulator, run ```react-native run-ios``` or ```npx react-native run-ios```
 * sometimes you need to relaunch the app multiple times in order for the program to start
-* to start the backend, run ```node server.js```
+* to start the backend, run ```node server.js``` in /backend/server
