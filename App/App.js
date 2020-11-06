@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Header, LearnMoreLinks, Colors, DebugInstructions, ReloadInstructions, } from 'react-native/Libraries/NewAppScreen';
 import { NavigationContainer } from '@react-navigation/native';
-import TabNav from "./Components/Navigation/TabNav";
+import { TabNav } from "./Components/Navigation/TabNav";
 
 import { StyleSheet, ScrollView, View, Text, Image } from 'react-native';
 import { Card } from 'react-native-elements'
 import { Container, Content, Body, Title, Tab} from 'native-base';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 import { color } from 'react-native-reanimated';
+import axios from 'axios';
 
 const Plants = [
   {
@@ -33,21 +34,37 @@ const Plants = [
   }
 ]
 
-const App: () => React$Node = () => {
-  return (
-    <NavigationContainer>
-      {/* <Content>
+class App extends React.Component {
+  state = {
+    gardens: []
+  }
+
+  componentDidMount() {
+    axios.get(`http://localhost:3000/gardens?user=7`)
+      .then(res => {
+        const gardens = res.data;
+        this.setState({ gardens });
+      })
+  }
+
+  render() {
+    return(
+      <Content>
         {
-          Plants.map((plantItem) => {
-        
-            return ( <PlantCard plant={plantItem}/> );
+          this.state.gardens.map((garden) => {
+            return( 
+              <Card containerStyle={styles.Card}>
+              <Card.Title>{garden.garden_name}</Card.Title>
+              <Card.Divider/>
+              <Text>Climate: {garden.climate}</Text>
+            </Card>
+            )
           })
         }
-        </Content> */}
-      <TabNav/>
-    </NavigationContainer>     
-  );
-};
+        </Content>
+    )
+  }
+}
 
 const PlantCard = (props) => {
   return(
