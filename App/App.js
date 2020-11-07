@@ -3,12 +3,13 @@ import { Header, LearnMoreLinks, Colors, DebugInstructions, ReloadInstructions, 
 import { NavigationContainer } from '@react-navigation/native';
 import { TabNav } from "./Components/Navigation/TabNav";
 
-import { StyleSheet, ScrollView, View, Text, Image } from 'react-native';
-import { Card } from 'react-native-elements'
+import { StyleSheet, ScrollView, View, Text, Image, Button } from 'react-native';
+import { Card, Input } from 'react-native-elements'
 import { Container, Content, Body, Title, Tab} from 'native-base';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 import { color } from 'react-native-reanimated';
 import axios from 'axios';
+import t from 'tcomb-form-native';
 
 const Plants = [
   {
@@ -34,9 +35,21 @@ const Plants = [
   }
 ]
 
+const Form = t.form.Form; 
+
+const CreateGarden = t.struct({ 
+  garden_name: t.String, 
+  climate: t.String
+})
+
+const DeleteGarden = t.struct({
+  garden_id: t.String
+})
+
 class App extends React.Component {
   state = {
-    gardens: []
+    gardens: [],
+    // newGardenName: ''
   }
 
   componentDidMount() {
@@ -47,8 +60,47 @@ class App extends React.Component {
       })
   }
 
+  handleCreateSubmit = event => {
+    event.preventDefault();
+    
+    const gardenvals = this.create_garden_form.getValue(); 
+
+    const new_garden = {
+      user_id: "7",
+      garden: gardenvals.garden_name,
+      climate: gardenvals.climate
+    };
+
+    axios.post(`http://localhost:3000/gardens/create`, new_garden)
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      }).catch(
+        error => console.log(error)
+      )
+  }
+
+  handleDeleteSubmit = event => {
+    event.preventDefault();
+    
+    const gardenvals = this.delete_garden_form.getValue(); 
+
+    const garden_to_delete = {
+      garden_id: gardenvals.garden_id
+    };
+    
+    axios.delete(`http://localhost:3000/gardens/remove`, garden_to_delete)
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      }).catch(
+        error => console.log(error)
+      )
+  }
+
   render() {
     return(
+      <>
       <Content>
         {
           this.state.gardens.map((garden) => {
@@ -61,7 +113,34 @@ class App extends React.Component {
             )
           })
         }
-        </Content>
+        <View>
+          <Text style={styles.title}>
+            Add a new garden
+          </Text>
+          <Form type={CreateGarden} ref={c => this.create_garden_form = c}/>
+          {/* <Input type="text" name="newGardenName" onChange={this.handleChange} />
+          <Button title="Submit" onClick={this.handleSubmit}></Button>
+          </Form> */}
+          <Button
+            title="Submit!"
+            onPress={this.handleCreateSubmit}
+          />
+        </View>
+        <View>
+          <Text style={styles.title}>
+            Delete a Garden
+          </Text>
+          <Form type={DeleteGarden} ref={c => this.delete_garden_form = c}/>
+          {/* <Input type="text" name="newGardenName" onChange={this.handleChange} />
+          <Button title="Submit" onClick={this.handleSubmit}></Button>
+          </Form> */}
+          <Button
+            title="Submit!"
+            onPress={this.handleDeleteSubmit}
+          />
+        </View>
+      </Content>
+      </>
     )
   }
 }
