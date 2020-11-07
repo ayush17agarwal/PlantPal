@@ -59,4 +59,17 @@ router.post('/change-name', (req, res) => {
   });
 });
 
+router.get('/identify-climate', (req,res) => {
+  let sql =
+    'SELECT email, count(*) FROM user NATURAL JOIN garden WHERE climate = ? GROUP BY email';
+
+  db.query(sql, [req.query.climate], (err, results) => {
+    if(err) {
+      throw err;
+    }
+    res.send(results);
+    console.log('fetched emails with gardens of climate ' + req.query.climate);
+  })
+})
+
 module.exports = router;
