@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Header, LearnMoreLinks, Colors, DebugInstructions, ReloadInstructions, } from 'react-native/Libraries/NewAppScreen';
-import { NavigationContainer } from '@react-navigation/native';
-import { TabNav } from "./Components/Navigation/TabNav";
+import { NavigationContainer, useNavigationBuilder } from '@react-navigation/native';
+import TabNav from "./Components/Navigation/TabNav";
 
 import { StyleSheet, ScrollView, View, Text, Image, Button } from 'react-native';
 import { Card, Divider, Input } from 'react-native-elements'
@@ -46,6 +46,11 @@ const DeleteGarden = t.struct({
   garden_id: t.Integer
 })
 
+const UpdateGarden = t.struct({
+  garden_id: t.Integer,
+  garden_name: t.String
+})
+
 class App extends React.Component {
   state = {
     gardens: []
@@ -88,8 +93,26 @@ class App extends React.Component {
       garden_id: gardenvals.garden_id
     };
     
-    console.log(garden_to_delete.garden_id); 
     axios.delete(`http://localhost:3000/gardens/remove`, {data: {garden_id: garden_to_delete.garden_id}})
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      }).catch(
+        error => console.log(error)
+      )
+  }
+
+  handleUpdateSubmit = event => {
+    event.preventDefault();
+    
+    const gardenvals = this.update_garden_form.getValue(); 
+
+    const garden_to_update = {
+      id: gardenvals.garden_id,
+      name: gardenvals.garden_name
+    };
+    
+    axios.post(`http://localhost:3000/gardens/change-name`, garden_to_update)
       .then(res => {
         console.log(res);
         console.log(res.data);
@@ -105,6 +128,8 @@ class App extends React.Component {
   render() {
     return(
       <>
+      <NavigationContainer>
+      
       <Content>
         {
           this.state.gardens.map((garden) => {
@@ -118,6 +143,7 @@ class App extends React.Component {
             )
           })
         }
+        <Divider></Divider>
         <View>
           <Text style={styles.title}>
             Add a new garden
@@ -128,6 +154,7 @@ class App extends React.Component {
             onPress={this.handleCreateSubmit}
           />
         </View>
+        <Divider/>
         <View>
           <Text style={styles.title}>
             Delete a Garden (Enter an ID)
@@ -136,6 +163,16 @@ class App extends React.Component {
           <Button
             title="Submit!"
             onPress={this.handleDeleteSubmit}
+          />
+        </View>
+        <View>
+          <Text style={styles.title}>
+            Update a Garden (Enter an ID and name for the garden)
+          </Text> 
+          <Form type={UpdateGarden} ref={c => this.update_garden_form = c}/>
+          <Button
+            title="update"
+            onPress={this.handleUpdateSubmit}
           />
         </View>
         {/* <View>
@@ -147,7 +184,9 @@ class App extends React.Component {
             onPress={this.refreshPage}
           />
         </View> */}
+      <TabNav></TabNav>
       </Content>
+      </NavigationContainer>
       </>
     )
   }

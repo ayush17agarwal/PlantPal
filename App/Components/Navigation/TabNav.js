@@ -12,7 +12,7 @@ const TabNav = () => {
       tabBarOptions={{
         style: { backgroundColor: '#769CB9'},
         activeTintColor: '#C8E3F9',
-        inactiveTintColor: '#FFFFFF' }} >
+        inactiveTintColor: '#FFFFFF'}} >
       <Tab.Screen
         name="social"
         component={SocialStackNav}
