@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { TabNav } from "./Components/Navigation/TabNav";
 
 import { StyleSheet, ScrollView, View, Text, Image, Button } from 'react-native';
-import { Card, Input } from 'react-native-elements'
+import { Card, Divider, Input } from 'react-native-elements'
 import { Container, Content, Body, Title, Tab} from 'native-base';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 import { color } from 'react-native-reanimated';
@@ -48,8 +48,7 @@ const DeleteGarden = t.struct({
 
 class App extends React.Component {
   state = {
-    gardens: [],
-    // newGardenName: ''
+    gardens: []
   }
 
   componentDidMount() {
@@ -86,7 +85,7 @@ class App extends React.Component {
     const gardenvals = this.delete_garden_form.getValue(); 
 
     const garden_to_delete = {
-      garden_id: '424' // gardenvals.garden_id
+      garden_id: gardenvals.garden_id
     };
     
     console.log(garden_to_delete.garden_id); 
@@ -99,6 +98,10 @@ class App extends React.Component {
       )
   }
 
+  // refreshPage = event => {
+  //   this.forceUpdate()
+  // }
+
   render() {
     return(
       <>
@@ -110,6 +113,7 @@ class App extends React.Component {
               <Card.Title>{garden.garden_name}</Card.Title>
               <Card.Divider/>
               <Text>Climate: {garden.climate}</Text>
+              <Text>ID: {garden.garden_id}</Text>
             </Card>
             )
           })
@@ -119,9 +123,6 @@ class App extends React.Component {
             Add a new garden
           </Text>
           <Form type={CreateGarden} ref={c => this.create_garden_form = c}/>
-          {/* <Input type="text" name="newGardenName" onChange={this.handleChange} />
-          <Button title="Submit" onClick={this.handleSubmit}></Button>
-          </Form> */}
           <Button
             title="Submit!"
             onPress={this.handleCreateSubmit}
@@ -129,17 +130,23 @@ class App extends React.Component {
         </View>
         <View>
           <Text style={styles.title}>
-            Delete a Garden
+            Delete a Garden (Enter an ID)
           </Text>
           <Form type={DeleteGarden} ref={c => this.delete_garden_form = c}/>
-          {/* <Input type="text" name="newGardenName" onChange={this.handleChange} />
-          <Button title="Submit" onClick={this.handleSubmit}></Button>
-          </Form> */}
           <Button
             title="Submit!"
             onPress={this.handleDeleteSubmit}
           />
         </View>
+        {/* <View>
+          <Text style={styles.title}>
+            refresh page 
+          </Text>
+          <Button
+            title="refresh"
+            onPress={this.refreshPage}
+          />
+        </View> */}
       </Content>
       </>
     )
