@@ -43,7 +43,7 @@ const CreateGarden = t.struct({
 })
 
 const DeleteGarden = t.struct({
-  garden_id: t.String
+  garden_id: t.Integer
 })
 
 class App extends React.Component {
@@ -86,10 +86,11 @@ class App extends React.Component {
     const gardenvals = this.delete_garden_form.getValue(); 
 
     const garden_to_delete = {
-      garden_id: gardenvals.garden_id
+      garden_id: '424' // gardenvals.garden_id
     };
     
-    axios.delete(`http://localhost:3000/gardens/remove`, garden_to_delete)
+    console.log(garden_to_delete.garden_id); 
+    axios.delete(`http://localhost:3000/gardens/remove`, {data: {garden_id: garden_to_delete.garden_id}})
       .then(res => {
         console.log(res);
         console.log(res.data);
