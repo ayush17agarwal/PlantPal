@@ -11,30 +11,6 @@ import { color } from 'react-native-reanimated';
 import axios from 'axios';
 import t from 'tcomb-form-native';
 
-const Plants = [
-  {
-    name: "Hydrangea", 
-    nickname: "Hydrogen Plant", 
-    health: "4",
-    datePlanted: "may 20 2001",
-    lastWatered: "oct 1 2020"
-  }, 
-  {
-    name: "Hemlock",
-    nickname: "Hemlock Holmes", 
-    health: "39",
-    datePlanted: "may 20 2001",
-    lastWatered: "oct 1 2020"
-  },
-  {
-    name: "Sabelle's Plant",
-    nickname: "bell pepper", 
-    health: "39",
-    datePlanted: "may 20 2001",
-    lastWatered: "oct 1 2020"
-  }
-]
-
 const Form = t.form.Form; 
 
 const CreateGarden = t.struct({ 
@@ -131,6 +107,8 @@ class App extends React.Component {
       <NavigationContainer>
       
       <Content>
+      
+      
         {
           this.state.gardens.map((garden) => {
             return( 
@@ -184,8 +162,8 @@ class App extends React.Component {
             onPress={this.refreshPage}
           />
         </View> */}
-      <TabNav></TabNav>
       </Content>
+      {/* <TabNav></TabNav> */}
       </NavigationContainer>
       </>
     )
