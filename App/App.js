@@ -3,13 +3,16 @@ import { Header, LearnMoreLinks, Colors, DebugInstructions, ReloadInstructions, 
 import { NavigationContainer, useNavigationBuilder } from '@react-navigation/native';
 import TabNav from "./Components/Navigation/TabNav";
 
-import { StyleSheet, ScrollView, View, Text, Image, Button } from 'react-native';
+import { StyleSheet, ScrollView, View, Text, Image, Button, Alert} from 'react-native';
 import { Card, Divider, Input } from 'react-native-elements'
 import { Container, Content, Body, Title, Tab} from 'native-base';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 import { color } from 'react-native-reanimated';
 import axios from 'axios';
 import t from 'tcomb-form-native';
+
+// Custom Components
+import GardenStackNav from './Components/Navigation/StackNav'
 
 const Plants = [
   {
@@ -57,6 +60,10 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    this.refreshGardens()
+  }
+
+  refreshGardens() {
     axios.get(`http://localhost:3000/gardens?user=7`)
       .then(res => {
         const gardens = res.data;
@@ -82,6 +89,8 @@ class App extends React.Component {
       }).catch(
         error => console.log(error)
       )
+    
+      this.refreshGardens();
   }
 
   handleDeleteSubmit = event => {
@@ -98,8 +107,18 @@ class App extends React.Component {
         console.log(res);
         console.log(res.data);
       }).catch(
-        error => console.log(error)
+        error => console.log(error),
+        // Alert.alert(
+        //   "cannot delete garden :(",
+        //   "you seem to have entered an invalid garden id. try again!",
+        //   [
+        //     { text: "OK", onPress: () => console.log("OK Pressed") }
+        //   ],
+        //   { cancelable: false }
+        // )
       )
+    
+    this.refreshGardens(); 
   }
 
   handleUpdateSubmit = event => {
@@ -117,13 +136,19 @@ class App extends React.Component {
         console.log(res);
         console.log(res.data);
       }).catch(
-        error => console.log(error)
+        error => console.log(error),
+        Alert.alert(
+          "cannot update garden :(",
+          "you seem to have entered an invalid garden id. try again!",
+          [
+            { text: "OK", onPress: () => console.log("OK Pressed") }
+          ],
+          { cancelable: false }
+        )
       )
+    
+    this.refreshGardens();
   }
-
-  // refreshPage = event => {
-  //   this.forceUpdate()
-  // }
 
   render() {
     return(
@@ -132,14 +157,9 @@ class App extends React.Component {
       
       <Content>
         {
-          this.state.gardens.map((garden) => {
+          this.state.gardens.map((new_garden) => {
             return( 
-              <Card containerStyle={styles.Card}>
-              <Card.Title>{garden.garden_name}</Card.Title>
-              <Card.Divider/>
-              <Text>Climate: {garden.climate}</Text>
-              <Text>ID: {garden.garden_id}</Text>
-            </Card>
+              <GardenCard garden={new_garden}/>
             )
           })
         }
@@ -192,6 +212,16 @@ class App extends React.Component {
   }
 }
 
+const GardenCard = ({garden}) => {
+  return(
+    <Card containerStyle={styles.Card}>
+      <Card.Title>{garden.garden_name}</Card.Title>
+      <Card.Divider/>
+      <Text>Climate: {garden.climate}</Text>
+      <Text>ID: {garden.garden_id}</Text>
+    </Card>
+  ); 
+}
 const PlantCard = (props) => {
   return(
     <Card containerStyle={styles.Card}>
@@ -213,7 +243,7 @@ const PlantCard = (props) => {
           </TableWrapper>
       </Table>
       </View>
-  </Card>
+    </Card>
   );
 }
 
