@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Header, LearnMoreLinks, Colors, DebugInstructions, ReloadInstructions, } from 'react-native/Libraries/NewAppScreen';
 import { NavigationContainer, useNavigationBuilder } from '@react-navigation/native';
-import TabNav from "./Components/Navigation/TabNav";
 
 import { StyleSheet, ScrollView, View, Text, Image, Button, Alert} from 'react-native';
 import { Card, Divider, Input } from 'react-native-elements'
@@ -12,31 +11,7 @@ import axios from 'axios';
 import t from 'tcomb-form-native';
 
 // Custom Components
-import GardenStackNav from './Components/Navigation/StackNav'
-
-const Plants = [
-  {
-    name: "Hydrangea", 
-    nickname: "Hydrogen Plant", 
-    health: "4",
-    datePlanted: "may 20 2001",
-    lastWatered: "oct 1 2020"
-  }, 
-  {
-    name: "Hemlock",
-    nickname: "Hemlock Holmes", 
-    health: "39",
-    datePlanted: "may 20 2001",
-    lastWatered: "oct 1 2020"
-  },
-  {
-    name: "Sabelle's Plant",
-    nickname: "bell pepper", 
-    health: "39",
-    datePlanted: "may 20 2001",
-    lastWatered: "oct 1 2020"
-  }
-]
+import TabNav from "./Components/Navigation/TabNav";
 
 const Form = t.form.Form; 
 
@@ -154,7 +129,9 @@ class App extends React.Component {
     return(
       <>
       <NavigationContainer>
-      
+        <TabNav />
+
+      {/*
       <Content>
         {
           this.state.gardens.map((new_garden) => {
@@ -195,17 +172,9 @@ class App extends React.Component {
             onPress={this.handleUpdateSubmit}
           />
         </View>
-        {/* <View>
-          <Text style={styles.title}>
-            refresh page 
-          </Text>
-          <Button
-            title="refresh"
-            onPress={this.refreshPage}
-          />
-        </View> */}
       <TabNav></TabNav>
       </Content>
+      */}
       </NavigationContainer>
       </>
     )
