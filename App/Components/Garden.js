@@ -60,19 +60,20 @@ class Garden extends React.Component {
           .then(res => {
             console.log(res);
             console.log(res.data);
+            this.refreshGardens(); 
           }).catch(
             error => console.log(error),
-            // Alert.alert(
-            //   "cannot delete garden :(",
-            //   "you seem to have entered an invalid garden id. try again!",
-            //   [
-            //     { text: "OK", onPress: () => console.log("OK Pressed") }
-            //   ],
-            //   { cancelable: false }
-            // )
+            Alert.alert(
+              "cannot delete garden :(",
+              "you seem to have entered an invalid garden id. try again!",
+              [
+                { text: "OK", onPress: () => console.log("OK Pressed") }
+              ],
+              { cancelable: false }
+            )
           )
         
-        this.refreshGardens(); 
+        
       }
     
       handleUpdateSubmit = event => {
@@ -151,31 +152,11 @@ class Garden extends React.Component {
                     onPress={this.handleUpdateSubmit}
                 />
             </View>
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>Garden Screen</Text>
-                    <Button
-                    title="Go to Plant"
-                    onPress={() => nav.navigate('Plant')}
-                    />
-            </View>
             </ScrollView>
             
         )
     }
 }
-// const Garden = ({ navigation }) => {
-//    //  render(){
-//     return (
-        // <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        // <Text>Garden Screen</Text>
-        // <Button
-        // title="Go to Plant"
-        // onPress={() => navigation.navigate('Plant')}
-        // />
-        // </View>
-//     );
-// //  }
-// }
 
 const GardenCard = ({garden, navComponent}) => {
     return(
@@ -186,7 +167,7 @@ const GardenCard = ({garden, navComponent}) => {
         <Text>ID: {garden.garden_id}</Text>
         <Button
         title="View your plants"
-        onPress={() => navComponent.navigate('Plant')}
+        onPress={() => navComponent.navigate('plant')}
         />
       </Card>
     ); 

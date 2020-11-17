@@ -8,26 +8,9 @@ import { Container, Content, Body, Title, Tab} from 'native-base';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 import { color } from 'react-native-reanimated';
 import axios from 'axios';
-import t from 'tcomb-form-native';
 
 // Custom Components
 import TabNav from "./Components/Navigation/TabNav";
-
-const Form = t.form.Form; 
-
-const CreateGarden = t.struct({ 
-  garden_name: t.String, 
-  climate: t.String
-})
-
-const DeleteGarden = t.struct({
-  garden_id: t.Integer
-})
-
-const UpdateGarden = t.struct({
-  garden_id: t.Integer,
-  garden_name: t.String
-})
 
 class App extends React.Component {
   state = {
@@ -130,51 +113,6 @@ class App extends React.Component {
       <>
       <NavigationContainer>
         <TabNav />
-
-      {/*
-      <Content>
-        {
-          this.state.gardens.map((new_garden) => {
-            return( 
-              <GardenCard garden={new_garden}/>
-            )
-          })
-        }
-        <Divider></Divider>
-        <View>
-          <Text style={styles.title}>
-            Add a new garden
-          </Text>
-          <Form type={CreateGarden} ref={c => this.create_garden_form = c}/>
-          <Button
-            title="Submit!"
-            onPress={this.handleCreateSubmit}
-          />
-        </View>
-        <Divider/>
-        <View>
-          <Text style={styles.title}>
-            Delete a Garden (Enter an ID)
-          </Text>
-          <Form type={DeleteGarden} ref={c => this.delete_garden_form = c}/>
-          <Button
-            title="Submit!"
-            onPress={this.handleDeleteSubmit}
-          />
-        </View>
-        <View>
-          <Text style={styles.title}>
-            Update a Garden (Enter an ID and name for the garden)
-          </Text> 
-          <Form type={UpdateGarden} ref={c => this.update_garden_form = c}/>
-          <Button
-            title="update"
-            onPress={this.handleUpdateSubmit}
-          />
-        </View>
-      <TabNav></TabNav>
-      </Content>
-      */}
       </NavigationContainer>
       </>
     )

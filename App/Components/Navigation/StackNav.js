@@ -3,7 +3,11 @@ import { TouchableOpacity, Image, StyleSheet, Button, Text, View} from "react-na
 import { createStackNavigator } from "@react-navigation/stack";
 // import MenuButton from 'react-native-menu-button'
 
+// Social Screens
 import Social from '../Social';
+import SocialPost from '../SocialPost'
+
+// Garden Screens 
 import Garden from "../Garden";
 import Plant from '../Plant';
 import Search from '../Search';
@@ -58,7 +62,7 @@ const GardenStackNav = () => {
                         </TouchableOpacity>
                     )
                 })} />
-            <Stack.Screen name="Plant" component={Plant} />
+            <Stack.Screen name="plant" component={Plant} />
         </Stack.Navigator>
     );
 }
@@ -67,6 +71,7 @@ const SocialStackNav = () => {
     return (
       <Stack.Navigator screenOptions={screenOptionStyle}>
             <Stack.Screen name="social" component={Social} />
+            <Stack.Screen name="socialPost" component={SocialPost} />
       </Stack.Navigator>
     );
 }
