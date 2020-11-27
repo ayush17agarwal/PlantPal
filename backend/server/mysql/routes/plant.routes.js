@@ -18,6 +18,16 @@ router.get('/health-per-garden', (req,res) => {
   });
 });
 
+router.get('', (req, res) => {
+  const {plant_id} = req.query;
+
+  let sql = 'SELECT * FROM plant WHERE plant_id = ?';
+  db.query(sql, plant_id, (err, results) => {
+    res.send(results);
+    console.log('Fetched plant');
+  })
+})
+
 router.get('/search', (req, res) => {
     const token = process.env.TREFLE_TOKEN;
     const search = req.query.common;
