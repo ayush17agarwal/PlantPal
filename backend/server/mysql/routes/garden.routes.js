@@ -75,7 +75,16 @@ router.post('/change-name', (req, res) => {
 // })
 
 router.get('/num-gardens', (req,res) => {
-  let sql = 'SELECT count(*) FROM garden NATURAL JOIN user WHERE username = ? GROUP BY garden.user_id'
-})
+  let sql = 'SELECT COUNT(*) AS num_gardens FROM garden NATURAL JOIN user ' + 
+          'WHERE username = ? GROUP BY garden.user_id';
+  const {username} = req.query;
+  
+  db.query(sql, username, (err, results) => {
+    if(err) throw err;
+     
+    res.send(results[0]);
+    console.log('fetched number of gardens');
+  })
+});
 
 module.exports = router;

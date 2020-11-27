@@ -124,6 +124,19 @@ router.post('/water', (req, res) => {
   })
 });
 
+router.get('/num-plants', (req, res) => {
+  let sql = 'SELECT COUNT(*) AS num_plants FROM plant NATURAL JOIN user WHERE username = ? GROUP BY plant.user_id';
+  const {username} = req.query;
+
+  db.query(sql, username, (err, results) => {
+    if(err) throw err;
+
+    res.send(results[0]);
+    console.log('fetched number of plants');
+  })
+})
+
 //TODO algorithm to determine the health stuff...
+//TODO algorithm to determine plant relationships
 
 module.exports = router;
