@@ -35,6 +35,18 @@ router.post('/signup', (req, res) => {
   );
 });
 
+router.get('/user-info', (req, res) => {
+  let sql =
+    'SELECT * FROM user WHERE username = ?';
+  db.query(sql, [req.query.user], (err, results) => {
+    if (err) {
+      throw err;
+    }
+    res.send(results);
+    console.log('User fetched...');
+  });
+});
+
 //Update User Information POST Request (One for each field that is updateable)
 
 // UPDATE plantpal.user SET username='blah' WHERE user_id = 1;

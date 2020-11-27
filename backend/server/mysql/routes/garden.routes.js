@@ -19,10 +19,10 @@ router.post('/create', (req, res) => {
 //delete a garden DELETE Request with garden name
 
 router.delete('/remove', (req, res) => {
-  let sql = 'DELETE FROM garden WHERE garden_id = ?';
-  let garden_id = req.body.garden_id;
+  let sql = 'DELETE FROM garden WHERE garden_name = ?';
+  let garden_name = req.body.garden_name;
 
-  db.query(sql, [garden_id], (err, results) => {
+  db.query(sql, [garden_name], (err, results) => {
     if (err) {
       throw err;
     }
@@ -33,10 +33,11 @@ router.delete('/remove', (req, res) => {
 
 //return all gardens for a user
 router.get('', (req, res) => {
-  let sql = 'SELECT * FROM garden WHERE user_id = ?';
-  let user_id = req.query.user;
+  let sql = 'SELECT * FROM garden JOIN (SELECT user_id FROM user WHERE username = ?) AS users' + 
+            'ON garden.user_id = users.user_id';
+  let username = req.query.username;
 
-  db.query(sql, [user_id], (err, results) => {
+  db.query(sql, [username], (err, results) => {
     if (err) {
       throw err;
     }
@@ -47,10 +48,11 @@ router.get('', (req, res) => {
 
 //edit garden name
 router.post('/change-name', (req, res) => {
-  let sql = 'UPDATE garden SET garden_name = ? WHERE garden_id = ?';
-  let {name, id} = req.body;
+  let sql = 'UPDATE garden SET garden_name = ?' + 
+            'WHERE user_id IN (SELECT user_id FROM user WHERE username = ?)';
+  let {garden_name, username} = req.body;
 
-  db.query(sql, [name, id], (err, results) => {
+  db.query(sql, [garden_name, username], (err, results) => {
     if (err) {
       throw err;
     }
@@ -59,17 +61,21 @@ router.post('/change-name', (req, res) => {
   });
 });
 
-router.get('/identify-climate', (req,res) => {
-  let sql =
-    'SELECT email, count(*) FROM user NATURAL JOIN garden WHERE climate = ? GROUP BY email';
+// router.get('/identify-climate', (req,res) => {
+//   let sql =
+//     'SELECT email, count(*) FROM user NATURAL JOIN garden WHERE climate = ? GROUP BY email';
 
-  db.query(sql, [req.query.climate], (err, results) => {
-    if(err) {
-      throw err;
-    }
-    res.send(results);
-    console.log('fetched emails with gardens of climate ' + req.query.climate);
-  })
+//   db.query(sql, [req.query.climate], (err, results) => {
+//     if(err) {
+//       throw err;
+//     }
+//     res.send(results);
+//     console.log('fetched emails with gardens of climate ' + req.query.climate);
+//   })
+// })
+
+router.get('/num-gardens', (req,res) => {
+  let sql = 'SELECT count(*) FROM garden NATURAL JOIN user WHERE username = ? GROUP BY garden.user_id'
 })
 
 module.exports = router;
