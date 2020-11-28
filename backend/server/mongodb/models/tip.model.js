@@ -14,6 +14,7 @@ const climates = [
   'Tundra',
   'Icecap',
   'Highland',
+  'NONE'
 ];
 
 const TipSchema = new Schema({
