@@ -23,6 +23,7 @@ router.post('/like', (req, res) => {
         .catch((err) => res.status(400).json('Error: ' + err));
 });
 
+//num likes
 router.get('/num-likes', (req, res) => {
     const {post_id} = req.query;
 
@@ -35,6 +36,7 @@ router.get('/num-likes', (req, res) => {
     });
 });
 
+//num posts
 router.get('/num-posts', (req, res) => {
     const {username} = req.query;
 
@@ -47,7 +49,7 @@ router.get('/num-posts', (req, res) => {
     });
 });
 
-
+//add post
 
 
 module.exports = router;

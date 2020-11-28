@@ -87,6 +87,4 @@ router.post('/update-password', (req, res) => {
   })
 });
 
-//TODO: Need to add phone number and/or DOB?
-
 module.exports = router;
