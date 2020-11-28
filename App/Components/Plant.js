@@ -15,10 +15,10 @@ class Plant extends React.Component {
     }
 
     componentDidMount() {
-        // this.refreshGardens()
+        this.refreshPlants()
     }
 
-    refreshGardens() {
+    refreshPlants() {
         // ROUTE IS WRONG 
         axios.get(`http://localhost:3000/plants`)
             .then(res => {
@@ -50,6 +50,15 @@ class Plant extends React.Component {
 const PlantCard = ({garden, navComponent}) => {
     return(
       <Card containerStyle={card_styles.Card}>
+        <View style={{flexDirection:"row", justifyContent:'space-between'}}>
+          <Card.Title>{garden.garden_name}</Card.Title> 
+          <TouchableOpacity onPress={() => navComponent.navigate('plant information')} >
+                <Image 
+                    style={styles.icons} 
+                    source={require('../Assets/right-arrow.png')}
+                    />
+              </TouchableOpacity>
+        </View>        
         <Card.Title>{plant.nickname}</Card.Title>
         <Card.Divider/>
         <Text>Name: {plant.name}</Text>

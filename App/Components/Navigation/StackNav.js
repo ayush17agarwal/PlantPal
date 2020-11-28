@@ -12,6 +12,7 @@ import Garden from "../Garden";
 import GardenManipulation from "../GardenManipulation"
 import Plant from '../Plant';
 import NewPlant from "../NewPlant"
+import PlantInfo from "../PlantInfo"
 
 // Other 
 import Search from '../Search';
@@ -80,10 +81,8 @@ const GardenStackNav = () => {
                         </TouchableOpacity>
                     )
                 })} />
-            <Stack.Screen 
-                name="add a new plant" 
-                component={NewPlant} 
-                />
+            <Stack.Screen name="add a new plant" component={NewPlant} />
+            <Stack.Screen name="plant information" component={PlantInfo} />
         </Stack.Navigator>
     );
 }
