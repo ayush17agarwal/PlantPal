@@ -1,0 +1,9 @@
+Links that were used to build different components: 
+
+Forms for entering new fields
+** https://medium.com/react-native-development/easily-build-forms-in-react-native-9006fcd2a73b
+** https://www.npmjs.com/package/tcomb-form-native?activeTab=readme
+
+React + Axios Integration
+** https://www.digitalocean.com/community/tutorials/react-axios-react
+

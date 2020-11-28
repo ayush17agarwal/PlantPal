@@ -3,9 +3,17 @@ import { TouchableOpacity, Image, StyleSheet, Button, Text, View} from "react-na
 import { createStackNavigator } from "@react-navigation/stack";
 // import MenuButton from 'react-native-menu-button'
 
+// Social Screens
 import Social from '../Social';
+import SocialPost from '../SocialPost'
+
+// Garden Screens 
 import Garden from "../Garden";
+import GardenManipulation from "../GardenManipulation"
 import Plant from '../Plant';
+import NewPlant from "../NewPlant"
+
+// Other 
 import Search from '../Search';
 import User from '../User';
 import Settings from '../Settings';
@@ -51,14 +59,16 @@ const GardenStackNav = () => {
                 options={({ navigation }) => ({
                     headerRight: () => (
                         // <TouchableOpacity onPress={this.DropGardenMenu} >
-                        <TouchableOpacity onPress={() => navigation.navigate('settings')} >
+                        <TouchableOpacity onPress={() => navigation.navigate('change gardens')} >
                             <Image 
                                 style={styles.icons} 
-                                source={require('../../Assets/down-arrow.png')} />
+                                source={require('../../Assets/right-arrow.png')} />
                         </TouchableOpacity>
                     )
                 })} />
-            <Stack.Screen name="Plant" component={Plant} />
+            <Stack.Screen name='change gardens' component={GardenManipulation}/>
+            <Stack.Screen name="plant" component={Plant} />
+            <Stack.Screen name="newPlant" component={NewPlant} />
         </Stack.Navigator>
     );
 }
@@ -66,7 +76,19 @@ const GardenStackNav = () => {
 const SocialStackNav = () => {
     return (
       <Stack.Navigator screenOptions={screenOptionStyle}>
-            <Stack.Screen name="social" component={Social} />
+            <Stack.Screen 
+                name="social" 
+                component={Social}
+                options={({ navigation }) => ({
+                    headerRight: () => (
+                        <TouchableOpacity onPress={() => navigation.navigate('create post')} >
+                            <Image 
+                                style={styles.icons} 
+                                source={require('../../Assets/plus.png')} />
+                        </TouchableOpacity>
+                    )
+                })} />
+            <Stack.Screen name="create post" component={SocialPost} />
       </Stack.Navigator>
     );
 }
