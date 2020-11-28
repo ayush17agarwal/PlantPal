@@ -35,35 +35,56 @@ router.post('/signup', (req, res) => {
   );
 });
 
-//Update User Information POST Request (One for each field that is updateable)
+router.get('/user-info', (req, res) => {
+  let sql =
+    'SELECT * FROM user WHERE username = ?';
+  db.query(sql, [req.query.user], (err, results) => {
+    if (err) {
+      throw err;
+    }
+    res.send(results);
+    console.log('User fetched...');
+  });
+});
 
-// UPDATE plantpal.user SET username='blah' WHERE user_id = 1;
+router.post('/update-username', (req, res) => {
+  let sql = 'UPDATE user SET username = ? WHERE username = ?';
+  const {curr_username, new_username} = req.body;
+  db.query(sql, [new_username, curr_username], (err, results) => {
+    if(err) throw err;
+    res.send(results);
+    console.log('Updated username');
+  })
+});
 
-//return user information GET Request
+router.post('/update-bio', (req, res) => {
+  let sql = 'UPDATE user SET biography = ? WHERE username = ?';
+  const {username, biography} = req.body;
+  db.query(sql, [biography, username], (err, results) => {
+    if(err) throw err;
+    res.send(results);
+    console.log('Updated bio');
+  })
+});
 
-// SELECT * FROM plantpal.user WHERE user_id = 2;
+router.post('/update-email', (req, res) => {
+  let sql = 'UPDATE user SET email = ? WHERE username = ?';
+  const {email, username} = req.body;
+  db.query(sql, [email, username], (err, results) => {
+    if(err) throw err;
+    res.send(results);
+    console.log('Updated email');
+  })
+});
 
-// advanced type of function (finds all plants that a user owns)
-
-// SELECT plant_id, nickname FROM plantpal.garden NATURAL JOIN plantpal.plant WHERE user_id = 2
-
-// advanced typ of function 2
-
-// SELECT count(*), avg(health) FROM plantpal.plant GROUP BY garden_id;
-
-//create a plant POST Request
-
-//delete a plant DELETE Request
-
-//return plant information GET Request
-
-//water a plant POST Request
-
-// SQL QUERIES - STAGE 4
-//Find the number of plants and their average health for each garden: 
-// SELECT count(*), avg(health) FROM plantpal.plant NATURAL JOIN plantpal.garden GROUP BY garden_id;
-
-// Get email of every user who has garden in a specific climate
-// SELECT email, count(*) FROM user JOIN garden ON user.userid=garden.gardenid WHERE garden.climate = <specify climate> GROUP BY email
+router.post('/update-password', (req, res) => {
+  let sql = 'UPDATE user SET password = ? WHERE username = ?';
+  const {password, username} = req.body;
+  db.query(sql, [password, username], (err, results) => {
+    if(err) throw err;
+    res.send(results);
+    console.log('Updated password');
+  })
+});
 
 module.exports = router;
