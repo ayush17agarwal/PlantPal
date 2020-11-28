@@ -48,61 +48,61 @@ class Garden extends React.Component {
         this.refreshGardens();
       }
     
-      handleDeleteSubmit = event => {
-        event.preventDefault();
-        
-        const gardenvals = this.delete_garden_form.getValue(); 
-    
-        const garden_to_delete = {
-          garden_id: gardenvals.garden_id
-        };
-        
-        axios.delete(`http://localhost:3000/gardens/remove`, {data: {garden_id: garden_to_delete.garden_id}})
-          .then(res => {
-            console.log(res);
-            console.log(res.data);
-            this.refreshGardens(); 
-          }).catch(
-            error => console.log(error),
-            Alert.alert(
-              "cannot delete garden :(",
-              "you seem to have entered an invalid garden id. try again!",
-              [
-                { text: "OK", onPress: () => console.log("OK Pressed") }
-              ],
-              { cancelable: false }
-            )
+    handleDeleteSubmit = event => {
+      event.preventDefault();
+      
+      const gardenvals = this.delete_garden_form.getValue(); 
+  
+      const garden_to_delete = {
+        garden_id: gardenvals.garden_id
+      };
+      
+      axios.delete(`http://localhost:3000/gardens/remove`, {data: {garden_id: garden_to_delete.garden_id}})
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+          this.refreshGardens(); 
+        }).catch(
+          error => console.log(error),
+          Alert.alert(
+            "cannot delete garden :(",
+            "you seem to have entered an invalid garden id. try again!",
+            [
+              { text: "OK", onPress: () => console.log("OK Pressed") }
+            ],
+            { cancelable: false }
           )
-      }
+        )
+    }
     
-      handleUpdateSubmit = event => {
-        event.preventDefault();
-        
-        const gardenvals = this.update_garden_form.getValue(); 
-    
-        const garden_to_update = {
-          id: gardenvals.garden_id,
-          name: gardenvals.garden_name
-        };
-        
-        axios.post(`http://localhost:3000/gardens/change-name`, garden_to_update)
-          .then(res => {
-            console.log(res);
-            console.log(res.data);
-          }).catch(
-            error => console.log(error),
-            Alert.alert(
-              "cannot update garden :(",
-              "you seem to have entered an invalid garden id. try again!",
-              [
-                { text: "OK", onPress: () => console.log("OK Pressed") }
-              ],
-              { cancelable: false }
-            )
+    handleUpdateSubmit = event => {
+      event.preventDefault();
+      
+      const gardenvals = this.update_garden_form.getValue(); 
+  
+      const garden_to_update = {
+        id: gardenvals.garden_id,
+        name: gardenvals.garden_name
+      };
+      
+      axios.post(`http://localhost:3000/gardens/change-name`, garden_to_update)
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+        }).catch(
+          error => console.log(error),
+          Alert.alert(
+            "cannot update garden :(",
+            "you seem to have entered an invalid garden id. try again!",
+            [
+              { text: "OK", onPress: () => console.log("OK Pressed") }
+            ],
+            { cancelable: false }
           )
-        
-        this.refreshGardens();
-      }
+        )
+      
+      this.refreshGardens();
+    }
     
     render() {
         var nav = this.props.navigation;
