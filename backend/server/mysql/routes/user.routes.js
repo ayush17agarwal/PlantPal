@@ -87,4 +87,16 @@ router.post('/update-password', (req, res) => {
   })
 });
 
+router.get('/all-gardens-and-plants', (req, res) => {
+  const {username} = req.query;
+  let sql = 'SELECT * FROM garden NATURAL JOIN plant ' + 
+          'WHERE user_id IN (SELECT user_id FROM user WHERE username = ?)';
+  db.query(sql, [username], (err, results) => {
+    if(err) return res.status(400).json('Error: ' + err);
+
+    res.send(results);
+    console.log('Fetched all gardens and plants for ' + username);
+  })
+})
+
 module.exports = router;

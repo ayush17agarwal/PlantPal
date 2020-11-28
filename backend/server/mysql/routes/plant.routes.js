@@ -25,8 +25,8 @@ router.get('', (req, res) => {
   db.query(sql, plant_id, (err, results) => {
     res.send(results);
     console.log('Fetched plant');
-  })
-})
+  });
+});
 
 router.get('/search', (req, res) => {
     const token = process.env.TREFLE_TOKEN;
@@ -36,6 +36,19 @@ router.get('/search', (req, res) => {
         const json = await response.json();
         res.send(json);
       })();
+});
+
+router.get('/plants-by-garden', (req, res) => {
+  const {garden_name, username} = req.query;
+
+  let sql = 'SELECT * FROM plant WHERE garden_name = ? AND user_id IN (SELECT user_id FROM user WHERE username = ?)';
+
+  db.query(sql, [garden_name, username], (err, results) => {
+    if(err) throw err;
+
+    res.send(results);
+    console.log('Got plants for ' + username + ' ' + garden_name + ' garden...');
+  });
 });
 
 router.post('/add', (req, res) => {
