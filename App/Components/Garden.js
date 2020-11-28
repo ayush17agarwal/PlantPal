@@ -199,6 +199,12 @@ const CreateGarden = t.struct({
   })
   
 const styles = StyleSheet.create({
+    screen: {
+        flex: 1, 
+        alignItems: 'center', 
+        justifyContent: 'center',
+        backgroundColor: 'transparent',
+    },
     container: {
         flex: 1
     },
