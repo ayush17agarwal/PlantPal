@@ -8,21 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* PlantPalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* PlantPalTests.m */; };
+		0E0BF62B0AE94905B9FAD80C /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CA1A8E63D5F34C98B9DB025D /* rubicon-icon-font.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		19B76C2C30E04E94A8DF676C /* Roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 165D63A40348447E90422E85 /* Roboto_medium.ttf */; };
 		27DBD6730F08EE56F9C3CA92 /* libPods-PlantPal-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1EB73D565A7E9C2C1837682 /* libPods-PlantPal-tvOS.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* PlantPalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* PlantPalTests.m */; };
 		33B6AF29C6C879B450007213 /* libPods-PlantPal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27DCD4EEE91B033A5358B2DA /* libPods-PlantPal.a */; };
+		7AC5EE8B30F44AC4862DBFA5 /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DE69149BBDE845768E438803 /* Roboto.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9D24A4E5702C485EEEDB960D /* libPods-PlantPal-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9619BD5FE1181A2D98DCCF64 /* libPods-PlantPal-tvOSTests.a */; };
 		AF1AE726465334B98DB636CB /* libPods-PlantPal-PlantPalTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4396305965A0C21FA1A3BB6 /* libPods-PlantPal-PlantPalTests.a */; };
-		19B76C2C30E04E94A8DF676C /* Roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 165D63A40348447E90422E85 /* Roboto_medium.ttf */; };
-		7AC5EE8B30F44AC4862DBFA5 /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DE69149BBDE845768E438803 /* Roboto.ttf */; };
-		0E0BF62B0AE94905B9FAD80C /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CA1A8E63D5F34C98B9DB025D /* rubicon-icon-font.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +53,7 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = PlantPal/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = PlantPal/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = PlantPal/main.m; sourceTree = "<group>"; };
+		165D63A40348447E90422E85 /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
 		176402DE3B5884CCF1BA58B5 /* Pods-PlantPal-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlantPal-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-PlantPal-tvOSTests/Pods-PlantPal-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		18B562CD80289D91E3E6C971 /* Pods-PlantPal-PlantPalTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlantPal-PlantPalTests.debug.xcconfig"; path = "Target Support Files/Pods-PlantPal-PlantPalTests/Pods-PlantPal-PlantPalTests.debug.xcconfig"; sourceTree = "<group>"; };
 		27DCD4EEE91B033A5358B2DA /* libPods-PlantPal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PlantPal.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,13 +67,12 @@
 		9619BD5FE1181A2D98DCCF64 /* libPods-PlantPal-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PlantPal-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		98ACBFC7BB0F0280B1340B6B /* Pods-PlantPal-PlantPalTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlantPal-PlantPalTests.release.xcconfig"; path = "Target Support Files/Pods-PlantPal-PlantPalTests/Pods-PlantPal-PlantPalTests.release.xcconfig"; sourceTree = "<group>"; };
 		A1EB73D565A7E9C2C1837682 /* libPods-PlantPal-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PlantPal-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA1A8E63D5F34C98B9DB025D /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; };
 		CAADF1508EEBF780C563B023 /* Pods-PlantPal-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlantPal-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-PlantPal-tvOS/Pods-PlantPal-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		DE69149BBDE845768E438803 /* Roboto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto.ttf; path = "../node_modules/native-base/Fonts/Roboto.ttf"; sourceTree = "<group>"; };
 		E4396305965A0C21FA1A3BB6 /* libPods-PlantPal-PlantPalTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PlantPal-PlantPalTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		165D63A40348447E90422E85 /* Roboto_medium.ttf */ = {isa = PBXFileReference; name = "Roboto_medium.ttf"; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		DE69149BBDE845768E438803 /* Roboto.ttf */ = {isa = PBXFileReference; name = "Roboto.ttf"; path = "../node_modules/native-base/Fonts/Roboto.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		CA1A8E63D5F34C98B9DB025D /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */

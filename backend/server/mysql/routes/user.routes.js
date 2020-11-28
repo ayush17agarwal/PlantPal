@@ -59,4 +59,11 @@ router.post('/signup', (req, res) => {
 
 //water a plant POST Request
 
+// SQL QUERIES - STAGE 4
+//Find the number of plants and their average health for each garden: 
+// SELECT count(*), avg(health) FROM plantpal.plant NATURAL JOIN plantpal.garden GROUP BY garden_id;
+
+// Get email of every user who has garden in a specific climate
+// SELECT email, count(*) FROM user JOIN garden ON user.userid=garden.gardenid WHERE garden.climate = <specify climate> GROUP BY email
+
 module.exports = router;

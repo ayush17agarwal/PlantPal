@@ -6,7 +6,8 @@ CS411 Group Project
 
 * Use [setup link](https://reactnative.dev/docs/environment-setup) to setup your environment. Be sure to click the 'React Native CLI Quickstart' tab
 
-### iOS
+
+### Get Started (iOS)
 
 Set up 
 * in the terminal, run ```npm i react-native-cli -g``` to set up react-native
@@ -19,3 +20,4 @@ Every time you want to run it
 Run app
 * to run the app on the iOS emulator, run ```react-native run-ios``` or ```npx react-native run-ios```
 * sometimes you need to relaunch the app multiple times in order for the program to start
+* to start the backend, run ```node server.js``` in /backend/server

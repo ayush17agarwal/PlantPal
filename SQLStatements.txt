@@ -1,0 +1,18 @@
+Contains statements to run in MySQL (can copy for testing easily) 
+
+// INSERT 
+USE PlantPal; 
+INSERT INTO plant (plant_id, garden_id, trefle_id, common_name, health, date_planted, nickname, date_last_watered)
+VALUES (422, 433, 534, 'megha_plant', 21, '20180612', 'plantie', '20240112');
+
+USE PlantPal; 
+INSERT INTO garden (garden_id, user_id, garden_name, climate)
+VALUES (422, 10, 'Ayush Garden', 'Humid');
+
+
+
+
+
+// Stuff Megha Ran Nov 5th 
+INSERT INTO garden (garden_id, user_id, garden_name, climate)
+VALUES (422, 10, 'Ayush Garden', 'Humid');
