@@ -1,10 +1,31 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import { StyleSheet, ScrollView, View, Text, Image, Button, Alert, TouchableOpacity} from 'react-native';
 import { Divider } from 'react-native-elements';
 import t from 'tcomb-form-native';
 
+import SubmitButton from './SubmitButton'; 
+
 class SocialPost extends Component {
+    handleCreateSubmit = event => {
+        event.preventDefault();
+        
+        const socialpostvals = this.create_post.getValue(); 
     
+        const new_post = {
+          user_id: "7",
+          caption: socialpostvals.garden_name,
+          climate: socialpostvals.climate
+        };
+    
+        axios.post(`http://localhost:3000/socialposts/create`, new_post)
+          .then(res => {
+            console.log(res);
+            console.log(res.data);
+          }).catch(
+            error => console.log(error)
+          )
+    }
+
     render(){
         return (
             <ScrollView style={styles.container}> 
@@ -14,6 +35,9 @@ class SocialPost extends Component {
                 </View>
                 <View style={styles.dividerStyle} />
                 <View>
+                    <Form type={CreateSocialMediaPost} ref={c => this.create_post = c}/>
+                    <SubmitButton title="post!" 
+                                 onPress={this.handleCreateSubmit}/>
                     
                 </View>
             </ScrollView>
@@ -21,6 +45,12 @@ class SocialPost extends Component {
         );
     }
 }
+
+const AppButton = ({ onPress, title }) => (
+    <TouchableOpacity onPress={onPress} style={styles.postButtonContainer}>
+        <Text style={styles.postText}>{title}</Text>
+    </TouchableOpacity>
+  );
 
 const styles = StyleSheet.create({
     container: {
@@ -42,6 +72,21 @@ const styles = StyleSheet.create({
         color: '#86B58F',
         fontSize: 20,
         fontFamily: 'Roboto'
+    }, 
+    postButtonContainer: {
+        elevation: 8,
+        backgroundColor: "#769CB9",
+        borderRadius: 20,
+        paddingVertical: 10,
+        paddingHorizontal: 12
+    },
+    postText: {
+        fontSize: 18,
+        color: "white",
+        fontWeight: "200",
+        alignSelf: "center",
+        textTransform: "lowercase",
+        fontFamily: 'Roboto'
     }
 });
 
@@ -49,8 +94,8 @@ const styles = StyleSheet.create({
 const Form = t.form.Form; 
 
 const CreateSocialMediaPost = t.struct({ 
-    garden_name: t.String, 
-    climate: t.String
+    caption: t.String, 
+    photo: t.String
 })
 
 export default SocialPost;

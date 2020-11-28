@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Header, LearnMoreLinks, Colors, DebugInstructions, ReloadInstructions, } from 'react-native/Libraries/NewAppScreen';
-import { StyleSheet, ScrollView, View, Text, Image, Button, Alert} from 'react-native';
+import { StyleSheet, ScrollView, View, Text, Image, Button, Aler, TouchableOpacity} from 'react-native';
 import { Card, Divider, Input } from 'react-native-elements'
 import { color } from 'react-native-reanimated';
 import Plant from './Plant';
+import SubmitButton from './SubmitButton';
 
 import axios from 'axios';
 import t from 'tcomb-form-native';
@@ -72,8 +73,6 @@ class Garden extends React.Component {
               { cancelable: false }
             )
           )
-        
-        
       }
     
       handleUpdateSubmit = event => {
@@ -126,7 +125,7 @@ class Garden extends React.Component {
                     Add a new garden
                 </Text>
                 <Form type={CreateGarden} ref={c => this.create_garden_form = c}/>
-                <Button
+                <SubmitButton
                     title="Submit!"
                     onPress={this.handleCreateSubmit}
                 />
@@ -137,7 +136,7 @@ class Garden extends React.Component {
                     Delete a Garden (Enter an ID)
                 </Text>
                 <Form type={DeleteGarden} ref={c => this.delete_garden_form = c}/>
-                <Button
+                <SubmitButton
                     title="Submit!"
                     onPress={this.handleDeleteSubmit}
                 />
@@ -147,7 +146,7 @@ class Garden extends React.Component {
                     Update a Garden (Enter an ID and name for the garden)
                 </Text> 
                 <Form type={UpdateGarden} ref={c => this.update_garden_form = c}/>
-                <Button
+                <SubmitButton
                     title="update"
                     onPress={this.handleUpdateSubmit}
                 />
@@ -161,14 +160,22 @@ class Garden extends React.Component {
 const GardenCard = ({garden, navComponent}) => {
     return(
       <Card containerStyle={styles.Card}>
-        <Card.Title>{garden.garden_name}</Card.Title>
+        <View style={{flexDirection:"row", justifyContent:'space-between'}}>
+          <Card.Title>{garden.garden_name}</Card.Title> 
+          <TouchableOpacity onPress={() => navComponent.navigate('plant')} >
+                <Image 
+                    style={styles.icons} 
+                    source={require('../Assets/right-arrow.png')}
+                    />
+              </TouchableOpacity>
+        </View>        
         <Card.Divider/>
         <Text>Climate: {garden.climate}</Text>
         <Text>ID: {garden.garden_id}</Text>
-        <Button
-        title="View your plants"
-        onPress={() => navComponent.navigate('plant')}
-        />
+        {/* <Button
+          title="view your plants!"
+          onPress={() => navComponent.navigate('plant')}
+        /> */}
       </Card>
     ); 
 }
@@ -200,6 +207,11 @@ const styles = StyleSheet.create({
     }, 
     scrollView: {
         backgroundColor: Colors.lighter,
+    },
+    icons: {   
+      width: 20,
+      height: 20,
+      right: 10
     }
 });
 

@@ -45,21 +45,6 @@ class Plant extends React.Component {
         )
     }
 }
-// const Plant = () => {
-//     return (
-//         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-//             <Text>Plant Screen</Text>
-//             {/* <Content>
-//                 {
-//                     Plants.map((plantItem) => {
-                    
-//                         return ( <PlantCard plant={plantItem}/> );
-//                     })
-//                 }
-//             </Content> */}
-//         </View>
-//     );
-// }
 
 
 const PlantCard = ({garden, navComponent}) => {
