@@ -67,8 +67,23 @@ const GardenStackNav = () => {
                     )
                 })} />
             <Stack.Screen name='change gardens' component={GardenManipulation}/>
-            <Stack.Screen name="plant" component={Plant} />
-            <Stack.Screen name="newPlant" component={NewPlant} />
+            <Stack.Screen 
+                name="plant" 
+                component={Plant} 
+                options={({ navigation }) => ({
+                    headerRight: () => (
+                        // <TouchableOpacity onPress={this.DropGardenMenu} >
+                        <TouchableOpacity onPress={() => navigation.navigate('add a new plant')} >
+                            <Image 
+                                style={styles.icons} 
+                                source={require('../../Assets/plus.png')} />
+                        </TouchableOpacity>
+                    )
+                })} />
+            <Stack.Screen 
+                name="add a new plant" 
+                component={NewPlant} 
+                />
         </Stack.Navigator>
     );
 }

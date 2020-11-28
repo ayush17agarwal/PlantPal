@@ -2,7 +2,33 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, Button} from 'react-native';
 import t from 'tcomb-form-native';
 
+import SubmitButton from './SubmitButton';
+
 class NewPlant extends Component {
+    handleCreateSubmit = event => {
+        event.preventDefault();
+        
+        const plantvals = this.create_plant_form.getValue(); 
+    
+        const new_plant = {
+          user_id: "7",
+          garden: garden.garden_name,
+          plant_name: plantvals.plant_name,
+          plant_type: plantvals.plant_type,
+          climate: garden.climate 
+        };
+    
+        axios.post(`http://localhost:3000/plant/create`, new_plant)
+          .then(res => {
+            console.log(res);
+            console.log(res.data);
+          }).catch(
+            error => console.log(error)
+          )
+        
+        this.refreshGardens();
+    }
+
     render(){
         return (
             <ScrollView style={styles.container}> 
@@ -12,8 +38,12 @@ class NewPlant extends Component {
                 </View>
                 <View style={styles.dividerStyle} />
                 <View>
-                <Form type={NewPlantForm} options={formOptions} ref={c => this.create_plant_form = c}/>
+                    <Form type={NewPlantForm} options={formOptions} ref={c => this.create_plant_form = c}/>
                 </View>
+                <SubmitButton
+                    title="Submit!"
+                    onPress={this.handleCreateSubmit}
+                />
             </ScrollView>
         );
     }
