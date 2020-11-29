@@ -63,7 +63,7 @@ class GardenManipulation extends Component {
                 </View>
                 <View style={styles.dividerStyle} />
                 <View>
-                    <Text style={styles.textSubheader}>create a garden</Text>
+                    <Text style={styles.textSubheader}>{'\n'}create a garden</Text>
                     <Form type={CreateGardenForm} ref={c => this.create_garden_form = c} />
                     <SubmitButton
                         style={styles.submitButton}
@@ -72,7 +72,7 @@ class GardenManipulation extends Component {
                     />
                 </View>
                 <View>
-                    <Text style={styles.textSubheader}>delete a garden</Text>
+                    <Text style={styles.textSubheader}>{'\n\n'}delete a garden</Text>
                     <Form type={DeleteGardenForm} ref={c => this.delete_garden_form = c} />
                     <SubmitButton
                         style={styles.submitButton}
@@ -105,7 +105,8 @@ const styles = StyleSheet.create({
         color: '#86B58F',
         fontSize: 35,
         fontFamily: 'Roboto',
-        padding: 12
+        padding: 12,
+        fontWeight: 'bold'
     },
     dividerStyle: {
         borderBottomColor: '#86B58F',

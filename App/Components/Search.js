@@ -7,30 +7,30 @@ class Search extends Component {
         var nav = this.props.navigation;
         return (
             <View style={styles.container}>
-            <TouchableOpacity
-                style={styles.buttons} 
-                onPress={() => nav.navigate('identify mystery plant')}
-                >
-                <Text style={styles.buttonText}>
-                    identify mystery plant{'\n'}
-                </Text>
-                <Image
-                    source={require('../Assets/camera.png')}
-                    style={styles.buttonIcon}
-                />
-            </TouchableOpacity>
-            <TouchableOpacity 
-                style={styles.buttons}
-                onPress={() => nav.navigate('identify plant relationship')}
-                >
-                <Text style={styles.buttonText}>
-                    identify plant relationships{'\n'}
-                </Text>
-                <Image
-                    source={require('../Assets/tree.png')}
-                    style={styles.buttonIcon}
-                />
-            </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.buttons} 
+                    onPress={() => nav.navigate('identify mystery plant')}
+                    >
+                    <Text style={styles.buttonText}>
+                        identify mystery plant{'\n'}
+                    </Text>
+                    <Image
+                        source={require('../Assets/camera.png')}
+                        style={styles.buttonIcon}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity 
+                    style={styles.buttons}
+                    onPress={() => nav.navigate('identify plant relationship')}
+                    >
+                    <Text style={styles.buttonText}>
+                        identify plant relationships{'\n'}
+                    </Text>
+                    <Image
+                        source={require('../Assets/tree.png')}
+                        style={styles.buttonIcon}
+                    />
+                </TouchableOpacity>
             </View>
         );
     }

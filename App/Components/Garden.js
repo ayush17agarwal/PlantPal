@@ -132,7 +132,7 @@ class Garden extends React.Component {
             <Divider/>
             <View>
                 <Text style={styles.title}>
-                    Delete a Garden (Enter an ID)
+                    {'\n'}Delete a Garden (Enter an ID)
                 </Text>
                 <Form type={DeleteGarden} ref={c => this.delete_garden_form = c}/>
                 <SubmitButton
@@ -142,7 +142,7 @@ class Garden extends React.Component {
             </View>
             <View>
                 <Text style={styles.title}>
-                    Update a Garden (Enter an ID and name for the garden)
+                {'\n'}Update a Garden (Enter an ID and name for the garden)
                 </Text> 
                 <Form type={UpdateGarden} ref={c => this.update_garden_form = c}/>
                 <SubmitButton
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
     },
     container: {
-        flex: 1
+        flex: 1,
     },
     Card: {
         backgroundColor: '#7CA784'

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, Button} from 'react-native';
-import t from 'tcomb-form-native';
+// import t from 'tcomb-form-native';
 
 import SubmitButton from './SubmitButton';
 
@@ -49,6 +49,22 @@ class NewPlant extends Component {
     }
 }
 
+var t = require('tcomb-form-native');
+var _ = require('lodash');
+
+// clone the default stylesheet
+const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
+
+//override text color globally
+t.form.Form.stylesheet.textbox.normal.color = '#9FA4A7';
+const formOptions = {
+    fields: {
+        name: {
+          stylesheet: stylesheet // overriding the style of the textbox
+        }
+      }
+}
+
 // Creating a new plant - Form 
 const Form = t.form.Form; 
 
@@ -57,6 +73,8 @@ const NewPlantForm = t.struct({
     plant_type: t.String,
     climate: t.String
 })
+
+
 
 const styles = StyleSheet.create({
     container: {
@@ -67,7 +85,8 @@ const styles = StyleSheet.create({
         color: '#86B58F',
         fontSize: 35,
         fontFamily: 'Roboto',
-        padding: 12
+        padding: 12,
+        fontWeight: 'bold'
     },
     dividerStyle: {
         borderBottomColor: '#86B58F',
@@ -81,7 +100,4 @@ const styles = StyleSheet.create({
     }
 });
 
-const formOptions = {
-
-}
 export default NewPlant;
