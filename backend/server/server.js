@@ -12,6 +12,7 @@ var garden = require('./mysql/routes/garden.routes');
 var plant = require('./mysql/routes/plant.routes');
 var tip = require('./mongodb/routes/tips');
 var comment = require('./mongodb/routes/comments');
+var post = require('./mongodb/routes/posts');
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use('/gardens', garden);
 app.use('/plants', plant);
 app.use('/tips', tip);
 app.use('/comments', comment);
+app.use('/posts', post);
 
 //Server port and stuff. DON'T TOUCH!!!!!!
 module.exports = app;

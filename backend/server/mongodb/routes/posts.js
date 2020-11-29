@@ -1,10 +1,6 @@
 const router = require('express').Router();
 let Post = require('../models/post.model');
 let Comment = require('../models/comment.model');
-// const multer = require('multer');
-// const upload = multer({dest: 'uploads/'});
-
-// // router.post('/', upload.single('postImage'), (req, res, next) => {});
 
 
 //add like
@@ -27,29 +23,54 @@ router.post('/like', (req, res) => {
 router.get('/num-likes', (req, res) => {
     const {post_id} = req.query;
 
-    const agg = [{'$match': {'_id': post_id}}, {'$count': {'$sum': 1}}];
-
-    Post.aggregate(agg, (err, results) => {
-        if(err) return res.status(400).json('Error: ' + err);
-
-        return res.send(results);
-    });
+    Post.findById(post_id)
+        .then(post => {
+            const num_likes = '' + post.likes.length
+            return res.send(num_likes);
+        })
 });
 
 //num posts
 router.get('/num-posts', (req, res) => {
     const {username} = req.query;
 
-    const agg = [{'$match': {'username': username}}, {'$count': {'$sum': 1}}];
+    const agg = [{'$match': {'username': username}}, 
+                {'$group': {'_id': '$username', 'sum': {'$sum': 1}}}];
 
     Post.aggregate(agg, (err, results) => {
         if(err) return res.status(400).json('Error: ' + err);
 
-        return res.send(results);
+        return res.send(results[0]);
     });
 });
 
-//add post
+//add post no image
+router.post('/add', (req, res) => {
+    const{caption, username} = req.body;
+
+    const newPost = new Post({username, caption});
+    newPost.save()
+        .then(() => {
+            return res.send({
+                success: true,
+                message: 'Added a post'
+            });
+        })
+        .catch((err) => res.status(400).json('Error: ' + err));
+});
+
+//get all posts by username
+router.get('', (req, res) => {
+    const{username} = req.query;
+
+    Post.find({username: username}, (err, posts) => {
+        if(err) {
+            return res.status(400).json('Error: ' + err);
+        }
+
+        return res.send(posts);
+    });
+});
 
 
 module.exports = router;
