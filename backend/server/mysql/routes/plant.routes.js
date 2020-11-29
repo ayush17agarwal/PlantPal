@@ -167,7 +167,6 @@ router.post('/health', (req, res) => {
   });  
 });
 
-
 //TODO algorithm to determine plant relationships
 
 module.exports = router;

@@ -25,7 +25,7 @@ router.post('/create', (req, res) => {
 //delete a garden DELETE Request with garden name
 
 router.delete('/remove', (req, res) => {
-  let sql0 = 'DELETE FROM plant WHERE garden_name = ? AND user_id IN (SELECT user_id FROM user WHERE username = ?)'
+  let sql0 = 'DELETE FROM plant WHERE garden_name = ? AND user_id IN (SELECT user_id FROM user WHERE username = ?)';
   let sql = 'DELETE FROM garden WHERE garden_name = ? AND user_id IN (SELECT user_id FROM user WHERE username = ?)';
   let garden_name = req.body.garden_name;
   let username = req.body.username
