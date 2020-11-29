@@ -7,20 +7,25 @@ import { Container, Content, Body, Title, Tab} from 'native-base';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 import { color } from 'react-native-reanimated';
 // import PlantCard from './PlantCard';
-
+import axios from 'axios';
 
 class Plant extends React.Component {
     state = {
+        garden_name: '',
         plants: []
     }
 
     componentDidMount() {
+        garden_name = this.props.route.params.garden_name; 
         this.refreshPlants()
     }
 
     refreshPlants() {
-        // ROUTE IS WRONG 
-        axios.get(`http://localhost:3000/plants`)
+        const garden = {
+            garden_name: this.state.garden_name
+        };
+
+        axios.get(`http://localhost:3000/plants`, garden)
             .then(res => {
             const plants = res.data;
             this.setState({ plants });

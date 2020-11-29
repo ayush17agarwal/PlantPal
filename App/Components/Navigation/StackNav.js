@@ -29,28 +29,6 @@ const screenOptionStyle = {
     headerBackTitle: " ",
 };
 
-// const DropGardenMenu = ({ navigation }) => {
-//     menuGroup= [
-//         {key:"0",value:"menu1",text:"menu1"},
-//         {key:"1",value:"menu2",text:"menu2"},
-//         {key:"2",value:"菜单3",text:"菜单3"},
-//         {key:"3",value:"菜单4",text:"菜单4"},
-//       ]
-//     return (
-//         <View>
-//         <View style={styles.top}>
-//           <MenuButton  
-//             buttonStyle={[styles.rightButton]} 
-//             menuGroup={menuGroup}
-//             onSelect={this._handleOnSelect.bind(this)} 
-//             optionSelectedStyle={{backgroundColor:"red"}}
-//           />
-//         </View>
-//         <Text style={styles.text}>{`select ${this.state.selectData}`}</Text>
-//       </View>
-//     );
-// }
-
 const GardenStackNav = () => {
     return (
         <Stack.Navigator screenOptions={screenOptionStyle}>

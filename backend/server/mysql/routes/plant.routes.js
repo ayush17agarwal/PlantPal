@@ -18,6 +18,15 @@ router.get('/health-per-garden', (req,res) => {
   });
 });
 
+router.get('/all-plants', (req, res) =>{
+  const {garden_name} = req.query;
+
+  let sql = 'SELECT * FROM plant WHERE garden_name = ?'; 
+  db.query(sql, garden_id, (err, results) => {
+    res.send(results);
+    console.log('Fetched plants in garden');
+  })
+})
 router.get('', (req, res) => {
   const {plant_id} = req.query;
 

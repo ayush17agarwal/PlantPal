@@ -27,6 +27,7 @@
     "nodemon": "^2.0.5",
     "react": "16.13.1",
     "react-native": "0.63.3",
+    "react-native-camera": "^3.40.0",
     "react-native-data-table": "^0.2.1",
     "react-native-dropdown-menu": "^2.0.0",
     "react-native-elements": "^3.0.0-alpha.1",

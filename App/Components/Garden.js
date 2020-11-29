@@ -3,6 +3,8 @@ import { Header, LearnMoreLinks, Colors, DebugInstructions, ReloadInstructions, 
 import { StyleSheet, ScrollView, View, Text, Image, Button, Aler, TouchableOpacity} from 'react-native';
 import { Card, Divider, Input } from 'react-native-elements'
 import { color } from 'react-native-reanimated';
+import Camera from 'react-native-camera';
+
 import Plant from './Plant';
 import SubmitButton from './SubmitButton';
 
@@ -19,7 +21,12 @@ class Garden extends React.Component {
     }
 
     refreshGardens() {
-        axios.get(`http://localhost:3000/gardens?user=7`)
+        const gardens = {
+          user_id: "7",
+          username: "ayush"
+        };
+
+        axios.get(`http://localhost:3000/gardens`, gardens)
             .then(res => {
             const gardens = res.data;
             this.setState({ gardens });
@@ -110,6 +117,13 @@ class Garden extends React.Component {
 
         return(
             <ScrollView>
+            {/* <View>
+              <Camera ref={cam => {this.camera = cam}}  
+                style={styles.preview}  
+                aspect={Camera.constants.Aspect.fill}>  
+                  <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text>
+              </Camera>
+            </View> */}
             <View>
             {
                 this.state.gardens.map((new_garden) => {
@@ -162,20 +176,16 @@ const GardenCard = ({garden, navComponent}) => {
       <Card containerStyle={styles.Card}>
         <View style={{flexDirection:"row", justifyContent:'space-between'}}>
           <Card.Title>{garden.garden_name}</Card.Title> 
-          <TouchableOpacity onPress={() => navComponent.navigate('plant')} >
-                <Image 
-                    style={styles.icons} 
-                    source={require('../Assets/right-arrow.png')}
-                    />
-              </TouchableOpacity>
+          <TouchableOpacity onPress={() => navComponent.navigate('plant', {garden_id: garden.garden_id})} >
+              <Image 
+                  style={styles.icons} 
+                  source={require('../Assets/right-arrow.png')}
+                  />
+          </TouchableOpacity>
         </View>        
         <Card.Divider/>
         <Text>Climate: {garden.climate}</Text>
         <Text>ID: {garden.garden_id}</Text>
-        {/* <Button
-          title="view your plants!"
-          onPress={() => navComponent.navigate('plant')}
-        /> */}
       </Card>
     ); 
 }
