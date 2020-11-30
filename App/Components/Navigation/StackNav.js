@@ -14,6 +14,11 @@ import Plant from '../Plant';
 import NewPlant from "../NewPlant"
 import PlantInfo from "../PlantInfo"
 
+// Identification Screens
+import MysteryPlant from '../MysteryPlant';
+import PlantRelationship from '../PlantRelationship';
+import PlantRelationship2 from '../PlantRelationship2';
+
 // Other 
 import Search from '../Search';
 import User from '../User';
@@ -98,6 +103,9 @@ const SearchStackNav = () => {
     return (
       <Stack.Navigator screenOptions={screenOptionStyle}>
             <Stack.Screen name="search" component={Search} />
+            <Stack.Screen name="identify mystery plant" component={MysteryPlant} />
+            <Stack.Screen name="identify plant relationship" component={PlantRelationship} />
+            <Stack.Screen name="plant relationship" component={PlantRelationship2} />
       </Stack.Navigator>
     );
 }

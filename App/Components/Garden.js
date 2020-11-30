@@ -7,7 +7,6 @@ import Camera from 'react-native-camera';
 
 import Plant from './Plant';
 import SubmitButton from './SubmitButton';
-
 import axios from 'axios';
 import t from 'tcomb-form-native';
 
@@ -62,7 +61,7 @@ class Garden extends React.Component {
             <Divider/>
             <View>
                 <Text style={styles.title}>
-                    Delete a Garden (Enter an ID)
+                    {'\n'}Delete a Garden (Enter an ID)
                 </Text>
                 <Form type={DeleteGarden} ref={c => this.delete_garden_form = c}/>
                 <SubmitButton
@@ -72,7 +71,7 @@ class Garden extends React.Component {
             </View> */}
             {/* <View>
                 <Text style={styles.title}>
-                    Update a Garden (Enter an ID and name for the garden)
+                {'\n'}Update a Garden (Enter an ID and name for the garden)
                 </Text> 
                 <Form type={UpdateGarden} ref={c => this.update_garden_form = c}/>
                 <SubmitButton
