@@ -72,5 +72,14 @@ router.get('', (req, res) => {
     });
 });
 
+//get all posts sorted by num-likes
+router.get('/all', (req, res) => {
+    Post.find({}, (err, posts) => {
+        if(err) return res.status(400).json('Error: ' + err);
+
+        return res.send(posts);
+    })
+})
+
 
 module.exports = router;
