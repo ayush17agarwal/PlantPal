@@ -15,7 +15,7 @@ class User extends Component {
 
                 <View style={{ flex: 0.05, alignItems: 'flex-end', justifyContent: 'center' }}>
                     <TouchableOpacity style={styles.buttons} onPress={() => nav.navigate('Settings')}> // navigate to settings screen
-                        <Image source={require('./../../Assets/settings.png')} style={styles.buttonIcon} />
+                        <Image source={require('./../Assets/settings.png')} style={styles.buttonIcon} />
                     </TouchableOpacity>
                 </View>
 
@@ -24,7 +24,7 @@ class User extends Component {
                 </View>
 
                 <View style={{ flex: 0.20, alignItems: 'center', justifyContent: 'center' }}>
-                    <Image source={require('./../../Assets/user_sky.png')} style={{ width: 150, height: 150 }} />
+                    <Image source={require('./../Assets/user_sky.png')} style={{ width: 150, height: 150 }} />
                 </View>
 
                 <View style={styles.profile}>
@@ -68,12 +68,12 @@ class User extends Component {
                 </View>
 
                 <View style={{ flex: 0.25, alignItems: 'center', justifyContent: 'center' }}>
-                    // <Image source={require('./../../Assets/user_sky.png')} style={{ width: 250, height: 250 }} />
+                    // <Image source={require('./../Assets/user_sky.png')} style={{ width: 250, height: 250 }} />
                     // change this to plant health scale ^
                 </View>
 
                 <View style={{ flex: 0.15, alignItems: 'center', justifyContent: 'center' }}>
-                    <TouchableOpacity style={styles.buttons} onPress={() => nav.navigate('')}> // navigate to social screen?
+                    <TouchableOpacity style={styles.buttons} /*onPress={() => nav.navigate('')}*/> // navigate to social screen?
                         <Text style={styles.buttonText}>view my posts</Text>
                     </TouchableOpacity>
                 </View>

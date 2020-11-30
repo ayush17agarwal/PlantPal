@@ -21,7 +21,7 @@ class Settings extends Component {
                             <Text style={styles.bodyText}>(username goes here)</Text>
                         </View>
                         <TouchableOpacity style={styles.editButton} /*onPress={() => }*/>
-                            <Image source={require('./../../Assets/pen_blue.png')} style={styles.buttonIcon} />
+                            <Image source={require('./../Assets/pen_blue.png')} style={styles.buttonIcon} />
                         </TouchableOpacity>
                     </View>
 
@@ -33,7 +33,7 @@ class Settings extends Component {
                             <Text style={styles.bodyText}>(short description/bio goes here)</Text>
                         </View>
                         <TouchableOpacity style={styles.editButton} /*onPress={() => }*/>
-                            <Image source={require('./../../Assets/pen_blue.png')} style={styles.buttonIcon} />
+                            <Image source={require('./../Assets/pen_blue.png')} style={styles.buttonIcon} />
                         </TouchableOpacity>
                     </View>
 
@@ -45,7 +45,7 @@ class Settings extends Component {
                             <Text style={styles.bodyText}>(email address goes here)</Text>
                         </View>
                         <TouchableOpacity style={styles.editButton} /*onPress={() => }*/>
-                            <Image source={require('./../../Assets/pen_blue.png')} style={styles.buttonIcon} />
+                            <Image source={require('./../Assets/pen_blue.png')} style={styles.buttonIcon} />
                         </TouchableOpacity>
                     </View>
 
@@ -57,7 +57,7 @@ class Settings extends Component {
                             <Text style={styles.bodyText}>(censored password goes here)</Text>
                         </View>
                         <TouchableOpacity style={styles.editButton} /*onPress={() => }*/>
-                            <Image source={require('./../../Assets/pen_blue.png')} style={styles.buttonIcon} />
+                            <Image source={require('./../Assets/pen_blue.png')} style={styles.buttonIcon} />
                         </TouchableOpacity>
                     </View>
 
@@ -69,7 +69,7 @@ class Settings extends Component {
                             <Text style={styles.bodyText}>(phone number goes here)</Text>
                         </View>
                         <TouchableOpacity style={styles.editButton} /*onPress={() => }*/>
-                            <Image source={require('./../../Assets/pen_blue.png')} style={styles.buttonIcon} />
+                            <Image source={require('./../Assets/pen_blue.png')} style={styles.buttonIcon} />
                         </TouchableOpacity>
                     </View>
 
@@ -81,18 +81,18 @@ class Settings extends Component {
                             <Text style={styles.bodyText}>(birthdate goes here)</Text>
                         </View>
                         <TouchableOpacity style={styles.editButton} /*onPress={() => }*/>
-                            <Image source={require('./../../Assets/pen_blue.png')} style={styles.buttonIcon} />
+                            <Image source={require('./../Assets/pen_blue.png')} style={styles.buttonIcon} />
                         </TouchableOpacity>
                     </View>
 
                 </View>
 
                 <View style={{ flex: 0.25, alignItems: 'center', justifyContent: 'center' }}>
-                    <Image source={require('./../../Assets/plant.png')} style={{ width: 250, height: 250 }} />
+                    <Image source={require('./../Assets/plant.png')} style={{ width: 250, height: 250 }} />
                 </View>
 
                 <View style={{ flex: 0.15, alignItems: 'center', justifyContent: 'center' }}>
-                    <TouchableOpacity style={styles.buttons} onPress={() => nav.navigate('')}> // navigate to some help page or something somewhere
+                    <TouchableOpacity style={styles.buttons} /*onPress={() => nav.navigate('')}*/> // navigate to some help page or something somewhere
                         <Text style={styles.buttonText}>help</Text>
                     </TouchableOpacity>
                 </View>
