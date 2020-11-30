@@ -11,7 +11,7 @@ router.get('/health-per-garden', (req,res) => {
 
     db.query(sql, (err, results) => {
     if (err) {
-      throw err;
+      res.status(400).json('Error: ' + err);
     }
     res.send(results);
     console.log('health fetched...');
@@ -54,7 +54,7 @@ router.get('/plants-by-garden', (req, res) => {
   let sql = 'SELECT * FROM plant WHERE garden_name = ? AND user_id IN (SELECT user_id FROM user WHERE username = ?)';
 
   db.query(sql, [garden_name, username], (err, results) => {
-    if(err) throw err;
+    if(err) res.status(400).json('Error: ' + err);
 
     res.send(results);
     console.log('Got plants for ' + username + ' ' + garden_name + ' garden...');
@@ -77,10 +77,10 @@ router.post('/add', (req, res) => {
   db.query(exists_plant, trefle_id, (err, results) => {
     num_plant = results[0].numPlant;
       if(num_plant > 0) {
-        let insert_plant = 'INSERT INTO plant(garden_name, trefle_id, user_id, common_name, date_planted)' +
-                            'VALUES(?, ?, ?, ?, CURDATE())';
+        let insert_plant = 'INSERT INTO plant(garden_name, trefle_id, user_id, common_name, date_planted, last_date_watered)' +
+                            'VALUES(?, ?, ?, ?, CURDATE(), CURDATE())';
         db.query(insert_plant, [garden_name, trefle_id, user_id, common_name], (err, results) => {
-                if(err) throw err;
+                if(err) res.status(400).json('Error: ' + err);
                 
                 console.log('Added the plant...');
                 res.send('success');
@@ -96,13 +96,13 @@ router.post('/add', (req, res) => {
             const common_trefle = json.data.common_name;
             let insert_trefle = 'INSERT INTO trefle_info(trefle_id, common_name, scientific_name) VALUES(?, ?, ?)';
             db.query(insert_trefle, [trefle_id, common_trefle, scientific_name], (err, results) => {
-              let insert_plant = 'INSERT INTO plant(garden_name, trefle_id, user_id, common_name, date_planted)' +
-                            'VALUES(?, ?, ?, ?, CURDATE())';
+              let insert_plant = 'INSERT INTO plant(garden_name, trefle_id, user_id, common_name, date_planted, last_date_watered)' +
+                            'VALUES(?, ?, ?, ?, CURDATE(), CURDATE())';
 
               db.query(insert_plant, [garden_name, trefle_id, user_id, common_name], (err, results) => {
-                if(err) throw err;
+                if(err) res.status(400).json('Error: ' + err);
                 
-                console.log('Added the damn plant...');
+                console.log('Added the ******* plant...');
                 res.send('success');
               });
             })
@@ -117,7 +117,7 @@ router.delete('/remove', (req, res) => {
 
   db.query(sql, [plant_id], (err, results) => {
     if (err) {
-      throw err;
+      res.status(400).json('Error: ' + err);
     }
     res.send(results);
     console.log('Plant deleted...');
@@ -128,7 +128,7 @@ router.post('/nickname', (req, res) => {
   let sql = 'UPDATE plant SET nickname = ? WHERE plant_id = ?';
   const {nickname, plant_id} = req.body;
   db.query(sql, [nickname, plant_id], (err, results) => {
-    if(err) throw err;
+    if(err) res.status(400).json('Error: ' + err);
 
     res.send(results);
     console.log('updated nickname');
@@ -140,11 +140,17 @@ router.post('/water', (req, res) => {
   const {plant_id} = req.body;
 
   db.query(sql, plant_id, (err, results) => {
-    if(err) throw err;
-    
+    if(err) res.status(400).json('Error: ' + err);
     res.send(results);
     console.log('updated date_last_watered');
-  })
+  });
+
+  let sql2 = 'UPDATE plant SET health = CASE WHEN health * 1.15 >= 100 THEN 100 ELSE health * 1.15 END WHERE plant_id = ?';
+  db.query(sql2, plant_id, (err, results) => {
+    if(err) res.status(400).json('Error: ' + err);
+
+    console.log('added health for watering :)');
+  });
 });
 
 router.get('/num-plants', (req, res) => {
@@ -152,14 +158,25 @@ router.get('/num-plants', (req, res) => {
   const {username} = req.query;
 
   db.query(sql, username, (err, results) => {
-    if(err) throw err;
+    if(err) res.status(400).json('Error: ' + err);
 
     res.send(results[0]);
     console.log('fetched number of plants');
-  })
-})
+  });
+});
 
-//TODO algorithm to determine the health stuff...
+router.post('/health', (req, res) => {
+  let sql = 'UPDATE plant SET health = ((12 - (CURDATE() - date_last_watered))/12) * 100 WHERE user_id IN (SELECT user_id FROM user WHERE username=?);';
+  const {username} = req.query;
+
+  db.query(sql, username, (err, results) => {
+    if(err) res.status(400).json('Error: ' + err);
+
+    res.send(results);
+    console.log('Depleted health of plants...');
+  });  
+});
+
 //TODO algorithm to determine plant relationships
 
 module.exports = router;

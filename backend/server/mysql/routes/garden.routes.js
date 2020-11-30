@@ -1,3 +1,5 @@
+
+
 const express = require('express');
 const db = require('./../db');
 var router = express.Router();
@@ -23,16 +25,20 @@ router.post('/create', (req, res) => {
 //delete a garden DELETE Request with garden name
 
 router.delete('/remove', (req, res) => {
+  let sql0 = 'DELETE FROM plant WHERE garden_name = ? AND user_id IN (SELECT user_id FROM user WHERE username = ?)';
   let sql = 'DELETE FROM garden WHERE garden_name = ? AND user_id IN (SELECT user_id FROM user WHERE username = ?)';
   let garden_name = req.body.garden_name;
   let username = req.body.username
 
-  db.query(sql, [garden_name, username], (err, results) => {
-    if (err) {
-      return res.status(400).json('Error: ' + err);
-    }
-    res.send(results);
-    console.log('Garden deleted...');
+  db.query(sql0, [garden_name, username], (err, results) => {
+    if(err) return res.status(400).json('Error: ' + err);
+    db.query(sql, [garden_name, username], (err1, results1) => {
+        if (err1) {
+          return res.status(400).json('Error: ' + err1);
+        }
+        res.send(results1);
+        console.log('Garden deleted...');
+    });
   });
 });
 
