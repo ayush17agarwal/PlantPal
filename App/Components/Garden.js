@@ -102,7 +102,6 @@ const GardenCard = ({garden, navComponent}) => {
         </View>        
         <Card.Divider/>
         <Text>Climate: {garden.climate}</Text>
-        <Text>ID: {garden.garden_id}</Text>
       </Card>
     ); 
 }
