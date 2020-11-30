@@ -24,10 +24,6 @@ class Garden extends React.Component {
     }
 
     refreshGardens() {
-        const user = {
-          username: "ayush"
-        };
-
         axios.get(`http://localhost:3000/gardens?username=`+this.state.username)
             .then(res => {
             const gardens = res.data;

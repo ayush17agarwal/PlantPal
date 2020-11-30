@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, Button} from 'react-native';
+import { Header, LearnMoreLinks, Colors, DebugInstructions, ReloadInstructions, } from 'react-native/Libraries/NewAppScreen';
+import { StyleSheet, ScrollView, View, Text, Image, Button, Aler, TouchableOpacity} from 'react-native';
+import { Card, Divider, Input } from 'react-native-elements'
+import { color } from 'react-native-reanimated';
 
 import axios from 'axios';
 import t from 'tcomb-form-native';
@@ -17,64 +20,91 @@ class Social extends Component {
     }
 
     refreshPosts() {
-        axios.get(`http://localhost:3000/posts?username`+this.state.username)
+        axios.get(`http://localhost:3000/posts?username=`+this.state.username)
             .then(res => {
-            const socialPosts = res.data;
-            this.setState({ socialPosts });
-        })
+            const posts = res.data;
+            console.log(posts);
+            this.setState({ posts });
+        }).catch(
+            error => console.log(error)
+        )
     }
-
-    
 
     render(){
         var nav = this.props.navigation;
 
         return (
             <ScrollView>
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <View>
-                {
-                    this.state.posts.map((new_post) => {
-                        return( 
-                            <SocialCard post={new_post} navComponent={nav}/>
-                        )
-                    }) 
-                }
+                    <View>
+                    {
+                        this.state.posts.map((new_post) => {
+                            return( 
+                                <>
+                                <SocialCard username={this.state.username} post={new_post} navComponent={nav}/>
+                                </>
+                            )
+                        }) 
+                        
+                    }
+                    </View> 
+                    
+                    {/* <Button
+                        title="create a new post on your feed!"
+                        onPress={() => nav.navigate('socialPost')}
+                    /> */}
                 </View> 
-                <Button
-                    title="create a new post on your feed!"
-                    onPress={() => nav.navigate('socialPost')}
-                />
-            </View> 
             </ScrollView>
             
         );
     }
 }
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    }
-});
-export default Social;
 
-
-const SocialCard = ({user, post, nav}) => {
+const SocialCard = ({username, post, nav}) => {
     return(
       <Card containerStyle={styles.Card}>
-        <Card.Title>{user.username}</Card.Title>
+        <Card.Title>@{username}</Card.Title>
         <Card.Divider/>
-        <Image></Image>
         <Text>{post.caption}</Text>
-        <Text>Likes: {post.num_likes}</Text>
-        <Table>
-            <TableWrapper>
-            <Row data={["date planted", props.plant.datePlanted]}></Row>
-            <Row data={["last watered", props.plant.lastWatered]}></Row>
-            <Row data={["health", props.plant.health]}></Row>
-            </TableWrapper>
-        </Table>
+        <View>
+            <TouchableOpacity> 
+              <Image 
+                  style={styles.icons} 
+                  source={require('../Assets/love_outline.png')}
+                  />
+          </TouchableOpacity>
+        </View>
       </Card>
     ); 
 }
+
+const styles = StyleSheet.create({
+    screen: {
+        flex: 1, 
+        alignItems: 'center', 
+        justifyContent: 'center',
+        backgroundColor: 'transparent',
+    },
+    container: {
+        flex: 1
+    },
+    Card: {
+        backgroundColor: '#B2D1D1'
+    }, 
+    scrollView: {
+        backgroundColor: Colors.lighter,
+    },
+    icons: {   
+      width: 20,
+      height: 20,
+      right: 10
+    },
+    Divider: {
+        padding: 32
+    }
+});
+
+export default Social;
+
+
 

@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { StyleSheet, ScrollView, View, Text, Image, Button, Alert, TouchableOpacity} from 'react-native';
 import { Divider } from 'react-native-elements';
 import t from 'tcomb-form-native';
+import axios from 'axios';
 
 import SubmitButton from './SubmitButton'; 
 
 class SocialPost extends Component {
     state = {
         posts: [],
-        username: ''
+        username: 'ayush'
     }
 
     handleCreateSubmit = event => {
@@ -17,7 +18,7 @@ class SocialPost extends Component {
         const socialpostvals = this.create_post.getValue(); 
     
         const new_post = {
-          user_id: "7",
+          username: this.state.username,
           caption: socialpostvals.caption
         };
     
@@ -97,8 +98,7 @@ const styles = StyleSheet.create({
 const Form = t.form.Form; 
 
 const CreateSocialMediaPost = t.struct({ 
-    caption: t.String, 
-    photo: t.String
+    caption: t.String
 })
 
 export default SocialPost;
