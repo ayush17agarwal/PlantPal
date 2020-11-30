@@ -1,22 +1,27 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
 
 import { Header, LearnMoreLinks, Colors, DebugInstructions, ReloadInstructions, } from 'react-native/Libraries/NewAppScreen';
 import { Card } from 'react-native-elements'
 import { Container, Content, Body, Title, Tab} from 'native-base';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 import { color } from 'react-native-reanimated';
-// import PlantCard from './PlantCard';
+
 import axios from 'axios';
 
 class Plant extends React.Component {
+    constructor() {
+        super(); 
+    }
+
     state = {
         garden_name: '',
         plants: []
     }
 
     componentDidMount() {
-        garden_name = this.props.route.params.garden_name; 
+        const garden_name = this.props.route.params.garden_name; 
+        this.state.garden_name = garden_name; 
         this.refreshPlants()
     }
 
@@ -25,7 +30,7 @@ class Plant extends React.Component {
             garden_name: this.state.garden_name
         };
 
-        axios.get(`http://localhost:3000/plants`, garden)
+        axios.get(`http://localhost:3000/plants/all-plants?garden_name=`+ garden.garden_name)
             .then(res => {
             const plants = res.data;
             this.setState({ plants });
@@ -33,6 +38,9 @@ class Plant extends React.Component {
     }
 
     render() {
+        var nav = this.props.navigation;
+        var plants = this.props.plants;
+
         return(
             <>
             <ScrollView>
@@ -52,12 +60,12 @@ class Plant extends React.Component {
 }
 
 
-const PlantCard = ({garden, navComponent}) => {
+const PlantCard = ({plant, navComponent}) => {
     return(
-      <Card containerStyle={card_styles.Card}>
+      <Card containerStyle={styles.Card}>
         <View style={{flexDirection:"row", justifyContent:'space-between'}}>
-          <Card.Title>{garden.garden_name}</Card.Title> 
-          <TouchableOpacity onPress={() => navComponent.navigate('plant information')} >
+          <Card.Title>{plant.nickname}</Card.Title> 
+          <TouchableOpacity onPress={() => navComponent.navigate('plant information', {plant_id: plant.plant_id})} >
                 <Image 
                     style={styles.icons} 
                     source={require('../Assets/right-arrow.png')}
@@ -67,12 +75,6 @@ const PlantCard = ({garden, navComponent}) => {
         <Card.Title>{plant.nickname}</Card.Title>
         <Card.Divider/>
         <Text>Name: {plant.name}</Text>
-        <View>
-        <Image
-            source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
-            resizeMode={'contain'} 
-            style={{width: 50, height: 50}}/>
-        </View>
         <View>
         <Table>
             <TableWrapper>
@@ -95,6 +97,11 @@ const styles = StyleSheet.create({
     }, 
     scrollView: {
         backgroundColor: Colors.lighter,
+    }, 
+    icons: {   
+        width: 20,
+        height: 20,
+        right: 10
     }
 });
 

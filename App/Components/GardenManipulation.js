@@ -2,16 +2,28 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, Button} from 'react-native';
 
 import SubmitButton from './SubmitButton';
+
+import axios from 'axios';
 import t from 'tcomb-form-native';
 
 class GardenManipulation extends Component {
+    state = {
+        username: ''
+    }
+
+    componentDidMount() {
+        const username = "ayush";
+        this.state.username = username; 
+        // this.refreshGardens(); 
+    }
+
     handleCreateSubmit = event => {
         event.preventDefault();
         
         const gardenvals = this.create_garden_form.getValue(); 
     
         const new_garden = {
-          user_id: "7",
+          username: this.state.username,
           garden: gardenvals.garden_name,
           climate: gardenvals.climate
         };
@@ -24,35 +36,36 @@ class GardenManipulation extends Component {
             error => console.log(error)
           )
         
-        this.refreshGardens();
-    }
+        // this.refreshGardens();
+      }
     
-    handleDeleteSubmit = event => {
+      handleDeleteSubmit = event => {
         event.preventDefault();
         
         const gardenvals = this.delete_garden_form.getValue(); 
     
         const garden_to_delete = {
-          garden_id: gardenvals.garden_id
+          garden_name: gardenvals.garden_name
         };
         
-        axios.delete(`http://localhost:3000/gardens/remove`, {data: {garden_id: garden_to_delete.garden_id}})
+        axios.delete(`http://localhost:3000/gardens/remove`, {data: {garden_name: garden_to_delete.garden_name, 
+                                                                    username: this.state.username}})
           .then(res => {
             console.log(res);
             console.log(res.data);
             this.refreshGardens(); 
           }).catch(
-            error => console.log(error),
-            Alert.alert(
-              "cannot delete garden :(",
-              "you seem to have entered an invalid garden id. try again!",
-              [
-                { text: "OK", onPress: () => console.log("OK Pressed") }
-              ],
-              { cancelable: false }
-            )
-        ) 
-    }
+            error => console.log(error)
+            // Alert.alert(
+            //   "cannot delete garden :(",
+            //   "you seem to have entered an invalid garden id. try again!",
+            //   [
+            //     { text: "OK", onPress: () => console.log("OK Pressed") }
+            //   ],
+            //   { cancelable: false }
+            // )
+          )
+      }
 
     render(){
         return (
@@ -80,6 +93,14 @@ class GardenManipulation extends Component {
                         onPress={this.handleDeleteSubmit}
                     />
                 </View>
+                <View>
+                    <Text style={styles.textSubheader}>update a garden name</Text> 
+                    <Form type={UpdateGarden} ref={c => this.update_garden_form = c}/>
+                    <SubmitButton
+                        title="update!"
+                        onPress={this.handleUpdateSubmit}
+                    />
+                </View>
             </ScrollView>
         );
     }
@@ -95,6 +116,11 @@ const CreateGardenForm = t.struct({
     garden_name: t.String, 
     climate: t.String
 })
+
+const UpdateGarden = t.struct({
+    old_garden_name: t.String,
+    updated_garden_name: t.String
+  })
 
 const styles = StyleSheet.create({
     container: {

@@ -6,20 +6,25 @@ import t from 'tcomb-form-native';
 
 class Social extends Component {
     state = {
-        posts: []
+        posts: [],
+        username: ''
     }
 
     componentDidMount() {
+        const username = "ayush";
+        this.state.username = username; 
         this.refreshPosts()
     }
 
     refreshPosts() {
-        axios.get(`http://localhost:3000/gardens?user=7`)
+        axios.get(`http://localhost:3000/posts?username`+this.state.username)
             .then(res => {
             const socialPosts = res.data;
             this.setState({ socialPosts });
         })
     }
+
+    
 
     render(){
         var nav = this.props.navigation;

@@ -13,117 +13,36 @@ import t from 'tcomb-form-native';
 
 class Garden extends React.Component {
     state = {
-        gardens: []
+        gardens: [],
+        username: ''
     }
 
     componentDidMount() {
-        this.refreshGardens()
+        const username = "ayush";
+        this.state.username = username; 
+        this.refreshGardens(); 
     }
 
     refreshGardens() {
-        const gardens = {
-          user_id: "7",
+        const user = {
           username: "ayush"
         };
 
-        axios.get(`http://localhost:3000/gardens`, gardens)
+        axios.get(`http://localhost:3000/gardens?username=`+this.state.username)
             .then(res => {
             const gardens = res.data;
             this.setState({ gardens });
-        })
-    }
-
-    handleCreateSubmit = event => {
-        event.preventDefault();
-        
-        const gardenvals = this.create_garden_form.getValue(); 
-    
-        const new_garden = {
-          user_id: "7",
-          garden: gardenvals.garden_name,
-          climate: gardenvals.climate
-        };
-    
-        axios.post(`http://localhost:3000/gardens/create`, new_garden)
-          .then(res => {
-            console.log(res);
-            console.log(res.data);
-          }).catch(
+        }).catch(
             error => console.log(error)
-          )
-        
-        this.refreshGardens();
-      }
-    
-    handleDeleteSubmit = event => {
-      event.preventDefault();
-      
-      const gardenvals = this.delete_garden_form.getValue(); 
-  
-      const garden_to_delete = {
-        garden_id: gardenvals.garden_id
-      };
-      
-      axios.delete(`http://localhost:3000/gardens/remove`, {data: {garden_id: garden_to_delete.garden_id}})
-        .then(res => {
-          console.log(res);
-          console.log(res.data);
-          this.refreshGardens(); 
-        }).catch(
-          error => console.log(error),
-          Alert.alert(
-            "cannot delete garden :(",
-            "you seem to have entered an invalid garden id. try again!",
-            [
-              { text: "OK", onPress: () => console.log("OK Pressed") }
-            ],
-            { cancelable: false }
-          )
         )
-    }
-    
-    handleUpdateSubmit = event => {
-      event.preventDefault();
-      
-      const gardenvals = this.update_garden_form.getValue(); 
-  
-      const garden_to_update = {
-        id: gardenvals.garden_id,
-        name: gardenvals.garden_name
-      };
-      
-      axios.post(`http://localhost:3000/gardens/change-name`, garden_to_update)
-        .then(res => {
-          console.log(res);
-          console.log(res.data);
-        }).catch(
-          error => console.log(error),
-          Alert.alert(
-            "cannot update garden :(",
-            "you seem to have entered an invalid garden id. try again!",
-            [
-              { text: "OK", onPress: () => console.log("OK Pressed") }
-            ],
-            { cancelable: false }
-          )
-        )
-      
-      this.refreshGardens();
     }
     
     render() {
         var nav = this.props.navigation;
         var gardens = this.props.gardens;
-
+        
         return(
             <ScrollView>
-            {/* <View>
-              <Camera ref={cam => {this.camera = cam}}  
-                style={styles.preview}  
-                aspect={Camera.constants.Aspect.fill}>  
-                  <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text>
-              </Camera>
-            </View> */}
             <View>
             {
                 this.state.gardens.map((new_garden) => {
@@ -134,7 +53,7 @@ class Garden extends React.Component {
             }
             </View>
             <Divider></Divider>
-            <View>
+            {/* <View>
                 <Text style={styles.title}>
                     Add a new garden
                 </Text>
@@ -143,7 +62,7 @@ class Garden extends React.Component {
                     title="Submit!"
                     onPress={this.handleCreateSubmit}
                 />
-            </View>
+            </View>  
             <Divider/>
             <View>
                 <Text style={styles.title}>
@@ -154,8 +73,8 @@ class Garden extends React.Component {
                     title="Submit!"
                     onPress={this.handleDeleteSubmit}
                 />
-            </View>
-            <View>
+            </View> */}
+            {/* <View>
                 <Text style={styles.title}>
                     Update a Garden (Enter an ID and name for the garden)
                 </Text> 
@@ -164,7 +83,7 @@ class Garden extends React.Component {
                     title="update"
                     onPress={this.handleUpdateSubmit}
                 />
-            </View>
+            </View> */}
             </ScrollView>
             
         )
@@ -172,11 +91,13 @@ class Garden extends React.Component {
 }
 
 const GardenCard = ({garden, navComponent}) => {
+    const thisGardenName = garden.garden_name; 
+
     return(
       <Card containerStyle={styles.Card}>
         <View style={{flexDirection:"row", justifyContent:'space-between'}}>
           <Card.Title>{garden.garden_name}</Card.Title> 
-          <TouchableOpacity onPress={() => navComponent.navigate('plant', {garden_id: garden.garden_id})} >
+          <TouchableOpacity onPress={() => navComponent.navigate('plant', {garden_name: thisGardenName})} >
               <Image 
                   style={styles.icons} 
                   source={require('../Assets/right-arrow.png')}
@@ -200,7 +121,7 @@ const CreateGarden = t.struct({
   })
   
   const DeleteGarden = t.struct({
-    garden_id: t.Integer
+    garden_name: t.String
   })
   
   const UpdateGarden = t.struct({

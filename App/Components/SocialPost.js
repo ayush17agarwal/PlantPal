@@ -6,6 +6,11 @@ import t from 'tcomb-form-native';
 import SubmitButton from './SubmitButton'; 
 
 class SocialPost extends Component {
+    state = {
+        posts: [],
+        username: ''
+    }
+
     handleCreateSubmit = event => {
         event.preventDefault();
         
@@ -13,11 +18,10 @@ class SocialPost extends Component {
     
         const new_post = {
           user_id: "7",
-          caption: socialpostvals.garden_name,
-          climate: socialpostvals.climate
+          caption: socialpostvals.caption
         };
     
-        axios.post(`http://localhost:3000/socialposts/create`, new_post)
+        axios.post(`http://localhost:3000/posts/add`, new_post)
           .then(res => {
             console.log(res);
             console.log(res.data);
@@ -36,8 +40,7 @@ class SocialPost extends Component {
                 <View style={styles.dividerStyle} />
                 <View>
                     <Form type={CreateSocialMediaPost} ref={c => this.create_post = c}/>
-                    <SubmitButton title="post!" 
-                                 onPress={this.handleCreateSubmit}/>
+                    <SubmitButton title="post!" onPress={this.handleCreateSubmit}/>
                     
                 </View>
             </ScrollView>

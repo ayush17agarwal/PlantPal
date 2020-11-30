@@ -1,23 +1,30 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, Button} from 'react-native';
+import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+
 import SubmitButton from './SubmitButton';
+
+import axios from 'axios';
 
 
 class PlantInfo extends Component {
     state = {
-        plant_id: '4'
+        plant_id: '',
+        plant_info: []
     }
 
     componentDidMount() {
+        const plant_id = this.props.route.params.plant_id; 
+        this.state.plant_id = plant_id; 
         this.refreshPlant()
     }
 
     refreshPlant() {
         // ROUTE IS WRONG 
-        axios.get(`http://localhost:3000/plants`)
+        axios.get(`http://localhost:3000/plants?plant_id`+ this.state.plant_id)
             .then(res => {
-            const plants = res.data;
-            this.setState({ plants });
+            const plant_info = res.data;
+            this.setState({ plant_info });
         })
     }
 
@@ -27,8 +34,6 @@ class PlantInfo extends Component {
 
     handlePlantWaterEvent = event => {
         event.preventDefault();
-      
-        // const plant_id = this.update_garden_form.getValue(); 
     
         const garden_to_update = {
             plant_id: this.state.plant_id
@@ -46,18 +51,19 @@ class PlantInfo extends Component {
     }
 
     render(){
+        const plant = this.state.plant_info; 
         return (
             <ScrollView style={styles.container}> 
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                    <Text style={styles.textHeader}>{this.state.plant.plant_name}</Text>
+                    <Text style={styles.textHeader}>{plant.nickname}</Text>
                 </View>
                 <View style={styles.dividerStyle} />
                 <View> 
                     <Table>
                         <TableWrapper>
-                        <Row data={["plant type", plant.plant_type]}></Row>
+                        <Row data={["plant type", plant.common_name]}></Row>
                         <Row data={["date planted", plant.date_planted]}></Row>
-                        <Row data={["last watered", plant.last_watered]}></Row>
+                        <Row data={["last watered", plant.date_last_watered]}></Row>
                         <Row data={["last fertilized", plant.last_fertilized]}></Row>
                         <Row data={["health", plant.health]}></Row>
                         <Row data={["genus", plant.genus]}></Row>

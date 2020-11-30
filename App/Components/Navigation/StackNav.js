@@ -80,7 +80,10 @@ const SocialStackNav = () => {
                         </TouchableOpacity>
                     )
                 })} />
-            <Stack.Screen name="create post" component={SocialPost} />
+            <Stack.Screen 
+                name="create post" 
+                component={SocialPost} 
+                />
       </Stack.Navigator>
     );
 }
