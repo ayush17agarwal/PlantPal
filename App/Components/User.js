@@ -67,14 +67,16 @@ class User extends Component {
 
                 </View>
 
-                <View style={{ flex: 0.20, alignItems: 'center', justifyContent: 'center' }}>
+                <View style={{ flex: 0.25, alignItems: 'center', justifyContent: 'center' }}>
                     // <Image source={require('./../../Assets/user_sky.png')} style={{ width: 250, height: 250 }} />
                     // change this to plant health scale ^
                 </View>
 
-                <TouchableOpacity style={styles.buttons} onPress={() => nav.navigate('')}> // navigate to social screen?
-                    <Text style={styles.buttonText}>view my posts</Text>
-                </TouchableOpacity>
+                <View style={{ flex: 0.15, alignItems: 'center', justifyContent: 'center' }}>
+                    <TouchableOpacity style={styles.buttons} onPress={() => nav.navigate('')}> // navigate to social screen?
+                        <Text style={styles.buttonText}>view my posts</Text>
+                    </TouchableOpacity>
+                </View>
 
             </View>
             )
