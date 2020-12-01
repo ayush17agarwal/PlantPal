@@ -32,6 +32,7 @@ const screenOptionStyle = {
     },
     headerTintColor: "#FFFFFF",
     headerBackTitle: " ",
+    
 };
 
 const SignInNav = () => {
@@ -54,17 +55,14 @@ const GardenStackNav = ({username}) => {
                 options={({ navigation }) => ({
                     headerRight: () => (
                         // <TouchableOpacity onPress={this.DropGardenMenu} >
-                        <TouchableOpacity onPress={() => navigation.navigate('change gardens')} >
+                        <TouchableOpacity onPress={() => navigation.navigate('update gardens')} >
                             <Image 
                                 style={styles.icons} 
                                 source={require('../../Assets/right-arrow.png')} />
                         </TouchableOpacity>
                     )
-                })}
-                username={username} />
-            <Stack.Screen name='change gardens' 
-                component={GardenManipulation}
-                username={username}/>
+                })} />
+            <Stack.Screen name='update gardens' component={GardenManipulation}/>
             <Stack.Screen 
                 name="plant" 
                 component={Plant} 
@@ -122,7 +120,7 @@ const UserStackNav = () => {
     return (
       <Stack.Navigator screenOptions={screenOptionStyle}>
             <Stack.Screen 
-                name="user" 
+                name=" " 
                 component={User}
                 options={({ navigation }) => ({
                     headerRight: () => (
@@ -140,9 +138,9 @@ const UserStackNav = () => {
 
 const styles = StyleSheet.create({
     icons: {
-        width: 25,
-        height: 25,
-        right: 10,
+        width: 20,
+        height: 20,
+        right: 20,
     },
     top:{
         backgroundColor: '#FFFFFF',
@@ -157,6 +155,7 @@ const styles = StyleSheet.create({
       },
       text:{
         marginTop:20,
+        fontSize: 18
       },
       rightButton: {
         width: 100,

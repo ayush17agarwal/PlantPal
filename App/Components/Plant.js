@@ -63,9 +63,9 @@ class Plant extends React.Component {
 
 const PlantCard = ({plant, navComponent, garden_name}) => {
     return(
-      <Card containerStyle={styles.Card}>
-        <View style={{flexDirection:"row", justifyContent:'space-between'}}>
-          <Card.Title>{plant.nickname}</Card.Title> 
+      <Card containerStyle={styles.card}>
+        <View style={styles.cardView}>
+          <Card.Title style={styles.cardTitle}>{plant.nickname}</Card.Title> 
           <TouchableOpacity onPress={() => navComponent.navigate('plant information', {plant_id: plant.plant_id, garden_name: garden_name})} >
                 <Image 
                     style={styles.icons} 
@@ -73,9 +73,9 @@ const PlantCard = ({plant, navComponent, garden_name}) => {
                     />
               </TouchableOpacity>
         </View>        
-        <Card.Title>{plant.nickname}</Card.Title>
-        <Card.Divider/>
-        <Text>Name: {plant.name}</Text>
+        <Card.Title style={styles.cardTitle}>{plant.nickname}</Card.Title>
+        <Card.Divider style={styles.divider}/>
+        <Text style={styles.cardText}>Name: {plant.name}</Text>
         <View>
         <Table>
             <TableWrapper>
@@ -93,9 +93,26 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     },
-    Card: {
-        backgroundColor: '#7CA784'
+    card: {
+        backgroundColor: '#7CA784',
+        borderRadius: 20,
     }, 
+    cardView: {
+        flexDirection: 'row', 
+        justifyContent:'space-between'
+    },
+    cardTitle: {
+        color: '#FFFFFF',
+        fontSize: 22,
+        fontWeight: 'normal',
+        marginLeft: 15,
+        marginTop: 5
+    },
+    cardText: {
+        color: '#FFFFFF',
+        fontSize: 15,
+        marginLeft: 20
+    },
     scrollView: {
         backgroundColor: Colors.lighter,
     }, 
@@ -105,47 +122,5 @@ const styles = StyleSheet.create({
         right: 10
     }
 });
-
-// const card_styles = StyleSheet.create({
-//     Card: {
-//       backgroundColor: '#7CA784'
-//     },
-//     scrollView: {
-//       backgroundColor: '#E8EDF0',
-//     },
-//     engine: {
-//       position: 'absolute',
-//       right: 0,
-//     },
-//     body: {
-//       backgroundColor: '#FFFFFF',
-//     },
-//     sectionContainer: {
-//       marginTop: 32,
-//       paddingHorizontal: 24,
-//     },
-//     sectionTitle: {
-//       fontSize: 24,
-//       fontWeight: '600',
-//       color: '#000000',
-//     },
-//     sectionDescription: {
-//       marginTop: 8,
-//       fontSize: 18,
-//       fontWeight: '400',
-//     //   color: Colors.dark,
-//     },
-//     highlight: {
-//       fontWeight: '700',
-//     },
-//     footer: {
-//     //   color: Colors.dark,
-//       fontSize: 12,
-//       fontWeight: '600',
-//       padding: 4,
-//       paddingRight: 12,
-//       textAlign: 'right',
-//     },
-//   });
 
 export default Plant;

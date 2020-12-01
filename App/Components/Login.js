@@ -45,7 +45,10 @@ class Login extends Component {
         return (
             <ScrollView style={styles.container}> 
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                    <Text style={styles.textHeader}>Login!</Text>
+                    <Text style={styles.textHeader1}>
+                        plant
+                        <Text style={styles.textHeader2}>pal</Text>
+                    </Text>
                 </View>
                 <View style={styles.dividerStyle} />
                 <Form type={LoginForm} ref={c => this.login_form = c} />
@@ -64,8 +67,14 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 24
     },
-    textHeader: {
+    textHeader1: {
         color: '#86B58F',
+        fontSize: 35,
+        fontFamily: 'Roboto',
+        padding: 12
+    },
+    textHeader2: {
+        color: '#B2D1D1',
         fontSize: 35,
         fontFamily: 'Roboto',
         padding: 12

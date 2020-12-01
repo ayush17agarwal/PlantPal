@@ -58,9 +58,9 @@ const GardenCard = ({garden, navComponent}) => {
     const thisGardenName = garden.garden_name; 
 
     return(
-      <Card containerStyle={styles.Card}>
-        <View style={{flexDirection:"row", justifyContent:'space-between'}}>
-          <Card.Title>{garden.garden_name}</Card.Title> 
+      <Card containerStyle={styles.card}>
+        <View style={styles.cardView}>
+          <Card.Title style={styles.cardTitle}>{garden.garden_name}</Card.Title> 
           <TouchableOpacity onPress={() => navComponent.navigate('plant', {garden_name: thisGardenName})} >
               <Image 
                   style={styles.icons} 
@@ -68,8 +68,14 @@ const GardenCard = ({garden, navComponent}) => {
                   />
           </TouchableOpacity>
         </View>        
-        <Card.Divider/>
-        <Text>Climate: {garden.climate}</Text>
+        <Card.Divider style={styles.divider}/>
+        <Text style={styles.cardText}>
+            <Image
+                source={require('../Assets/location.png')}
+                style={styles.image}
+              />
+            {'\t'}Climate: {garden.climate}
+        </Text>
       </Card>
     ); 
 }
@@ -102,16 +108,43 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     },
-    Card: {
-        backgroundColor: '#7CA784'
+    card: {
+        backgroundColor: '#7CA784',
+        borderRadius: 20,
     }, 
+    cardView: {
+        flexDirection: 'row', 
+        justifyContent:'space-between'
+    },
+    cardTitle: {
+        color: '#FFFFFF',
+        fontSize: 22,
+        fontWeight: 'normal',
+        marginLeft: 15,
+        marginTop: 5
+    },
+    cardText: {
+        color: '#FFFFFF',
+        fontSize: 15,
+        marginLeft: 20
+    },
+    image: {
+        width: 20,
+        height: 20
+    },
+    divider: {
+        borderBottomColor: '#FFFFFF',
+        borderBottomWidth: 1,
+        marginHorizontal: 10
+    },
     scrollView: {
         backgroundColor: Colors.lighter,
     },
     icons: {   
       width: 20,
       height: 20,
-      right: 10
+      right: 10,
+      marginTop: 10
     }
 });
 

@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView} from 'react-native';
-import Settings from './Settings';
+import { View, Text, StyleSheet, Image, ScrollView} from 'react-native';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 
+import Settings from './Settings';
 import SubmitButton from './SubmitButton';
 import axios from 'axios';
 
 class User extends Component {
     state = {
         firstname: 'ayush',
+        lastname: 'agarwal',
         username: 'ayush',
         user: [],
-        num_plants: [],
-        num_gardens: []
+        num_plants: ["beep", "boop", "bow", "wow", "fake", "plant"],
+        num_gardens: ["backyard", "desk"]
     }
 
     componentDidMount() {
@@ -46,20 +47,34 @@ class User extends Component {
         // var num_gardens = this.state.num_gardens; 
         console.log(this.state.num_plants);
         return (
-            <ScrollView style={styles.container}> 
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                    <Text style={styles.textHeader}>{this.state.firstname}</Text>
-                    <Text style={styles.textSubheader}>{this.state.username}</Text>
+            <ScrollView> 
+                <View style={styles.container}>
+                    <Text style={styles.textHeader}>{this.state.firstname} {this.state.lastname}</Text>
+                    {/* <Text style={styles.textSubheader}>@{this.state.username}</Text> */}
+                    <View style={styles.circle}>
+                    <Image
+                        source={require('../Assets/user.png')}
+                        style={styles.profile}
+                    />
+                    </View>
                 </View>
-                <View style={styles.dividerStyle} />
-                <View>
-                    <Table>
-                        <TableWrapper>
-                        <Row data={["username", this.state.username]}></Row>
-                        {/* <Row data={["about", user.biography]}></Row> */}
-                        {/* <Row data={["gardens", this.state.num_gardens]}></Row> */}
-                        {/* <Row data={["plants", this.state.num_plants]}></Row> */}
-                        </TableWrapper>
+                <View style={styles.tableContainer}>
+                    <Table >
+                        <Col data={[
+                            'username',
+                            'about',
+                            'gardens',
+                            'plants'
+                        ]}/>
+                    </Table>
+                    <View style={styles.divider} />
+                    <Table >
+                        <Col data={[
+                            this.state.username, 
+                            'tired cs student', 
+                            this.state.num_gardens.length,
+                            this.state.num_plants.length
+                        ]}/>
                     </Table>
                 </View>
             </ScrollView>
@@ -69,25 +84,53 @@ class User extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        padding: 24
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        backgroundColor: '#769CB9',
+        paddingTop: 30,
+        paddingBottom: 50,
+    },
+    circle: {
+        position: 'absolute',
+        borderColor: '#DBE2E5',
+        borderWidth: 25,
+        borderRadius: 60,
+        top: 90
+    },
+    profile: {
+        backgroundColor: '#DBE2E5',
+        width: 60,
+        height: 60
     },
     textHeader: {
-        color: '#86B58F',
-        fontSize: 35,
+        color: '#FFFFFF',
+        fontSize: 26,
+        fontWeight: 'bold',
         fontFamily: 'Roboto',
         padding: 12
-    },
-    dividerStyle: {
-        borderBottomColor: '#86B58F',
-        borderBottomWidth: 2,
-        padding: 11
     },
     textSubheader: {
         color: '#86B58F',
         fontSize: 20,
         fontFamily: 'Roboto'
-    }
+    },
+
+    tableContainer: {
+        paddingTop: 90,
+        paddingHorizontal: 24,
+        flexDirection: 'row',
+        alignSelf: 'center'
+    },
+    col1: {
+        color: '#769CB9',
+    },
+    divider: {
+        borderRightColor: '#769CB9',
+        borderRightWidth: 1,
+        marginHorizontal: 30,
+        paddingVertical: 75
+    },
+    
 });
 
 export default User;

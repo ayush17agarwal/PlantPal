@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Header, LearnMoreLinks, Colors, DebugInstructions, ReloadInstructions, } from 'react-native/Libraries/NewAppScreen';
-import { NavigationContainer, useNavigationBuilder } from '@react-navigation/native';
+import { NavigationContainer, useNavigationBuilder, DefaultTheme } from '@react-navigation/native';
 
 import { StyleSheet, ScrollView, View, Text, Image, Button, Alert} from 'react-native';
 import { Card, Divider, Input } from 'react-native-elements'
@@ -10,10 +10,12 @@ import { color } from 'react-native-reanimated';
 import axios from 'axios';
 import t from 'tcomb-form-native';
 
+
 // Custom Components
 import TabNav from "./Components/Navigation/TabNav";
 import Login from "./Components/Login";
 import SubmitButton from './Components/SubmitButton';
+
 
 
 class App extends React.Component {
@@ -69,18 +71,28 @@ class App extends React.Component {
 
   LoginPage = () => {
     return( 
+      <View style={styles.bkgrnd}>
       <ScrollView style={styles.container}> 
-          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-              <Text style={styles.textHeader}>Login!</Text>
+          <View style={styles.viewContainer}>
+            <Text style={styles.textHeader1}>
+              plant
+              <Text style={styles.textHeader2}>pal</Text>
+            </Text>
+            <Image
+              source={require('./Assets/potted_plant.png')}
+              style={styles.pottedPlant} />
           </View>
-          <View style={styles.dividerStyle} />
-          <Form type={LoginForm} ref={c => this.login_form = c} />
+
+          <View style={styles.form}>
+            <Form 
+              type={LoginForm} 
+              ref={c => this.login_form = c} />
+          </View>
+
           <SubmitButton
-              style={styles.submitButton}
-              title="login!"
-              onPress={this.handleLoginSubmit}
-          />
-      </ScrollView>
+            title="sign in"
+            onPress={this.handleLoginSubmit} />
+      </ScrollView></View>
     )
   }
 
@@ -95,27 +107,12 @@ class App extends React.Component {
       <>
       <NavigationContainer>
         {page}
+        {/* <TabNav/> */}
       </NavigationContainer>
       </>
     )
   }
 }
-// const LoginPage = () => {
-//   return( 
-//     <ScrollView style={styles.container}> 
-//         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-//             <Text style={styles.textHeader}>Login!</Text>
-//         </View>
-//         <View style={styles.dividerStyle} />
-//         <Form type={LoginForm} ref={c => this.login_form = c} />
-//         <SubmitButton
-//             style={styles.submitButton}
-//             title="login!"
-//             onPress={this.handleLoginSubmit}
-//         />
-//     </ScrollView>
-//   )
-// }
 
 const Form = t.form.Form; 
 
@@ -125,60 +122,36 @@ const LoginForm = t.struct({
   })
 
 const styles = StyleSheet.create({
-  Card: {
-    backgroundColor: '#7CA784'
+  bkgrnd: {
+    backgroundColor: '#F2F2F2'
   },
-  scrollView: {
-    backgroundColor: Colors.lighter,
+  container: {
+    marginTop: 150,
+    marginHorizontal: 50,
+    alignContent: 'center',
   },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-  textHeader: {
+  textHeader1: {
     color: '#86B58F',
+    fontSize: 35,
+    fontFamily: 'Roboto',
+    fontWeight: 'bold',
+    padding: 12,
+    alignSelf: 'center'
+  },
+  textHeader2: {
+    color: '#B2D1D1',
     fontSize: 35,
     fontFamily: 'Roboto',
     padding: 12
   },
-  dividerStyle: {
-      borderBottomColor: '#86B58F',
-      borderBottomWidth: 2,
-      padding: 11
+  pottedPlant: {
+    marginVertical: 10,
+    width: 150,
+    height: 200,
+    alignSelf: 'center'
   },
-  textSubheader: {
-      color: '#86B58F',
-      fontSize: 20,
-      fontFamily: 'Roboto'
+  form: {
+    marginVertical: 20
   }
 });
 

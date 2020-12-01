@@ -51,7 +51,7 @@ class PlantRelationship extends Component {
               plant 1
             </Text>
           </View>
-          <View style={styles.dividerStyle} />
+          <View style={styles.divider} />
 
           <View style={styles.heading}>
           <Text style={styles.textHeader}>
@@ -62,7 +62,7 @@ class PlantRelationship extends Component {
               plant 2
             </Text>
           </View>
-          <View style={styles.dividerStyle} />
+          <View style={styles.divider} />
           <TouchableOpacity
               style={styles.buttons} 
               onPress={() => nav.navigate('plant relationship', {plant1: this.state.plant1, plant2: this.state.plant2})}
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     fontWeight: 'bold'
   },
-  dividerStyle: {
+  divider: {
       borderBottomColor: '#86B58F',
       borderBottomWidth: 1,
       paddingHorizontal: 165
@@ -106,13 +106,16 @@ const styles = StyleSheet.create({
   buttons: {
     backgroundColor: '#769CB9',
     borderRadius: 20,
-    paddingHorizontal: 20,
+    paddingHorizontal: 70,
     paddingVertical: 10,
     marginHorizontal: 50,
     marginTop: 10,
     alignSelf: 'center',
   },
   buttonText: {
+    fontWeight: "200",
+    textTransform: "lowercase",
+    fontFamily: 'Roboto',
     alignSelf: 'center',
     color: '#FFFFFF',
   }
