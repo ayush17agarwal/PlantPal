@@ -2,6 +2,8 @@
   package="com.plantpal">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Required -->
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
       android:name=".MainApplication"

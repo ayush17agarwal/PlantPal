@@ -35,11 +35,16 @@ const screenOptionStyle = {
     
 };
 
-// const SignInNav = () => {
-//     return(
-
-//     )
-// }
+const SignInNav = () => {
+    return(
+        <Stack.Navigator screenOptions={screenOptionStyle}>
+            <Stack.Screen 
+                name="garden" 
+                component={Garden}
+                />
+        </Stack.Navigator>
+    )
+}
 
 const GardenStackNav = () => {
     return (
@@ -115,7 +120,7 @@ const UserStackNav = () => {
     return (
       <Stack.Navigator screenOptions={screenOptionStyle}>
             <Stack.Screen 
-                name="user" 
+                name=" " 
                 component={User}
                 options={({ navigation }) => ({
                     headerRight: () => (

@@ -1,13 +1,46 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity} from 'react-native';
+import { Icon } from 'react-native-elements'
+
 import SubmitButton from './SubmitButton';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 import t from 'tcomb-form-native';
+import axios from 'axios';
 
 class PlantRelationship extends Component {
-    render() {
-      var nav = this.props.navigation;
-      return(
+  state = {
+    username: '',
+    plants: [],
+    plant1: ''
+  }
+
+  componentDidMount() {
+    const username = 'ayush'; // this.props.route.params.username; 
+    this.state.username = username; 
+    this.refreshPlants(); 
+  }
+
+  refreshPlants() {
+    axios.get(`http://localhost:3000//all-user-plants?username=`+this.state.username)
+        .then(res => {
+        const plants = res.data;
+        console.log(plants);
+        this.setState({ plants });
+    }).catch(
+        error => console.log(error)
+    )
+  }
+
+  render() {
+    var nav = this.props.navigation;
+
+    let plantChoices = this.state.plants.map((plant) =>
+        <option key={plant}>{plant}</option>
+    );
+
+    return(
+      <ScrollView>
         <View style={styles.container}>
           <View style={styles.heading}>
             <Text style={styles.textHeader}>
@@ -18,7 +51,7 @@ class PlantRelationship extends Component {
               plant 1
             </Text>
           </View>
-          <View style={styles.dividerStyle} />
+          <View style={styles.divider} />
 
           <View style={styles.heading}>
           <Text style={styles.textHeader}>
@@ -29,19 +62,20 @@ class PlantRelationship extends Component {
               plant 2
             </Text>
           </View>
-          <View style={styles.dividerStyle} />
+          <View style={styles.divider} />
           <TouchableOpacity
               style={styles.buttons} 
-              onPress={() => nav.navigate('plant relationship')}
+              onPress={() => nav.navigate('plant relationship', {plant1: this.state.plant1, plant2: this.state.plant2})}
               >
               <Text style={styles.buttonText}>
                   find relationship
               </Text>
             </TouchableOpacity>
         </View>
-      );
-    }
-
+         
+      </ScrollView>
+    );
+  }
 }
 
 export default PlantRelationship;
@@ -66,7 +100,7 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     fontWeight: 'bold'
   },
-  dividerStyle: {
+  divider: {
       borderBottomColor: '#86B58F',
       borderBottomWidth: 1,
       paddingHorizontal: 165
