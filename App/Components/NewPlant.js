@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, Button} from 'react-native';
 // import t from 'tcomb-form-native';
 
+import axios from 'axios';
 import SubmitButton from './SubmitButton';
 
 class NewPlant extends Component {
     state = {
-        username: 'ayush'
+        username: 'Megiscool'
     }
 
     componentDidMount() {
@@ -20,10 +21,10 @@ class NewPlant extends Component {
     
         const new_plant = {
           username: this.state.username,
-          garden: plantvals.garden_name,
+          garden_name: plantvals.garden_name,
           plant_name: plantvals.plant_name,
           common_name: plantvals.plant_type,
-          trefle_id: '234'
+          trefle_id: 0
         };
     
         axios.post(`http://localhost:3000/plants/add`, new_plant)
@@ -41,7 +42,7 @@ class NewPlant extends Component {
             error => console.log(error)
           )
         
-        this.refreshGardens();
+        this.forceUpdate();
     }
 
     render(){
@@ -53,7 +54,7 @@ class NewPlant extends Component {
                 </View>
                 <View style={styles.dividerStyle} />
                 <View>
-                    <Form type={NewPlantForm} options={formOptions} ref={c => this.create_plant_form = c}/>
+                    <Form type={NewPlantForm} ref={c => this.create_plant_form = c}/>
                 </View>
                 <SubmitButton
                     title="Submit!"

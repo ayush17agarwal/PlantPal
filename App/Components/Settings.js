@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 
 class Settings extends Component {
@@ -18,7 +18,7 @@ class Settings extends Component {
                     <TableWrapper>
                     <Row data={["username", user.username]}></Row>
                     <Row data={["about", user.date_planted]}></Row>
-                    <Row data={["email", plant.date_last_watered]}></Row>
+                    <Row data={["email", user.email]}></Row>
                     <Row data={["password", '........']}></Row>
                     <Row data={["phone", user.phone_number]}></Row>
                     <Row data={["birthday", user.birthday]}></Row>
