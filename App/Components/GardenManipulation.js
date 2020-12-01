@@ -66,6 +66,36 @@ class GardenManipulation extends Component {
             // )
           )
       }
+    
+      handleUpdateSubmit = event => {
+        event.preventDefault();
+        
+        const gardenvals = this.delete_garden_form.getValue(); 
+    
+        const garden_to_update = {
+          old_garden_name: gardenvals.garden_name,
+          new_garden_name: gardenvals.new_garden_name
+        };
+        
+        axios.post(`http://localhost:3000/gardens/change-name`, {data: {garden_name: garden_to_update.old_garden_name, 
+                                                                    new_name: garden_to_update.new_garden_name, 
+                                                                    username: this.state.username}})
+          .then(res => {
+            // console.log(res);
+            // console.log(res.data);
+            this.refreshGardens(); 
+          }).catch(
+            error => console.log(error)
+            // Alert.alert(
+            //   "cannot delete garden :(",
+            //   "you seem to have entered an invalid garden id. try again!",
+            //   [
+            //     { text: "OK", onPress: () => console.log("OK Pressed") }
+            //   ],
+            //   { cancelable: false }
+            // )
+          )
+      }
 
     render(){
         return (
@@ -109,7 +139,7 @@ class GardenManipulation extends Component {
 const Form = t.form.Form; 
 
 const DeleteGardenForm = t.struct({ 
-    garden_id: t.Integer
+    garden_name: t.String
 }) 
 
 const CreateGardenForm = t.struct({
@@ -119,7 +149,7 @@ const CreateGardenForm = t.struct({
 
 const UpdateGarden = t.struct({
     old_garden_name: t.String,
-    updated_garden_name: t.String
+    new_garden_name: t.String
   })
 
 const styles = StyleSheet.create({
