@@ -49,14 +49,14 @@ const GardenStackNav = () => {
                 options={({ navigation }) => ({
                     headerRight: () => (
                         // <TouchableOpacity onPress={this.DropGardenMenu} >
-                        <TouchableOpacity onPress={() => navigation.navigate('change gardens')} >
+                        <TouchableOpacity onPress={() => navigation.navigate('update gardens')} >
                             <Image 
                                 style={styles.icons} 
                                 source={require('../../Assets/right-arrow.png')} />
                         </TouchableOpacity>
                     )
                 })} />
-            <Stack.Screen name='change gardens' component={GardenManipulation}/>
+            <Stack.Screen name='update gardens' component={GardenManipulation}/>
             <Stack.Screen 
                 name="plant" 
                 component={Plant} 

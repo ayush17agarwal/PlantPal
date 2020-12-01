@@ -9,14 +9,13 @@ const SubmitButton = ({ onPress, title }) => (
 
 const styles = StyleSheet.create({
     postButtonContainer: {
-        elevation: 8,
         backgroundColor: "#769CB9",
         borderRadius: 20,
         paddingVertical: 10,
-        paddingHorizontal: 12
+        paddingHorizontal: 30,
+        marginHorizontal: 50,
     },
     postText: {
-        fontSize: 18,
         color: "white",
         fontWeight: "200",
         alignSelf: "center",

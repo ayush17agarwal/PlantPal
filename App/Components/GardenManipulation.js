@@ -71,7 +71,7 @@ class GardenManipulation extends Component {
         return (
             <ScrollView style={styles.container}> 
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                    <Text style={styles.textHeader}>change your gardens!</Text>
+                    <Text style={styles.textHeader}>update your gardens!</Text>
                     <Text style={styles.textSubheader}>choose from the options below</Text>
                 </View>
                 <View style={styles.dividerStyle} />
@@ -85,7 +85,7 @@ class GardenManipulation extends Component {
                     />
                 </View>
                 <View>
-                    <Text style={styles.textSubheader}>{'\n\n'}delete a garden</Text>
+                    <Text style={styles.textSubheader}>{'\n'}delete a garden</Text>
                     <Form type={DeleteGardenForm} ref={c => this.delete_garden_form = c} />
                     <SubmitButton
                         style={styles.submitButton}
@@ -94,7 +94,7 @@ class GardenManipulation extends Component {
                     />
                 </View>
                 <View>
-                    <Text style={styles.textSubheader}>update a garden name</Text> 
+                    <Text style={styles.textSubheader}>{'\n'}rename a garden</Text> 
                     <Form type={UpdateGarden} ref={c => this.update_garden_form = c}/>
                     <SubmitButton
                         title="update!"
