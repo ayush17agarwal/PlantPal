@@ -78,8 +78,6 @@ class PlantRelationship extends Component {
   }
 }
 
-export default PlantRelationship;
-
 const Form = t.form.Form; 
 const styles = StyleSheet.create({
   container: {
@@ -119,3 +117,6 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   }
 });
+
+export default PlantRelationship;
+

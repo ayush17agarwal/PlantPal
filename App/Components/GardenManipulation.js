@@ -12,9 +12,9 @@ class GardenManipulation extends Component {
     }
 
     componentDidMount() {
-        const username = "ayush";
+        const username = this.props.username;
         this.state.username = username; 
-        // this.refreshGardens(); 
+        console.log(username);
     }
 
     handleCreateSubmit = event => {
@@ -36,7 +36,7 @@ class GardenManipulation extends Component {
             error => console.log(error)
           )
         
-        // this.refreshGardens();
+        this.forceUpdate();
       }
     
       handleDeleteSubmit = event => {
@@ -65,6 +65,8 @@ class GardenManipulation extends Component {
             //   { cancelable: false }
             // )
           )
+        
+        this.forceUpdate();
       }
     
       handleUpdateSubmit = event => {

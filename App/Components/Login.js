@@ -9,13 +9,7 @@ import t from 'tcomb-form-native';
 
 
 class Login extends Component {
-    state = {
-        firstname: 'ayush',
-        username: 'ayush',
-        user: [],
-        num_plants: [],
-        num_gardens: []
-    }
+    
 
     componentDidMount() {
         

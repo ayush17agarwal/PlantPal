@@ -45,7 +45,7 @@ const SignInNav = () => {
     )
 }
 
-const GardenStackNav = () => {
+const GardenStackNav = ({username}) => {
     return (
         <Stack.Navigator screenOptions={screenOptionStyle}>
             <Stack.Screen 
@@ -60,8 +60,11 @@ const GardenStackNav = () => {
                                 source={require('../../Assets/right-arrow.png')} />
                         </TouchableOpacity>
                     )
-                })} />
-            <Stack.Screen name='change gardens' component={GardenManipulation}/>
+                })}
+                username={username} />
+            <Stack.Screen name='change gardens' 
+                component={GardenManipulation}
+                username={username}/>
             <Stack.Screen 
                 name="plant" 
                 component={Plant} 

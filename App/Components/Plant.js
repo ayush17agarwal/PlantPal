@@ -40,6 +40,7 @@ class Plant extends React.Component {
     render() {
         var nav = this.props.navigation;
         var plants = this.props.plants;
+        var garden_name = this.props.garden_name; 
 
         return(
             <>
@@ -48,7 +49,7 @@ class Plant extends React.Component {
                 {
                     this.state.plants.map((new_plant) => {
                         return( 
-                            <PlantCard plant={new_plant} navComponent={nav}/>
+                            <PlantCard plant={new_plant} navComponent={nav} garden_name={garden_name}/>
                         )
                     }) 
                 }
@@ -60,12 +61,12 @@ class Plant extends React.Component {
 }
 
 
-const PlantCard = ({plant, navComponent}) => {
+const PlantCard = ({plant, navComponent, garden_name}) => {
     return(
       <Card containerStyle={styles.Card}>
         <View style={{flexDirection:"row", justifyContent:'space-between'}}>
           <Card.Title>{plant.nickname}</Card.Title> 
-          <TouchableOpacity onPress={() => navComponent.navigate('plant information', {plant_id: plant.plant_id})} >
+          <TouchableOpacity onPress={() => navComponent.navigate('plant information', {plant_id: plant.plant_id, garden_name: garden_name})} >
                 <Image 
                     style={styles.icons} 
                     source={require('../Assets/right-arrow.png')}

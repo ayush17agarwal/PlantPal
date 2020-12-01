@@ -24,7 +24,7 @@ const TabNav = ({username}) => {
             : require('../../Assets/globe.png')
             return (
               <Image source={image} style={{height:25, width:25}}/> )}}} 
-        username-={username}/>
+        username={username}/>
       <Tab.Screen
         name="garden"
         component={GardenStackNav}
@@ -35,7 +35,7 @@ const TabNav = ({username}) => {
             ? require('../../Assets/leaf_sky.png')
             : require('../../Assets/leaf.png')
             return ( <Image source={image} style={{height:25, width:25}}/> )}}}
-        username-={username} />
+        username={username} />
       <Tab.Screen
         name="search"
         component={SearchStackNav}
@@ -45,7 +45,8 @@ const TabNav = ({username}) => {
             const image = focused
             ? require('../../Assets/loupe_sky.png')
             : require('../../Assets/loupe.png')
-            return ( <Image source={image} style={{height:25, width:25}}/> )}}} />
+            return ( <Image source={image} style={{height:25, width:25}}/> )}}}
+        username-={username} />
       <Tab.Screen
         name="user"
         component={UserStackNav}
@@ -55,7 +56,8 @@ const TabNav = ({username}) => {
             const image = focused
             ? require('../../Assets/user_sky.png')
             : require('../../Assets/user.png')
-            return ( <Image source={image} style={{height:25, width:25}}/> )}}} />
+            return ( <Image source={image} style={{height:25, width:25}}/> )}}} 
+        username-={username}/>
     </Tab.Navigator>
   );
 };

@@ -17,28 +17,28 @@ class User extends Component {
 
     componentDidMount() {
         // this.getNumGardens();
-        this.getNumPlants();
+        // this.getNumPlants();
     }
 
-    getNumGardens() {
-        axios.get(`http://localhost:3000/gardens/num-gardens/?username=`+this.state.username)
-            .then(res => {
-            const num_gardens = res.data; 
-            this.setState({ num_gardens });
-        }).catch(
-            error => console.log(error)
-        )
-    }
+    // getNumGardens() {
+    //     axios.get(`http://localhost:3000/gardens/num-gardens/?username=`+this.state.username)
+    //         .then(res => {
+    //         const num_gardens = res.data; 
+    //         this.setState({ num_gardens });
+    //     }).catch(
+    //         error => console.log(error)
+    //     )
+    // }
 
-    getNumPlants() {
-        axios.get(`http://localhost:3000/plants/num-plants/?username=`+this.state.username)
-            .then(res => {
-            const num_plants = res.data;
-            this.setState({ num_plants });
-        }).catch(
-            error => console.log(error)
-        )
-    }
+    // getNumPlants() {
+    //     axios.get(`http://localhost:3000/plants/num-plants/?username=`+this.state.username)
+    //         .then(res => {
+    //         const num_plants = res.data;
+    //         this.setState({ num_plants });
+    //     }).catch(
+    //         error => console.log(error)
+    //     )
+    // }
 
     render(){
         // var user = this.state.user; 
@@ -58,7 +58,7 @@ class User extends Component {
                         <Row data={["username", this.state.username]}></Row>
                         {/* <Row data={["about", user.biography]}></Row> */}
                         {/* <Row data={["gardens", this.state.num_gardens]}></Row> */}
-                        <Row data={["plants", this.state.num_plants]}></Row>
+                        {/* <Row data={["plants", this.state.num_plants]}></Row> */}
                         </TableWrapper>
                     </Table>
                 </View>

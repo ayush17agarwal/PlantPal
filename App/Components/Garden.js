@@ -19,6 +19,7 @@ class Garden extends React.Component {
     componentDidMount() {
         const username = this.props.username;
         this.state.username = username; 
+        // console.log(username);
         this.refreshGardens(); 
     }
 
