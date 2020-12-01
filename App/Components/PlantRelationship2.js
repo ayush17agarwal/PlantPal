@@ -3,25 +3,35 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity} from 'react-nativ
 import SubmitButton from './SubmitButton';
 
 class PlantRelationship2 extends Component {
-    render() {
-      var nav = this.props.navigation;
-      return(
-        <View style={styles.container}>
-          {/* <SubmitButton
-            style={styles.submitButton}
-            title="delete!"
-            onPress={this.handleDeleteSubmit}
-          /> */}
-          <TouchableOpacity
-                style={styles.buttons} 
-                >
-                <Text style={styles.buttonText}>
-                    find relationship
-                </Text>
-            </TouchableOpacity>
-        </View>
-      );
-    }
+  state = {
+    plant1: '',
+    plant2: ''
+  }
+
+  componentDidMount() {
+    plant1 = this.props.plant1;
+    plant2 = this.props.plant2; 
+  }
+
+  render() {
+    var nav = this.props.navigation;
+    return(
+      <View style={styles.container}>
+        {/* <SubmitButton
+          style={styles.submitButton}
+          title="delete!"
+          onPress={this.handleDeleteSubmit}
+        /> */}
+        <TouchableOpacity
+              style={styles.buttons} 
+              >
+              <Text style={styles.buttonText}>
+                  find relationship
+              </Text>
+          </TouchableOpacity>
+      </View>
+    );
+  }
 
 }
 

@@ -50,33 +50,6 @@ class PlantRelationship extends Component {
               />
               plant 1
             </Text>
-            {/* <select>
-              {plantChoices}
-            </select> */}
-            {/* <DropDownPicker
-                // items={[
-                //     {label: 'USA', value: 'usa'},
-                //     {label: 'UK', value: 'uk'},
-                //     {label: 'France', value: 'france'},
-                // ]}
-                items={
-                  this.state.plants.map((plant, i) => {
-                    return( 
-                        {label: plant.name, value: 'hi'}
-                    )
-                }) 
-                }
-                defaultValue={this.state.plant1}
-                containerStyle={{height: 40}}
-                style={{backgroundColor: 'white'}}
-                itemStyle={{
-                    justifyContent: 'flex-start'
-                }}
-                dropDownStyle={{backgroundColor: 'white'}}
-                onChangeItem={item => this.setState({
-                    plant1: item.value
-                })} >
-            </DropDownPicker> */}
           </View>
           <View style={styles.dividerStyle} />
 
