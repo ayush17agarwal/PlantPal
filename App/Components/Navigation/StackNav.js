@@ -132,9 +132,9 @@ const UserStackNav = () => {
 
 const styles = StyleSheet.create({
     icons: {
-        width: 25,
-        height: 25,
-        right: 10,
+        width: 20,
+        height: 20,
+        right: 20,
     },
     top:{
         backgroundColor: '#FFFFFF',
@@ -149,6 +149,7 @@ const styles = StyleSheet.create({
       },
       text:{
         marginTop:20,
+        fontSize: 18
       },
       rightButton: {
         width: 100,
