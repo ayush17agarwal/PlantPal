@@ -32,6 +32,7 @@ const screenOptionStyle = {
     },
     headerTintColor: "#FFFFFF",
     headerBackTitle: " ",
+    
 };
 
 // const SignInNav = () => {

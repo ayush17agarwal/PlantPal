@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Header, LearnMoreLinks, Colors, DebugInstructions, ReloadInstructions, } from 'react-native/Libraries/NewAppScreen';
-import { NavigationContainer, useNavigationBuilder } from '@react-navigation/native';
+import { NavigationContainer, useNavigationBuilder, DefaultTheme } from '@react-navigation/native';
 
 import { StyleSheet, ScrollView, View, Text, Image, Button, Alert} from 'react-native';
 import { Card, Divider, Input } from 'react-native-elements'
@@ -9,8 +9,10 @@ import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-ta
 import { color } from 'react-native-reanimated';
 import axios from 'axios';
 
+
 // Custom Components
 import TabNav from "./Components/Navigation/TabNav";
+
 
 class App extends React.Component {
   state = {
@@ -18,7 +20,8 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.refreshGardens()
+    this.refreshGardens();
+
   }
 
   refreshGardens() {
@@ -112,88 +115,88 @@ class App extends React.Component {
     return(
       <>
       <NavigationContainer>
-        <TabNav />
+        <TabNav/>
       </NavigationContainer>
       </>
     )
   }
 }
 
-const GardenCard = ({garden}) => {
-  return(
-    <Card containerStyle={styles.Card}>
-      <Card.Title>{garden.garden_name}</Card.Title>
-      <Card.Divider/>
-      <Text>Climate: {garden.climate}</Text>
-      <Text>ID: {garden.garden_id}</Text>
-    </Card>
-  ); 
-}
-const PlantCard = (props) => {
-  return(
-    <Card containerStyle={styles.Card}>
-      <Card.Title>{props.plant.nickname}</Card.Title>
-      <Card.Divider/>
-      <Text>Name: {props.plant.name}</Text>
-      <View>
-      <Image
-          source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
-          resizeMode={'contain'} 
-          style={{width: 50, height: 50}}/>
-      </View>
-      <View>
-      <Table>
-          <TableWrapper>
-          <Row data={["date planted", props.plant.datePlanted]}></Row>
-          <Row data={["last watered", props.plant.lastWatered]}></Row>
-          <Row data={["health", props.plant.health]}></Row>
-          </TableWrapper>
-      </Table>
-      </View>
-    </Card>
-  );
-}
+// const GardenCard = ({garden}) => {
+//   return(
+//     <Card containerStyle={styles.Card}>
+//       <Card.Title>{garden.garden_name}</Card.Title>
+//       <Card.Divider/>
+//       <Text>Climate: {garden.climate}</Text>
+//       <Text>ID: {garden.garden_id}</Text>
+//     </Card>
+//   ); 
+// }
+// const PlantCard = (props) => {
+//   return(
+//     <Card containerStyle={styles.Card}>
+//       <Card.Title>{props.plant.nickname}</Card.Title>
+//       <Card.Divider/>
+//       <Text>Name: {props.plant.name}</Text>
+//       <View>
+//       <Image
+//           source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
+//           resizeMode={'contain'} 
+//           style={{width: 50, height: 50}}/>
+//       </View>
+//       <View>
+//       <Table>
+//           <TableWrapper>
+//           <Row data={["date planted", props.plant.datePlanted]}></Row>
+//           <Row data={["last watered", props.plant.lastWatered]}></Row>
+//           <Row data={["health", props.plant.health]}></Row>
+//           </TableWrapper>
+//       </Table>
+//       </View>
+//     </Card>
+//   );
+// }
 
-const styles = StyleSheet.create({
-  Card: {
-    backgroundColor: '#7CA784'
-  },
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
+// const styles = StyleSheet.create({
+//   Card: {
+//     backgroundColor: '#7CA784'
+//   },
+//   scrollView: {
+//     backgroundColor: Colors.lighter,
+//   },
+//   engine: {
+//     position: 'absolute',
+//     right: 0,
+//   },
+//   body: {
+//     backgroundColor: Colors.white,
+//   },
+//   sectionContainer: {
+//     marginTop: 32,
+//     paddingHorizontal: 24,
+//   },
+//   sectionTitle: {
+//     fontSize: 24,
+//     fontWeight: '600',
+//     color: Colors.black,
+//   },
+//   sectionDescription: {
+//     marginTop: 8,
+//     fontSize: 18,
+//     fontWeight: '400',
+//     color: Colors.dark,
+//   },
+//   highlight: {
+//     fontWeight: '700',
+//   },
+//   footer: {
+//     color: Colors.dark,
+//     fontSize: 12,
+//     fontWeight: '600',
+//     padding: 4,
+//     paddingRight: 12,
+//     textAlign: 'right',
+//   },
+// });
 
 export default App;

@@ -31,6 +31,10 @@ class Search extends Component {
                         style={styles.buttonIcon}
                     />
                 </TouchableOpacity>
+                <Image
+                    source={require('../Assets/potted_plant.png')}
+                    style={styles.pottedPlant}
+                />
             </View>
         );
     }
@@ -39,7 +43,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1, 
         alignSelf: 'center',
-        justifyContent: 'center',
+        marginTop: 70
     },
     buttons: {
         backgroundColor: '#7CA784',
@@ -58,6 +62,12 @@ const styles = StyleSheet.create({
         width: 35,
         height: 35,
         alignSelf: 'center',
+    },
+    pottedPlant: {
+        marginTop: 30,
+        width: 150,
+        height: 200,
+        alignSelf: 'center'
     }
 });
 export default Search;
