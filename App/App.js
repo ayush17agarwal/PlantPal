@@ -44,12 +44,12 @@ class App extends React.Component {
         console.log(res);
         if (res.data && res.data.length > 0) {
           this.state.username = login_info.username;
-          this.loginEvent(); 
+          this.loginEvent();
+        } else {
+          this.loginFailure(), 
+          error => console.log(error)
         }
-      }).catch(
-        this.loginFailure(), 
-        error => console.log(error)
-      )
+      }).catch();
   }
 
   loginEvent() {
