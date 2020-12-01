@@ -5,23 +5,38 @@ import { View, Text, StyleSheet, ScrollView, Button} from 'react-native';
 import SubmitButton from './SubmitButton';
 
 class NewPlant extends Component {
+    state = {
+        username: 'ayush'
+    }
+
+    componentDidMount() {
+        // this.state.username = this.props.username; 
+    }
+
     handleCreateSubmit = event => {
         event.preventDefault();
         
         const plantvals = this.create_plant_form.getValue(); 
     
         const new_plant = {
-          user_id: "7",
-          garden: garden.garden_name,
+          username: this.state.username,
+          garden: plantvals.garden_name,
           plant_name: plantvals.plant_name,
-          plant_type: plantvals.plant_type,
-          climate: garden.climate 
+          common_name: plantvals.plant_type,
+          trefle_id: '234'
         };
     
-        axios.post(`http://localhost:3000/plant/create`, new_plant)
+        axios.post(`http://localhost:3000/plants/add`, new_plant)
           .then(res => {
-            console.log(res);
             console.log(res.data);
+            Alert.alert(
+                "Success!",
+                "You added a new plant to your garden",
+                [
+                  { text: "OK", onPress: () => console.log("OK Pressed") }
+                ],
+                { cancelable: false }
+              );
           }).catch(
             error => console.log(error)
           )
@@ -56,22 +71,22 @@ var _ = require('lodash');
 const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
 
 //override text color globally
-t.form.Form.stylesheet.textbox.normal.color = '#9FA4A7';
-const formOptions = {
-    fields: {
-        name: {
-          stylesheet: stylesheet // overriding the style of the textbox
-        }
-      }
-}
+// t.form.Form.stylesheet.textbox.normal.color = '#9FA4A7';
+// const formOptions = {
+//     fields: {
+//         name: {
+//           stylesheet: stylesheet // overriding the style of the textbox
+//         }
+//       }
+// }
 
 // Creating a new plant - Form 
 const Form = t.form.Form; 
 
 const NewPlantForm = t.struct({ 
     plant_name: t.String, 
-    plant_type: t.String,
-    climate: t.String
+    common_name: t.String,
+    garden_name: t.String
 })
 
 
