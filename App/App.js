@@ -47,8 +47,8 @@ class App extends React.Component {
           this.loginEvent(); 
         }
       }).catch(
-        this.loginFailure(), 
-        error => console.log(error)
+        error => console.log(error),
+        this.loginFailure()
       )
   }
 
