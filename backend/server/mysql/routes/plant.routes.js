@@ -87,7 +87,7 @@ router.post('/add', (req, res) => {
   db.query(exists_plant, trefle_id, (err, results) => {
     num_plant = results[0].numPlant;
       if(num_plant > 0) {
-        let insert_plant = 'INSERT INTO plant(garden_name, trefle_id, user_id, common_name, date_planted, last_date_watered)' +
+        let insert_plant = 'INSERT INTO plant(garden_name, trefle_id, user_id, common_name, date_planted, date_last_watered)' +
                             'VALUES(?, ?, ?, ?, CURDATE(), CURDATE())';
         db.query(insert_plant, [garden_name, trefle_id, user_id, common_name], (err, results) => {
                 if(err) res.status(400).json('Error: ' + err);
@@ -106,7 +106,7 @@ router.post('/add', (req, res) => {
             const common_trefle = json.data.common_name;
             let insert_trefle = 'INSERT INTO trefle_info(trefle_id, common_name, scientific_name) VALUES(?, ?, ?)';
             db.query(insert_trefle, [trefle_id, common_trefle, scientific_name], (err, results) => {
-              let insert_plant = 'INSERT INTO plant(garden_name, trefle_id, user_id, common_name, date_planted, last_date_watered)' +
+              let insert_plant = 'INSERT INTO plant(garden_name, trefle_id, user_id, common_name, date_planted, date_last_watered)' +
                             'VALUES(?, ?, ?, ?, CURDATE(), CURDATE())';
 
               db.query(insert_plant, [garden_name, trefle_id, user_id, common_name], (err, results) => {

@@ -12,34 +12,37 @@ class User extends Component {
         lastname: 'agarwal',
         username: 'ayush',
         user: [],
-        num_plants: ["beep", "boop", "bow", "wow", "fake", "plant"],
-        num_gardens: ["backyard", "desk"]
+        num_plants: '',
+        num_gardens: ''
     }
 
     componentDidMount() {
-        // this.getNumGardens();
-        // this.getNumPlants();
+        this.getNumGardens();
+        this.getNumPlants();
+    }
+    
+    getUserInfo() {
+
+    }
+    getNumGardens() {
+        axios.get(`http://localhost:3000/gardens/num-gardens?username=`+this.state.username)
+            .then(res => {
+            const num_gardens = res.data.num_gardens; 
+            this.setState({ num_gardens });
+        }).catch(
+            error => console.log(error)
+        )
     }
 
-    // getNumGardens() {
-    //     axios.get(`http://localhost:3000/gardens/num-gardens/?username=`+this.state.username)
-    //         .then(res => {
-    //         const num_gardens = res.data; 
-    //         this.setState({ num_gardens });
-    //     }).catch(
-    //         error => console.log(error)
-    //     )
-    // }
-
-    // getNumPlants() {
-    //     axios.get(`http://localhost:3000/plants/num-plants/?username=`+this.state.username)
-    //         .then(res => {
-    //         const num_plants = res.data;
-    //         this.setState({ num_plants });
-    //     }).catch(
-    //         error => console.log(error)
-    //     )
-    // }
+    getNumPlants() {
+        axios.get(`http://localhost:3000/plants/num-plants?username=`+this.state.username)
+            .then(res => {
+            const num_plants = res.data.num_plants;
+            this.setState({ num_plants });
+        }).catch(
+            error => console.log(error)
+        )
+    }
 
     render(){
         // var user = this.state.user; 
@@ -72,8 +75,8 @@ class User extends Component {
                         <Col data={[
                             this.state.username, 
                             'tired cs student', 
-                            this.state.num_gardens.length,
-                            this.state.num_plants.length
+                            this.state.num_gardens,
+                            this.state.num_plants
                         ]}/>
                     </Table>
                 </View>

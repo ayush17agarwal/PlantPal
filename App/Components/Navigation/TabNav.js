@@ -27,7 +27,7 @@ const TabNav = ({username}) => {
         username={username}/>
       <Tab.Screen
         name="garden"
-        component={GardenStackNav}
+        component={() => <GardenStackNav username={username}/>}
         options={{
           tabBarLabel: 'garden',
           tabBarIcon: ({ focused }) => {
@@ -35,7 +35,7 @@ const TabNav = ({username}) => {
             ? require('../../Assets/leaf_sky.png')
             : require('../../Assets/leaf.png')
             return ( <Image source={image} style={{height:25, width:25}}/> )}}}
-        username={username} />
+       />
       <Tab.Screen
         name="search"
         component={SearchStackNav}

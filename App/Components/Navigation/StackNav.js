@@ -51,10 +51,9 @@ const GardenStackNav = ({username}) => {
         <Stack.Navigator screenOptions={screenOptionStyle}>
             <Stack.Screen 
                 name="garden" 
-                component={Garden}
+                component={props => <Garden {...props} username={username}/>}
                 options={({ navigation }) => ({
                     headerRight: () => (
-                        // <TouchableOpacity onPress={this.DropGardenMenu} >
                         <TouchableOpacity onPress={() => navigation.navigate('update gardens')} >
                             <Image 
                                 style={styles.icons} 
@@ -68,7 +67,6 @@ const GardenStackNav = ({username}) => {
                 component={Plant} 
                 options={({ navigation }) => ({
                     headerRight: () => (
-                        // <TouchableOpacity onPress={this.DropGardenMenu} >
                         <TouchableOpacity onPress={() => navigation.navigate('add a new plant')} >
                             <Image 
                                 style={styles.icons} 

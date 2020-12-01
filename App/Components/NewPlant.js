@@ -22,9 +22,8 @@ class NewPlant extends Component {
         const new_plant = {
           username: this.state.username,
           garden_name: plantvals.garden_name,
-          plant_name: plantvals.plant_name,
-          common_name: plantvals.plant_type,
-          trefle_id: 0
+          common_name: plantvals.common_name,
+          trefle_id: '186403'
         };
     
         axios.post(`http://localhost:3000/plants/add`, new_plant)
