@@ -5,11 +5,11 @@ require('dotenv').config();
 
 var router = express.Router();
 
-router.get('/health-per-garden', (req,res) => {
+router.get('/avg-health', (req,res) => {
     let sql = 
-        'SELECT count(*), avg(health) FROM plant NATURAL JOIN garden GROUP BY garden.garden_id';
+        'SELECT avg(health) AS avg_health FROM plant NATURAL JOIN user WHERE username=? GROUP BY user_id;';
 
-    db.query(sql, (err, results) => {
+    db.query(sql, [req.query.username], (err, results) => {
     if (err) {
       return res.send({success: false, error: err});
     }
