@@ -5,7 +5,7 @@ import { GardenStackNav, SocialStackNav, SearchStackNav, UserStackNav } from "./
 
 const Tab = createBottomTabNavigator();
 
-const TabNav = () => {
+const TabNav = ({username}) => {
   return (
     <Tab.Navigator
       initialRouteName="garden"
@@ -13,7 +13,7 @@ const TabNav = () => {
         style: { backgroundColor: '#769CB9'},
         activeTintColor: '#C8E3F9',
         inactiveTintColor: '#FFFFFF'}} >
-      <Tab.Screen
+      <Tab.Screen 
         name="social"
         component={SocialStackNav}
         options={{
@@ -23,7 +23,8 @@ const TabNav = () => {
             ? require('../../Assets/globe_sky.png')
             : require('../../Assets/globe.png')
             return (
-              <Image source={image} style={{height:25, width:25}}/> )}}} />
+              <Image source={image} style={{height:25, width:25}}/> )}}} 
+        username-={username}/>
       <Tab.Screen
         name="garden"
         component={GardenStackNav}
@@ -33,7 +34,8 @@ const TabNav = () => {
             const image = focused
             ? require('../../Assets/leaf_sky.png')
             : require('../../Assets/leaf.png')
-            return ( <Image source={image} style={{height:25, width:25}}/> )}}} />
+            return ( <Image source={image} style={{height:25, width:25}}/> )}}}
+        username-={username} />
       <Tab.Screen
         name="search"
         component={SearchStackNav}

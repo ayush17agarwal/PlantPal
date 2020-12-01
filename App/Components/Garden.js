@@ -3,7 +3,7 @@ import { Header, LearnMoreLinks, Colors, DebugInstructions, ReloadInstructions, 
 import { StyleSheet, ScrollView, View, Text, Image, Button, Aler, TouchableOpacity} from 'react-native';
 import { Card, Divider, Input } from 'react-native-elements'
 import { color } from 'react-native-reanimated';
-import Camera from 'react-native-camera';
+import {Camera, RNCamera} from 'react-native-camera';
 
 import Plant from './Plant';
 import SubmitButton from './SubmitButton';
@@ -17,7 +17,7 @@ class Garden extends React.Component {
     }
 
     componentDidMount() {
-        const username = "ayush";
+        const username = this.props.username;
         this.state.username = username; 
         this.refreshGardens(); 
     }
@@ -38,47 +38,15 @@ class Garden extends React.Component {
         
         return(
             <ScrollView>
-            <View>
-            {
-                this.state.gardens.map((new_garden) => {
-                    return( 
-                        <GardenCard garden={new_garden} navComponent={nav}/>
-                    )
-                }) 
-            }
-            </View>
-            <Divider></Divider>
-            {/* <View>
-                <Text style={styles.title}>
-                    Add a new garden
-                </Text>
-                <Form type={CreateGarden} ref={c => this.create_garden_form = c}/>
-                <SubmitButton
-                    title="Submit!"
-                    onPress={this.handleCreateSubmit}
-                />
-            </View>  
-            <Divider/>
-            <View>
-                <Text style={styles.title}>
-                    {'\n'}Delete a Garden (Enter an ID)
-                </Text>
-                <Form type={DeleteGarden} ref={c => this.delete_garden_form = c}/>
-                <SubmitButton
-                    title="Submit!"
-                    onPress={this.handleDeleteSubmit}
-                />
-            </View> */}
-            {/* <View>
-                <Text style={styles.title}>
-                {'\n'}Update a Garden (Enter an ID and name for the garden)
-                </Text> 
-                <Form type={UpdateGarden} ref={c => this.update_garden_form = c}/>
-                <SubmitButton
-                    title="update"
-                    onPress={this.handleUpdateSubmit}
-                />
-            </View> */}
+              <View>
+              {
+                  this.state.gardens.map((new_garden, i) => {
+                      return( 
+                          <GardenCard garden={new_garden} navComponent={nav} key={i}/>
+                      )
+                  }) 
+              }
+              </View>
             </ScrollView>
             
         )

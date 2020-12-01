@@ -34,11 +34,16 @@ const screenOptionStyle = {
     headerBackTitle: " ",
 };
 
-// const SignInNav = () => {
-//     return(
-
-//     )
-// }
+const SignInNav = () => {
+    return(
+        <Stack.Navigator screenOptions={screenOptionStyle}>
+            <Stack.Screen 
+                name="garden" 
+                component={Garden}
+                />
+        </Stack.Navigator>
+    )
+}
 
 const GardenStackNav = () => {
     return (

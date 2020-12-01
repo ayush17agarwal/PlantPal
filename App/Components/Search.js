@@ -5,6 +5,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 class Search extends Component {
     render(){
         var nav = this.props.navigation;
+        
         return (
             <View style={styles.container}>
                 <TouchableOpacity

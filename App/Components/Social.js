@@ -38,21 +38,18 @@ class Social extends Component {
                 <View>
                     <View>
                     {
-                        this.state.posts.map((new_post) => {
+                        this.state.posts.map((new_post, i) => {
                             return( 
                                 <>
-                                <SocialCard username={this.state.username} post={new_post} navComponent={nav}/>
+                                <SocialCard username={this.state.username} 
+                                            post={new_post} 
+                                            navComponent={nav} key={i}/>
                                 </>
                             )
                         }) 
                         
                     }
                     </View> 
-                    
-                    {/* <Button
-                        title="create a new post on your feed!"
-                        onPress={() => nav.navigate('socialPost')}
-                    /> */}
                 </View> 
             </ScrollView>
             

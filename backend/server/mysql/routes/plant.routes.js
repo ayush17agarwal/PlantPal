@@ -28,6 +28,16 @@ router.get('/all-plants', (req, res) =>{
   })
 })
 
+router.get('/all-user-plants', (req, res) =>{
+  const {username} = req.query;
+
+  let sql = 'SELECT * FROM plant WHERE username = ?'; 
+  db.query(sql, garden_name, (err, results) => {
+    res.send(results);
+    console.log('Fetched all plants for this user...');
+  })
+})
+
 router.get('', (req, res) => {
   const {plant_id} = req.query;
 
