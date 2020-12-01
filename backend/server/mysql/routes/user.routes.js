@@ -5,7 +5,7 @@ var router = express.Router();
 //request looks something like /signin?user=<username>&passwd=<password>
 router.get('/signin', (req, res) => {
   let sql =
-    'SELECT user_id, first_name FROM user WHERE username = ? AND passwd = MD5(?)';
+    'SELECT username FROM user WHERE username = ? AND passwd = MD5(?)';
   db.query(sql, [req.query.user, req.query.passwd], (err, results) => {
     if (err) {
       throw err;
