@@ -8,7 +8,7 @@ router.get('/signin', (req, res) => {
     'SELECT user_id, first_name FROM user WHERE username = ? AND passwd = MD5(?)';
   db.query(sql, [req.query.user, req.query.passwd], (err, results) => {
     if (err) {
-      res.status(400).json('Error' + err);  //throw err;
+      throw err;
     }
     res.send(results);
     console.log('User fetched...');

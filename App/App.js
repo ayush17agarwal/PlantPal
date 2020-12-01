@@ -42,14 +42,16 @@ class App extends React.Component {
     axios.get('http://localhost:3000/users/signin?user=' + login_info.username + '&passwd=' + login_info.password)
       .then(res => {
         console.log(res);
-        if (res.data && res.data.length > 0) {
+        if (res.data.success) {
           this.state.username = login_info.username;
-          this.loginEvent(); 
+          return this.loginEvent(); 
+        } else {
+          this.loginFailure()
         }
-      }).catch(
-        error => console.log(error),
-        this.loginFailure()
-      )
+      })
+      // .catch(error => {
+      //   console.log(error);
+      // })
   }
 
   loginEvent() {
