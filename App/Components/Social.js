@@ -15,35 +15,97 @@ class Social extends Component {
     }
 
     componentDidMount() {
-        const username = "ayush";
+        const username = this.props.username;
         this.state.username = username; 
-        this.refreshPosts()
+        this.refreshPosts();
     }
 
     refreshPosts() {
-        axios.get(`http://localhost:3000/posts?username=`+this.state.username)
+        axios.get(`http://localhost:3000/posts/all`)
             .then(res => {
             const posts = res.data;
-            console.log(posts);
             this.setState({ posts });
-        }).catch(
-            error => console.log(error)
-        )
+        })
+    }
+
+    getNumLikes = (post_id) =>{
+        // let num_likes = ''; 
+        axios.get(`http://localhost:3000/posts/num-likes?post_id=`+post_id)
+            .then(res => {
+            // console.log(res.data); 
+            return res.data; 
+        })
+    }
+
+    likeAPost = (post_id) => {
+        const new_post = {
+            username: this.state.username,
+            post_id: post_id
+        }
+
+        axios.post(`http://localhost:3000/posts/like`, new_post)
+          .then(res => {
+            
+            if (res.data.success) {
+                // console.log(res.data); 
+                // Alert.alert(
+                //     "liked ! ",
+                //     "keep spreading the love",
+                //     [
+                //       { text: "OK", onPress: () => console.log("OK Pressed") }
+                //     ],
+                //     { cancelable: false }
+                // );
+            }
+          })
+        this.refreshPosts();
+        this.forceUpdate();
+    }
+
+
+    SocialCard = ({username, post, num_likes, nav}) => {
+        return(
+          <Card containerStyle={styles.card}>
+              <View>
+                <TouchableOpacity onPress={ () => this.likeAPost(post._id) } > 
+                  <Image 
+                      style={styles.icons} 
+                      source={require('../Assets/love_outline.png')}
+                    //   onPress={ () => this.setState({ showSoundImg: !this.state.showSoundImg }) } 
+                    
+                      />
+    
+                </TouchableOpacity>
+            </View>
+            <Card.Title style={styles.cardUsername}>@{post.username}</Card.Title>
+            {/* <Card.Divider style={styles.divider}/> */}
+            <Text style={styles.cardText}>{post.caption}</Text>
+            <Text style={styles.cardText}>{num_likes}</Text>
+          </Card>
+        ); 
     }
 
     render(){
         var nav = this.props.navigation;
+        var num_likes = '';
 
         return (
+            
             <ScrollView>
                 <View>
                     <View>
                     {
                         this.state.posts.map((new_post, i) => {
+                            // console.log(new_post._id);
+                            // var num_likes = this.getNumLikes(new_post._id);
+                            // console.log(num_likes); 
+                            num_likes = this.getNumLikes(new_post._id);
+                            // console.log(this.getNumLikes(new_post._id)); 
                             return( 
                                 <>
-                                <SocialCard username={this.state.username} 
+                                <this.SocialCard username={this.state.username} 
                                             post={new_post} 
+                                            // num_likes={data}
                                             navComponent={nav} key={i}/>
                                 </>
                             )
@@ -56,26 +118,6 @@ class Social extends Component {
             
         );
     }
-}
-
-const SocialCard = ({username, post, nav}) => {
-    return(
-      <Card containerStyle={styles.card}>
-          <View>
-            <TouchableOpacity> 
-              <Image 
-                  style={styles.icons} 
-                  source={require('../Assets/love_outline.png')}
-                  onPress={ () => this.setState({ showSoundImg: !this.state.showSoundImg }) } 
-          
-                  />
-            </TouchableOpacity>
-        </View>
-        <Card.Title style={styles.cardUsername}>@{username}</Card.Title>
-        {/* <Card.Divider style={styles.divider}/> */}
-        <Text style={styles.cardText}>{post.caption}</Text>
-      </Card>
-    ); 
 }
 
 const styles = StyleSheet.create({

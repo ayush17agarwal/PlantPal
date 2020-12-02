@@ -43,9 +43,6 @@ class App extends React.Component {
     
     axios.get('http://localhost:3000/users/signin?user=' + login_info.username + '&passwd=' + login_info.password)
       .then(res => {
-        console.log(res.data.success); 
-        console.log(res.data.results[0]);
-        
         if (res.data.success) {
           var usernameCondition = res.data.results[0].username.toUpperCase() == login_info.username.toUpperCase();
 

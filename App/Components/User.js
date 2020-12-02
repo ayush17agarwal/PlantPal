@@ -12,7 +12,8 @@ class User extends Component {
         user: [],
         num_plants: '',
         num_gardens: '',
-        avg_health: ''
+        avg_health: '',
+        num_posts: ''
     }
 
     componentDidMount() {
@@ -20,6 +21,7 @@ class User extends Component {
         this.getNumGardens();
         this.getNumPlants();
         this.getUserInfo(); 
+        this.getNumPosts(); 
     }
     
     getUserInfo() {
@@ -52,6 +54,14 @@ class User extends Component {
         )
     }
 
+    getNumPosts() {
+        axios.get(`http://localhost:3000/posts/num-posts?username=`+this.state.username)
+            .then(res => {
+            const num_posts = res.data.sum;
+            this.setState({ num_posts });
+        })
+    }
+
     findAvgPlantHealth() {
         axios.get(`http://localhost:3000/plants/avg-health?username=`+this.state.username)
             .then(res => {
@@ -82,14 +92,16 @@ class User extends Component {
                             username{'\n\n'}
                             about{'\n\n'}
                             gardens{'\n\n'}
-                            plants
+                            plants{'\n\n'}
+                            num posts
                     </Text>
                     <View style={styles.divider} />
                     <Text style={styles.col2}>
                         {this.state.username}{'\n\n'}
                         tired cs student{'\n\n'} 
                         {this.state.num_gardens}{'\n\n'}
-                        {this.state.num_plants}
+                        {this.state.num_plants}{'\n\n'}
+                        {this.state.num_posts}
                     </Text>
                 </View>
             </ScrollView>

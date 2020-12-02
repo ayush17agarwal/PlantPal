@@ -9,7 +9,10 @@ import SubmitButton from './SubmitButton';
 class SocialPost extends Component {
     state = {
         posts: [],
-        username: 'ayush'
+        username: ''
+    }
+    componentDidMount() {
+        this.state.username = this.props.username; 
     }
 
     handleCreateSubmit = event => {
@@ -21,14 +24,26 @@ class SocialPost extends Component {
           username: this.state.username,
           caption: socialpostvals.caption
         };
+        console.log(new_post);
     
         axios.post(`http://localhost:3000/posts/add`, new_post)
           .then(res => {
-            console.log(res);
-            console.log(res.data);
-          }).catch(
-            error => console.log(error)
-          )
+            // console.log(res);
+            // console.log(res.data);
+            if (res.data.success) {
+                Alert.alert(
+                    "added post ! ",
+                    "taking you to your feed ... ",
+                    [
+                      { text: "OK", onPress: () => console.log("OK Pressed") }
+                    ],
+                    { cancelable: false }
+                );
+            }
+          })
+        
+          this.forceUpdate(); 
+          this.props.navigation.navigate('social'); 
     }
 
     render(){
@@ -99,7 +114,7 @@ const styles = StyleSheet.create({
 const Form = t.form.Form; 
 
 const CreateSocialMediaPost = t.struct({ 
-    message: t.String
+    caption: t.String
 })
 
 export default SocialPost;
