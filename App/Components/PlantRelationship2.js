@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     color: '#86B58F',
     fontFamily: 'Roboto',
     fontWeight: 'bold',
-    fontSize: 50,
+    fontSize: 40,
     alignSelf: 'center'
   },
   bold: {
