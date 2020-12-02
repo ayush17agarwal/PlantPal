@@ -80,7 +80,7 @@ const SocialStackNav = ({username}) => {
       <Stack.Navigator screenOptions={screenOptionStyle}>
             <Stack.Screen 
                 name="social" 
-                component={Social}
+                component={props => <Social {...props} username={username}/>}
                 options={({ navigation }) => ({
                     headerRight: () => (
                         <TouchableOpacity onPress={() => navigation.navigate('create post')} >
@@ -92,7 +92,7 @@ const SocialStackNav = ({username}) => {
                 })} />
             <Stack.Screen 
                 name="create post" 
-                component={SocialPost} 
+                component={props => <SocialPost {...props} username={username}/>} 
                 />
       </Stack.Navigator>
     );
@@ -104,9 +104,12 @@ const SearchStackNav = ({username}) => {
             <Stack.Screen 
                 name="search" 
                 component={props => <Search {...props} username={username}/>} />
-            <Stack.Screen name="identify mystery plant" component={MysteryPlant} />
-            <Stack.Screen name="identify plant relationship" component={props => <PlantRelationship {...props} username={username}/>} />
-            <Stack.Screen name="plant relationship" component={PlantRelationship2} />
+            <Stack.Screen name="identify mystery plant" 
+                component={MysteryPlant} />
+            <Stack.Screen name="identify plant relationship" 
+                component={props => <PlantRelationship {...props} username={username}/>} />
+            <Stack.Screen name="plant relationship" 
+                component={PlantRelationship2} />
       </Stack.Navigator>
     );
 }
@@ -126,7 +129,7 @@ const UserStackNav = ({username}) => {
                         </TouchableOpacity>
                     )
                 })} />
-            <Stack.Screen name="settings" component={Settings} />
+            <Stack.Screen name="settings" component={props => <Settings {...props} username={username}/>} />
       </Stack.Navigator>
     );
 }
