@@ -16,7 +16,8 @@ class NewPlant extends Component {
         username: '',
         plants: [], 
         gardens: [],
-        garden_name: ''
+        garden_name: '',
+        nickname
     }
 
     componentDidMount() {
@@ -35,7 +36,8 @@ class NewPlant extends Component {
           garden_name: this.state.garden_name,
           username: this.state.username,
           common_name: plant.common_name,
-          trefle_id: plant.id
+          trefle_id: plant.id,
+          nickname: this.state.nickname
         };
 
         axios.post(`http://localhost:3000/plants/add`, new_plant)
@@ -60,6 +62,7 @@ class NewPlant extends Component {
         const formvals = this.find_new_plant_form.getValue(); 
         
         this.state.garden_name = formvals.garden;
+        this.state.nickname = formvals.nickname; 
 
         axios.get(`http://localhost:3000/plants/search?common=`+formvals.common_name)
             .then(res => {
@@ -110,6 +113,7 @@ class NewPlant extends Component {
         
         NewPlantForm = t.struct({
             common_name: t.String,
+            nickname: t.String,
             garden: gardens_as_enum
         }); 
 
