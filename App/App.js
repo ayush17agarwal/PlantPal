@@ -42,15 +42,19 @@ class App extends React.Component {
     axios.get('http://localhost:3000/users/signin?user=' + login_info.username + '&passwd=' + login_info.password)
       .then(res => {
         console.log(res);
-        if (res.data && res.data.length > 0) {
+        if (res.data.success) {
           this.state.username = login_info.username;
-          this.loginEvent();
+          this.loginEvent(); 
         } else {
-          this.loginFailure();
-          // error => console.log(error);
+          this.loginFailure()
         }
-      }).catch();
+      }).catch()
+      // .catch(error => {
+      //   console.log(error);
+      // })
   }
+
+  
 
   loginEvent() {
     this.state.loginSuccessful = true; 
@@ -71,7 +75,6 @@ class App extends React.Component {
 
   LoginPage = () => {
     return( 
-      <View style={styles.bkgrnd}>
       <ScrollView style={styles.container}> 
           <View style={styles.viewContainer}>
             <Text style={styles.textHeader1}>
@@ -92,7 +95,7 @@ class App extends React.Component {
           <SubmitButton
             title="sign in"
             onPress={this.handleLoginSubmit} />
-      </ScrollView></View>
+      </ScrollView>
     )
   }
 
@@ -122,13 +125,13 @@ const LoginForm = t.struct({
   })
 
 const styles = StyleSheet.create({
-  bkgrnd: {
+  container: {
     backgroundColor: '#F2F2F2'
   },
-  container: {
+  viewContainer: {
     marginTop: 150,
     marginHorizontal: 50,
-    alignContent: 'center',
+    alignContent: 'center'
   },
   textHeader1: {
     color: '#86B58F',
@@ -151,7 +154,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   form: {
-    marginVertical: 20
+    marginVertical: 20,
+    marginHorizontal: 50,
   }
 });
 
