@@ -34,29 +34,6 @@ class PlantRelationship2 extends Component {
     })
   }
   
-  // findSimilarity() {
-  //   var plant1 = this.state.plant1Info;
-  //   var plant2 = this.state.plant2Info; 
-
-   
-  //   var i = 0; 
-  //   var total = 0;
-  //   for (key1 in this.state.plant1Info) {
-  //     console.log(key1);
-  //   } 
-  //   // while(keys.hasNext()) {
-  //   //   String key = keys.next();
-  //   //   if (plant1.get(key) == plant2.get(key)) {
-  //   //       i = i + 1;   
-  //   //   }
-  //   //   total = total+1; 
-  //   // }
-
-  //   console.log(i);
-  //   console.log(total); 
-
-  //   this.forceUpdate();
-  // }
   // https://stackoverflow.com/questions/10473745/compare-strings-javascript-return-of-likely 
   editDistance(s1, s2) {
     s1 = s1.toLowerCase();
