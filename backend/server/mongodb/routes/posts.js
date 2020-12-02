@@ -1,6 +1,45 @@
 const router = require('express').Router();
 let Post = require('../models/post.model');
 let Comment = require('../models/comment.model');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, './uploads/');
+    },
+    filename: function(req, file, cb) {
+        cb(null, Date.now() + file.originalname)
+    }
+});
+
+const fileFilter = (req, file, cb) => {
+    if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        cb(null, true);
+    } else {
+        cb(new Error('file not an image'), false);
+    }
+}
+
+const upload = multer({
+    storage: storage, 
+    limits: {fileSize: 1024 * 1024 * 5},
+    fileFilter: fileFilter
+});
+
+router.post('/new', upload.single('image'), (req, res) => {
+    const{caption, username} = req.body;
+    const image = req.file.path.replace(/\\/g, "/");
+
+    const newPost = new Post({username, caption, image});
+    newPost.save()
+        .then(() => {
+            return res.send({
+                success: true,
+                message: 'Added a post with image...'
+            });
+        })
+        .catch((err) => res.status(400).json('Error: ' + err));
+});
 
 
 //add like
