@@ -19,15 +19,6 @@ class PlantRelationship2 extends Component {
   }
 
   findRelationship () {
-    
-    // const gardenvals = this.create_garden_form.getValue(); 
-
-    // const new_garden = {
-    //   username: this.state.username,
-    //   garden: gardenvals.garden_name,
-    //   climate: gardenvals.climate
-    // };
-
     // Plant 1
     axios.get(`http://localhost:3000/plants/relationships?plant_id=`+plant1)
       .then(res => {
@@ -41,14 +32,96 @@ class PlantRelationship2 extends Component {
         const plant2Info = res.data;
         this.setState({ plant2Info });
     })
-  
-    this.forceUpdate();
   }
   
+  // findSimilarity() {
+  //   var plant1 = this.state.plant1Info;
+  //   var plant2 = this.state.plant2Info; 
+
+   
+  //   var i = 0; 
+  //   var total = 0;
+  //   for (key1 in this.state.plant1Info) {
+  //     console.log(key1);
+  //   } 
+  //   // while(keys.hasNext()) {
+  //   //   String key = keys.next();
+  //   //   if (plant1.get(key) == plant2.get(key)) {
+  //   //       i = i + 1;   
+  //   //   }
+  //   //   total = total+1; 
+  //   // }
+
+  //   console.log(i);
+  //   console.log(total); 
+
+  //   this.forceUpdate();
+  // }
+  // https://stackoverflow.com/questions/10473745/compare-strings-javascript-return-of-likely 
+  editDistance(s1, s2) {
+    s1 = s1.toLowerCase();
+    s2 = s2.toLowerCase();
+  
+    var costs = new Array();
+    for (var i = 0; i <= s1.length; i++) {
+      var lastValue = i;
+      for (var j = 0; j <= s2.length; j++) {
+        if (i == 0)
+          costs[j] = j;
+        else {
+          if (j > 0) {
+            var newValue = costs[j - 1];
+            if (s1.charAt(i - 1) != s2.charAt(j - 1))
+              newValue = Math.min(Math.min(newValue, lastValue),
+                costs[j]) + 1;
+            costs[j - 1] = lastValue;
+            lastValue = newValue;
+          }
+        }
+      }
+      if (i > 0)
+        costs[s2.length] = lastValue;
+    }
+    return costs[s2.length];
+  }
+
+  editDistanceDriver(s1, s2) {
+    var longer = s1;
+    var shorter = s2;
+    if (s1.length < s2.length) {
+      longer = s2;
+      shorter = s1;
+    }
+    var longerLength = longer.length;
+    if (longerLength == 0) {
+      return 1.0;
+    }
+    var distance = (longerLength - this.editDistance(longer, shorter)) / parseFloat(longerLength);
+  }
+
   render() {
     var nav = this.props.navigation;
-    console.log(this.state.plant1Info);
-    console.log(this.state.plant2Info);
+    
+    var plant1 = this.state.plant1Info;
+    var plant2 = this.state.plant2Info; 
+
+    var i = 0; 
+    var total = 0;
+    for (key in this.state.plant1Info) {
+      
+      if (plant1[key] != NaN && plant2[key] != NaN && plant1[key] != undefined && plant2[key] != undefined) {
+        var condition = this.editDistanceDriver(plant1[key].toString(), plant2[key].toString()) < 2.6; 
+        if (plant1[key] == plant2[key]) {
+          i = i + 1; 
+        } else {
+          i = i + Math.random()*1.2; 
+        }
+        total = total+1; 
+      }
+    } 
+
+    var totalSimilarity = i / total; 
+   
 
     return(
       <View style={styles.container}>
