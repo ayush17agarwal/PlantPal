@@ -161,7 +161,10 @@ router.get('/num-plants', (req, res) => {
 });
 
 router.post('/health', (req, res) => {
-  let sql = 'UPDATE plant SET health = ((12 - (CURDATE() - date_last_watered))/12) * 100 WHERE user_id IN (SELECT user_id FROM user WHERE username=?);';
+  let sql = 'UPDATE plant SET health = CASE WHEN health <= 0 THEN 0 ' + 
+            'WHEN ((12 - DATEDIFF(CURDATE(), date_last_watered))/12) * 100 < 0 THEN 0 ' + 
+            'ELSE ((12 - DATEDIFF(CURDATE(), date_last_watered))/12) * 100 END ' + 
+            'WHERE user_id IN (SELECT user_id FROM user WHERE username=?)';
   const {username} = req.query;
 
   db.query(sql, username, (err, results) => {
@@ -214,10 +217,7 @@ router.get('/all-user-plants', (req, res) =>{
 
 router.post('/trefle', (req, res) => {
   const {trefle_id, common_name, scientific_name} = req.body;
-  console.log(req.body);
-  console.log(trefle_id);
-  console.log(common_name);
-  console.log(scientific_name);
+
   db.query('INSERT INTO trefle_info(trefle_id, common_name, scientific_name) VALUES(?,?,?)', [trefle_id, common_name, scientific_name], (err, results) => {
     console.log('done');
     res.send({success: true});
