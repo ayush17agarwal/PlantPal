@@ -17,7 +17,7 @@ class NewPlant extends Component {
         plants: [], 
         gardens: [],
         garden_name: '',
-        nickname
+        nickname: ''
     }
 
     componentDidMount() {
