@@ -43,13 +43,14 @@ class App extends React.Component {
     // console.log
     axios.get('http://localhost:3000/users/signin?user=' + login_info.username + '&passwd=' + login_info.password)
       .then(res => {
-        if (res.data.success) {
+        if (res.data.success && res.data.results[0]) {
           var usernameCondition = res.data.results[0].username.toUpperCase() == login_info.username.toUpperCase();
 
           if (usernameCondition) {
             this.state.username = login_info.username;
             return this.loginEvent(); 
           } else {
+            console.log('here');
             return this.loginFailure();
           }
         } else {
@@ -64,7 +65,7 @@ class App extends React.Component {
   }
 
   loginFailure() {
-    console.log('here');
+    
     this.state.loginSuccessful = false; 
     Alert.alert(
       "incorrect login information ",
@@ -128,6 +129,7 @@ const LoginForm = t.struct({
     username: t.String, 
     password: t.String
   });
+
 this.options = {
   auto: 'placeholder',
   fields: {
