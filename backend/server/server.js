@@ -26,6 +26,7 @@ app.use('/plants', plant);
 app.use('/tips', tip);
 app.use('/comments', comment);
 app.use('/posts', post);
+app.use('/uploads', express.static('uploads'));
 
 //Server port and stuff. DON'T TOUCH!!!!!!
 module.exports = app;
