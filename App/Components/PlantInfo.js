@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, Button} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, Button} from 'react-native';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 
 import SubmitButton from './SubmitButton';
@@ -59,35 +59,32 @@ class PlantInfo extends Component {
 
     render(){
         const plant = this.state.plant_info; 
-        console.log(plant);
+        console.log(plant.nickname);
         return (
-            <ScrollView style={styles.container}> 
-                <Text>{plant.common_name}</Text>
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <ScrollView> 
+                <View style={styles.container}>
                     <Text style={styles.textHeader}>{plant.nickname}</Text>
+                    <Text style={styles.textSubheader}>
+                        type: {plant.common_name}{'\n'} 
+                        health: {plant.health+'%'}{'\n'}
+                        date planted: {plant.date_planted}{'\n'} 
+                        last watered: {plant.date_last_watered}{'\n'}
+                    </Text>
+
+                    <Image
+                    source={require('../Assets/potted_plant.png')}
+                    style={styles.pottedPlant} />
+                    <Text>{'\n\n'}</Text>
+                    
+                    <SubmitButton
+                        title="water plant"
+                        onPress={this.handlePlantWaterEvent} />
+
+                    <Text style={styles.plant}>
+                        {'\n\n'}plant
+                        <Text style={styles.pal}>pal</Text>
+                    </Text>
                 </View>
-                <View style={styles.dividerStyle} />
-                <View> 
-                    <Table>
-                        <TableWrapper>
-                        <Row data={["plant type", plant.common_name]}></Row>
-                        <Row data={["date planted", plant.date_planted]}></Row>
-                        <Row data={["last watered", plant.date_last_watered]}></Row>
-                        <Row data={["last fertilized", plant.last_fertilized]}></Row>
-                        <Row data={["health", plant.health]}></Row>
-                        <Row data={["genus", plant.genus]}></Row>
-                        <Row data={["species", plant.species]}></Row>
-                        </TableWrapper>
-                    </Table>
-                </View>
-                <SubmitButton
-                    title="water plant"
-                    onPress={this.handlePlantWaterEvent}
-                />
-                <SubmitButton
-                    title="fertilize plant"
-                    onPress={this.handlePlantFertilizeEvent}
-                />
             </ScrollView>
         );
     }
@@ -99,21 +96,38 @@ const styles = StyleSheet.create({
         padding: 24
     },
     textHeader: {
-        color: '#86B58F',
-        fontSize: 35,
+        color: '#356487',
+        fontSize: 26,
+        fontWeight: 'bold',
         fontFamily: 'Roboto',
         padding: 12
     },
-    dividerStyle: {
-        borderBottomColor: '#86B58F',
-        borderBottomWidth: 2,
-        padding: 11
-    },
     textSubheader: {
+        color: '#356487',
+        fontSize: 18,
+        fontFamily: 'Roboto',
+        padding: 12
+    },
+    pottedPlant: {
+        marginVertical: 10,
+        width: 150,
+        height: 200,
+        alignSelf: 'center'
+    },
+    plant: {
         color: '#86B58F',
-        fontSize: 20,
-        fontFamily: 'Roboto'
-    }
+        fontSize: 22,
+        fontFamily: 'Roboto',
+        fontWeight: 'bold',
+        padding: 12,
+        alignSelf: 'center'
+    },
+    pal: {
+        color: '#B2D1D1',
+        fontSize: 22,
+        fontFamily: 'Roboto',
+        padding: 12
+    },
 });
 
 export default PlantInfo;

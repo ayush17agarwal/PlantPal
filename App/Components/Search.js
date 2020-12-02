@@ -8,18 +8,10 @@ class Search extends Component {
         
         return (
             <View style={styles.container}>
-                <TouchableOpacity
-                    style={styles.buttons} 
-                    onPress={() => nav.navigate('identify mystery plant')}
-                    >
-                    <Text style={styles.buttonText}>
-                        identify mystery plant{'\n'}
-                    </Text>
-                    <Image
-                        source={require('../Assets/camera.png')}
-                        style={styles.buttonIcon}
-                    />
-                </TouchableOpacity>
+                <Text style={styles.plant}>
+                    {'\n'}plant
+                <Text style={styles.pal}>pal{'\n'}</Text>
+                </Text>
                 <TouchableOpacity 
                     style={styles.buttons}
                     onPress={() => nav.navigate('identify plant relationship')}
@@ -69,6 +61,20 @@ const styles = StyleSheet.create({
         width: 150,
         height: 200,
         alignSelf: 'center'
-    }
+    },
+    plant: {
+        color: '#86B58F',
+        fontSize: 22,
+        fontFamily: 'Roboto',
+        fontWeight: 'bold',
+        padding: 12,
+        alignSelf: 'center'
+    },
+    pal: {
+        color: '#B2D1D1',
+        fontSize: 22,
+        fontFamily: 'Roboto',
+        padding: 12
+    },
 });
 export default Search;

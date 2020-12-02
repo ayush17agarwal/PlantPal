@@ -112,7 +112,7 @@ class GardenManipulation extends Component {
                         onPress={this.handleDeleteSubmit}
                     />
                 </View>
-                <View>
+                <View style={styles.update}>
                     <Text style={styles.textSubheader}>{'\n'}rename a garden</Text> 
                     <Form type={UpdateGarden} ref={c => this.update_garden_form = c}/>
                     <SubmitButton
@@ -165,6 +165,9 @@ const styles = StyleSheet.create({
     },
     submitButton: {
         color:'#769CB9'
+    },
+    update: {
+      paddingBottom: 50
     }
 });
 

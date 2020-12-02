@@ -78,12 +78,12 @@ const PlantCard = ({plant, navComponent, garden_name}) => {
             <Image
                 source={require('../Assets/plant.png')}
                 style={styles.image} />
-            {'\t'}type: {plant.common_name}{'\t'}
+            {'\t'}type: {plant.common_name}{'\n'}
 
             <Image
                 source={require('../Assets/love_outline.png')}
                 style={styles.image} />
-            {'\t'}health: {plant.health+'%'}{'\n\n'}
+            {'\t'}health: {plant.health+'%'}{'\n'}
             
 
             <Image

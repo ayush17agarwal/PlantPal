@@ -218,6 +218,10 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginLeft: 20
     },
+    icons: {
+        width: 20,
+        height: 20
+    }
 });
 
 export default NewPlant;

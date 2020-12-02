@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity} from 'react-native';
 import SubmitButton from './SubmitButton';
 
 import axios from 'axios';
@@ -78,7 +78,6 @@ class PlantRelationship2 extends Component {
 
   render() {
     var nav = this.props.navigation;
-    
     var plant1 = this.state.plant1Info;
     var plant2 = this.state.plant2Info; 
 
@@ -99,16 +98,63 @@ class PlantRelationship2 extends Component {
 
     var totalSimilarity = i / total; 
    
+    
 
     return(
+      <View style={styles.wrapper}>
       <View style={styles.container}>
-        <TouchableOpacity
-              style={styles.buttons} 
-              >
-              <Text style={styles.buttonText}>
-                  find relationship
+        <View style={styles.infoCol}>
+            <Text style={styles.heading}> </Text>
+            <Text style={styles.text}>
+              <Text style={styles.bold}>
+                rank{'\n'}
+                name{'\n'}
+                found{'\n'}
+                family{'\n'}
+                fcm{'\n'}
+                genus{'\n'}
+                species{'\n'}
+                edible{'\n'}
+                veggie
               </Text>
-          </TouchableOpacity>
+            </Text>
+        </View>
+        <View style={styles.col}>
+            <Text style={styles.heading}>plant 1</Text>
+            <Text style={styles.text}>
+              {plant1.rank}{'\n'}
+              {plant1.common_name}{'\n'}
+              {plant1.year}{'\n'}
+              {plant1.family}{'\n'}
+              {plant1.family_common_name}{'\n'}
+              {plant1.genus}{'\n'}
+              {plant1.scientific_name}{'\n'}
+              {plant1.edible? 'True':'False'}{'\n'}
+              {plant1.vegetable? 'True':'False'}
+            </Text>
+        </View>
+        <View style={styles.col}>
+            <Text style={styles.heading}>plant 2</Text>
+            <Text style={styles.text}>
+              {plant2.rank}{'\n'}
+              {plant2.common_name}{'\n'}
+              {plant2.year}{'\n'}
+              {plant2.family}{'\n'}
+              {plant2.family_common_name}{'\n'}
+              {plant2.genus}{'\n'}
+              {plant2.scientific_name}{'\n'}
+              {plant2.edible? 'True':'False'}{'\n'}
+              {plant2.vegetable? 'True':'False'}
+          </Text>
+        </View>
+      </View>
+
+      <Image
+        source={require('../Assets/potted_plant.png')}
+        style={styles.pottedPlant} />
+      
+      <Text style={styles.simText}>{totalSimilarity.toFixed(5)}</Text>
+      <Text style={styles.bold}>similarity factor</Text>
       </View>
     );
   }
@@ -118,18 +164,53 @@ class PlantRelationship2 extends Component {
 export default PlantRelationship2;
 
 const styles = StyleSheet.create({
+  wrapper: {
+    marginTop: 40
+  },
   container: {
-    marginVertical: 10,
+    flexDirection: 'row',
+    marginTop: 10,
+    marginBottom: 30
   },
-  buttons: {
-    backgroundColor: '#769CB9',
-    borderRadius: 20,
-    padding: 10,
-    marginHorizontal: 50,
+  infoCol:{
+    paddingLeft: 10,
+    paddingRight: 20,
   },
-  buttonText: {
+  col:{
+    paddingLeft: 5,
+    paddingRight: 35
+  },
+  heading: {
+    fontFamily: 'Roboto',
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#86B58F'
+  },
+  text: {
+    alignSelf: 'flex-start',
+    fontSize: 15,
+    fontFamily: 'Roboto',
+    lineHeight: 30,
+    color: '#356487'
+  },
+  simText: {
+    color: '#86B58F',
+    fontFamily: 'Roboto',
+    fontWeight: 'bold',
+    fontSize: 40,
+    alignSelf: 'center'
+  },
+  bold: {
+    color: '#356487',
+    fontWeight: 'bold',
+    fontSize: 15,
+    fontFamily: 'Roboto',
+    alignSelf: 'center'
+  },
+  pottedPlant: {
+    width: 125,
+    height: 170,
     alignSelf: 'center',
-    fontSize: 18,
-    color: '#FFFFFF',
-  }
+    marginBottom: 10
+  },
 });
