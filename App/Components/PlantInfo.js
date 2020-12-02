@@ -24,6 +24,8 @@ class PlantInfo extends Component {
             .then(res => {
             const plant_info = res.data.results[0];
             this.setState({ plant_info });
+            const plant_id = plant_info.plant_id; 
+            this.setState({plant_id}); 
         })
     }
 
@@ -32,25 +34,32 @@ class PlantInfo extends Component {
     }
 
     handlePlantWaterEvent = event => {
-        event.preventDefault();
-    
-        const garden_to_update = {
-            plant_id: this.state.plant_id
-        };
+        // event.preventDefault();
         
-        axios.post(`http://localhost:3000/plants/water`, plant_to_water)
-            .then(res => {
-                console.log(res);
-                console.log(res.data);
-        })
+        // const plant_to_water = {
+        //     plant_id: this.state.plant_id
+        // };
         
-        this.refreshPlant();
+        // axios.post(`http://localhost:3000/plants/water`, plant_to_water)
+        //     .then(res => {
+        //     // console.log(res);
+        //     console.log(res.data);
+        //     Alert.alert(
+        //         "you have successfully watered your plant!",
+        //         "great job (:",
+        //         [
+        //             { text: "OK", onPress: () => console.log("OK Pressed") }
+        //         ],
+        //         { cancelable: false }
+        //         );
+        // })
+        
+        // this.refreshPlant();
     }
 
     render(){
         const plant = this.state.plant_info; 
-        console.log(plant.date_planted);
-
+        // console.log(plant);
         return (
             <ScrollView> 
                 <View style={styles.container}>

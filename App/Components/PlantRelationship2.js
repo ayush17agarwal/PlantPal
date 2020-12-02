@@ -41,6 +41,9 @@ class PlantRelationship2 extends Component {
         const plant1Info = res;
         this.setState({ plant2Info });
     })
+    console.log(this.state.plant1Info);
+
+    // print(this.state.plant2Info);
   
     this.forceUpdate();
   }

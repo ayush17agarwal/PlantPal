@@ -35,7 +35,7 @@ class User extends Component {
     getNumGardens() {
         axios.get(`http://localhost:3000/gardens/num-gardens?username=`+this.state.username)
             .then(res => {
-            const num_gardens = res.data.num_gardens; 
+            const num_gardens = res.data.results.num_gardens; 
             this.setState({ num_gardens });
         }).catch(
             error => console.log(error)
@@ -45,7 +45,7 @@ class User extends Component {
     getNumPlants() {
         axios.get(`http://localhost:3000/plants/num-plants?username=`+this.state.username)
             .then(res => {
-            const num_plants = res.data.num_plants;
+            const num_plants = res.data.results.num_plants;
             this.setState({ num_plants });
         }).catch(
             error => console.log(error)

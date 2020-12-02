@@ -1,15 +1,28 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+import axios from 'axios';
 
 class Settings extends Component {
     state = {
-        username: 'ayush',
-        password: 'beepboop',
-        email: 'ayush@illinois.edu',
+        username: '',
+        password: '********',
         phone_number: '123-456-7890',
         birthday: '2000-01-01',
         user: [],
+    }
+
+    componentDidMount() {
+        this.state.username = this.props.username;
+        this.getUserInfo(); 
+    }
+
+    getUserInfo() {
+        axios.get(`http://localhost:3000/users/user-info?user=`+this.state.username)
+            .then(res => {
+            const user = res.data.results[0];
+            this.setState({ user });
+        })
     }
 
     render() {
@@ -27,11 +40,11 @@ class Settings extends Component {
                     </Text>
                     <View style={styles.divider} />
                     <Text style={styles.col2}>
-                        {this.state.username}{'\n\n'}
+                        {this.state.user.username}{'\n\n'}
                         {this.state.password}{'\n\n'} 
-                        {this.state.email}{'\n\n'}
-                        {this.state.phone_number}{'\n\n'}
-                        {this.state.birthday}
+                        {this.state.user.email}{'\n\n'}
+                        {this.state.user.phone_number}{'\n\n'}
+                        {this.state.user.birthday}
                     </Text>
                 </View>
                 <Image
