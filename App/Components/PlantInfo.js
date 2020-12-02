@@ -74,10 +74,16 @@ class PlantInfo extends Component {
                     <Image
                     source={require('../Assets/potted_plant.png')}
                     style={styles.pottedPlant} />
+                    <Text>{'\n\n'}</Text>
                     
                     <SubmitButton
                         title="water plant"
                         onPress={this.handlePlantWaterEvent} />
+
+                    <Text style={styles.plant}>
+                        {'\n\n'}plant
+                        <Text style={styles.pal}>pal</Text>
+                    </Text>
                 </View>
             </ScrollView>
         );
@@ -107,7 +113,21 @@ const styles = StyleSheet.create({
         width: 150,
         height: 200,
         alignSelf: 'center'
-      },
+    },
+    plant: {
+        color: '#86B58F',
+        fontSize: 22,
+        fontFamily: 'Roboto',
+        fontWeight: 'bold',
+        padding: 12,
+        alignSelf: 'center'
+    },
+    pal: {
+        color: '#B2D1D1',
+        fontSize: 22,
+        fontFamily: 'Roboto',
+        padding: 12
+    },
 });
 
 export default PlantInfo;

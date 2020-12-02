@@ -51,20 +51,9 @@ class Settings extends Component {
                     source={require('../Assets/potted_plant.png')}
                     style={styles.pottedPlant} />
                 <Text style={styles.textHeader1}>
-                plant
-                <Text style={styles.textHeader2}>pal</Text>
+                    plant
+                    <Text style={styles.textHeader2}>pal</Text>
                 </Text>
-            {/* <View>
-                <Table>
-                    <TableWrapper>
-                    <Row data={["username", user.username]}></Row>
-                    <Row data={["password", '........']}></Row>
-                    <Row data={["email", user.email]}></Row>
-                    <Row data={["phone", user.phone_number]}></Row>
-                    <Row data={["birthday", user.birthday]}></Row>
-                    </TableWrapper>
-                </Table>
-            </View> */}
             </View>
             </ScrollView>
         )

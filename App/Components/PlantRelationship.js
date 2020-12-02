@@ -85,35 +85,43 @@ class PlantRelationship extends Component {
         <View style={styles.container}>
           <View style={styles.heading}>
             <Text style={styles.textHeader}>
+            {'\n\n'}
               <Image
                 source={require('../Assets/logo.png')}
-                style={styles.image}
-              />
+                style={styles.image} />
               plant 1
             </Text>
           </View>
-          <Form type={PlantPickerFormOne} ref={c => this.plant_picker_form_one = c} />
-          <View style={styles.divider} />
+          <View style={styles.forms}>
+            <Form type={PlantPickerFormOne} ref={c => this.plant_picker_form_one = c} />
+          </View>
 
           <View style={styles.heading}>
             <Text style={styles.textHeader}>
+              {'\n'}
               <Image
                 source={require('../Assets/logo.png')}
-                style={styles.image}
-              />
+                style={styles.image} />
               plant 2
             </Text>
           </View>
-          <Form type={PlantPickerFormTwo} ref={c => this.plant_picker_form_two = c} />
-          <View style={styles.divider} />
+          <View style={styles.forms}>
+            <Form type={PlantPickerFormTwo} ref={c => this.plant_picker_form_two = c} />
+          </View>
+
+          <Text>{'\n\n'}</Text>
           <TouchableOpacity
-              style={styles.buttons} 
-              onPress={this.beginFindRelationship}
-              >
-              <Text style={styles.buttonText}>
-                  find relationship
-              </Text>
-            </TouchableOpacity>
+            style={styles.buttons} 
+            onPress={this.beginFindRelationship} >
+            <Text style={styles.buttonText}>
+                find relationship
+            </Text>
+          </TouchableOpacity>
+
+          <Text style={styles.plant}>
+            {'\n\n'}plant
+            <Text style={styles.pal}>pal</Text>
+          </Text>
         </View>
          
       </ScrollView>
@@ -140,11 +148,6 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     fontWeight: 'bold'
   },
-  divider: {
-      borderBottomColor: '#86B58F',
-      borderBottomWidth: 1,
-      paddingHorizontal: 165
-  },
   buttons: {
     backgroundColor: '#769CB9',
     borderRadius: 20,
@@ -160,7 +163,24 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     alignSelf: 'center',
     color: '#FFFFFF',
-  }
+  },
+  forms: {
+    marginHorizontal: 20
+  },
+  plant: {
+    color: '#86B58F',
+    fontSize: 22,
+    fontFamily: 'Roboto',
+    fontWeight: 'bold',
+    padding: 12,
+    alignSelf: 'center'
+},
+  pal: {
+    color: '#B2D1D1',
+    fontSize: 22,
+    fontFamily: 'Roboto',
+    padding: 12
+  },
 });
 
 export default PlantRelationship;
