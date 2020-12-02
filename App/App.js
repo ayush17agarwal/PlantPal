@@ -46,8 +46,8 @@ class App extends React.Component {
           this.state.username = login_info.username;
           this.loginEvent();
         } else {
-          this.loginFailure(), 
-          error => console.log(error)
+          this.loginFailure();
+          // error => console.log(error);
         }
       }).catch();
   }
