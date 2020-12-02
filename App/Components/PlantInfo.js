@@ -19,11 +19,10 @@ class PlantInfo extends Component {
         this.refreshPlant()
     }
 
-    refreshPlant() {
-        // ROUTE IS WRONG ??? 
+    refreshPlant() { 
         axios.get(`http://localhost:3000/plants?plant_id=`+ this.state.plant_id)
             .then(res => {
-            const plant_info = res.data;
+            const plant_info = res.data.results[0];
             this.setState({ plant_info });
         })
     }
@@ -52,8 +51,10 @@ class PlantInfo extends Component {
 
     render(){
         const plant = this.state.plant_info; 
+
         return (
             <ScrollView style={styles.container}> 
+                <Text>{plant.common_name}</Text>
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                     <Text style={styles.textHeader}>{plant.nickname}</Text>
                 </View>
