@@ -98,6 +98,7 @@ class PlantRelationship2 extends Component {
 
     var totalSimilarity = i / total; 
    
+    
 
     return(
       <View style={styles.wrapper}>
@@ -106,32 +107,44 @@ class PlantRelationship2 extends Component {
             <Text style={styles.heading}> </Text>
             <Text style={styles.text}>
               <Text style={styles.bold}>
+                rank{'\n'}
                 name{'\n'}
                 found{'\n'}
                 family{'\n'}
+                fcm{'\n'}
                 genus{'\n'}
-                species
+                species{'\n'}
+                edible{'\n'}
+                veggie
               </Text>
             </Text>
         </View>
         <View style={styles.col}>
             <Text style={styles.heading}>plant 1</Text>
             <Text style={styles.text}>
+              {plant1.rank}{'\n'}
               {plant1.common_name}{'\n'}
               {plant1.year}{'\n'}
               {plant1.family}{'\n'}
+              {plant1.family_common_name}{'\n'}
               {plant1.genus}{'\n'}
-              {plant1.scientific_name}
+              {plant1.scientific_name}{'\n'}
+              {plant1.edible? 'True':'False'}{'\n'}
+              {plant1.vegetable? 'True':'False'}
             </Text>
         </View>
         <View style={styles.col}>
             <Text style={styles.heading}>plant 2</Text>
             <Text style={styles.text}>
+              {plant2.rank}{'\n'}
               {plant2.common_name}{'\n'}
               {plant2.year}{'\n'}
               {plant2.family}{'\n'}
+              {plant2.family_common_name}{'\n'}
               {plant2.genus}{'\n'}
-              {plant2.scientific_name}
+              {plant2.scientific_name}{'\n'}
+              {plant2.edible? 'True':'False'}{'\n'}
+              {plant2.vegetable? 'True':'False'}
           </Text>
         </View>
       </View>
@@ -140,9 +153,7 @@ class PlantRelationship2 extends Component {
         source={require('../Assets/potted_plant.png')}
         style={styles.pottedPlant} />
       
-      <Text style={styles.simText}>
-        {'\n\n'}{totalSimilarity}
-      </Text>
+      <Text style={styles.simText}>{totalSimilarity.toFixed(5)}</Text>
       <Text style={styles.bold}>similarity factor</Text>
       </View>
     );
@@ -159,7 +170,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     marginTop: 10,
-    marginBottom: 40
+    marginBottom: 30
   },
   infoCol:{
     paddingLeft: 10,
@@ -167,7 +178,7 @@ const styles = StyleSheet.create({
   },
   col:{
     paddingLeft: 5,
-    paddingRight: 40
+    paddingRight: 35
   },
   heading: {
     fontFamily: 'Roboto',
@@ -186,7 +197,7 @@ const styles = StyleSheet.create({
     color: '#86B58F',
     fontFamily: 'Roboto',
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 50,
     alignSelf: 'center'
   },
   bold: {
@@ -197,9 +208,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   pottedPlant: {
-    marginVertical: 10,
-    width: 150,
-    height: 200,
-    alignSelf: 'center'
+    width: 125,
+    height: 170,
+    alignSelf: 'center',
+    marginBottom: 10
   },
 });
