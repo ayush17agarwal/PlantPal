@@ -9,8 +9,8 @@ class PlantRelationship2 extends Component {
   }
 
   componentDidMount() {
-    plant1 = this.props.plant1;
-    plant2 = this.props.plant2; 
+    plant1 = this.props.route.params.plant1;
+    plant2 = this.props.route.params.plant2; 
   }
 
   render() {
