@@ -31,14 +31,14 @@ class PlantRelationship2 extends Component {
     // Plant 1
     axios.get(`http://localhost:3000/plants/relationships?plant_id=`+plant1)
       .then(res => {
-        const plant1Info = res;
+        const plant1Info = res.data;
         this.setState({ plant1Info });
     })
 
     // Plant 2
     axios.get(`http://localhost:3000/plants/relationships?plant_id=`+plant2)
       .then(res => {
-        const plant1Info = res;
+        const plant2Info = res.data;
         this.setState({ plant2Info });
     })
   
@@ -47,6 +47,8 @@ class PlantRelationship2 extends Component {
   
   render() {
     var nav = this.props.navigation;
+    console.log(this.state.plant1Info);
+    console.log(this.state.plant2Info);
 
     return(
       <View style={styles.container}>
