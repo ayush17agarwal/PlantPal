@@ -7,11 +7,12 @@ import SubmitButton from './SubmitButton';
 
 class NewPlant extends Component {
     state = {
-        username: 'Megiscool'
+        username: '',
+        plants: []
     }
 
     componentDidMount() {
-        // this.state.username = this.props.username; 
+        this.state.username = this.props.username; 
     }
 
     handleCreateSubmit = event => {
@@ -44,6 +45,43 @@ class NewPlant extends Component {
         this.forceUpdate();
     }
 
+    findPossiblePlants = event => {
+        event.preventDefault(); 
+
+        const formvals = this.find_new_plant_form.getValue(); 
+        
+        this.state.garden_name = formvals.garden_name; 
+
+        axios.get(`http://localhost:3000/plants/search?common=`+formvals.common_name)
+            .then(res => {
+            const plants = res.data.data;
+            console.log(plants.data);
+            this.setState({ plants });
+        }).catch(
+            error => console.log(error)
+        )
+
+        this.forceUpdate();
+    }
+
+    PlantCard = ({plant}) => {
+        return(
+          <Card containerStyle={styles.card}>
+            <View style={styles.cardView}>
+              <Card.Title style={styles.cardTitle}>{plant.common_name}</Card.Title> 
+              <TouchableOpacity onPress={this.handleCreateSubmit} >
+                    <Image 
+                        style={styles.icons} 
+                        source={require('../Assets/plus.png')}
+                        />
+                  </TouchableOpacity>
+            </View>        
+            {/* <Card.Title style={styles.cardTitle}>{plant.nickname}</Card.Title> */}
+            <Card.Divider style={styles.divider}/>
+        </Card>
+        );
+    }
+    
     render(){
         return (
             <ScrollView style={styles.container}> 
@@ -53,12 +91,21 @@ class NewPlant extends Component {
                 </View>
                 <View style={styles.dividerStyle} />
                 <View>
-                    <Form type={NewPlantForm} ref={c => this.create_plant_form = c}/>
+                    <Form type={NewPlantForm} ref={c => this.find_new_plant_form = c}/>
                 </View>
                 <SubmitButton
-                    title="Submit!"
-                    onPress={this.handleCreateSubmit}
+                    title="find plants!"
+                    onPress={this.findPossiblePlants}
                 />
+                <View>
+                    {
+                        this.state.plants.map((new_plant, i) => {
+                            return( 
+                                <this.PlantCard plant={new_plant}/>
+                            )
+                        }) 
+                    }
+                </View>
             </ScrollView>
         );
     }
@@ -80,16 +127,20 @@ const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
 //       }
 // }
 
+
 // Creating a new plant - Form 
 const Form = t.form.Form; 
 
+var Gender = t.enums({
+    M: 'Male',
+    F: 'Female'
+  });
+  
 const NewPlantForm = t.struct({ 
-    plant_name: t.String, 
+    plant_nickname: t.String, 
     common_name: t.String,
-    garden_name: t.String
+    garden_name: Gender
 })
-
-
 
 const styles = StyleSheet.create({
     container: {

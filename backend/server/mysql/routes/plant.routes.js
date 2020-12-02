@@ -31,8 +31,8 @@ router.get('/all-plants', (req, res) =>{
 router.get('/all-user-plants', (req, res) =>{
   const {username} = req.query;
 
-  let sql = 'SELECT * FROM plant WHERE username = ?'; 
-  db.query(sql, garden_name, (err, results) => {
+  let sql = 'SELECT plant.plant_id, plant.common_name FROM plant NATURAL JOIN user WHERE user.username = ?'; 
+  db.query(sql, username, (err, results) => {
     res.send(results);
     console.log('Fetched all plants for this user...');
   })

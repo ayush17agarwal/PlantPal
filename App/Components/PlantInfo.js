@@ -20,7 +20,7 @@ class PlantInfo extends Component {
     }
 
     refreshPlant() {
-        // ROUTE IS WRONG 
+        // ROUTE IS WRONG ??? 
         axios.get(`http://localhost:3000/plants?plant_id=`+ this.state.plant_id)
             .then(res => {
             const plant_info = res.data;

@@ -8,22 +8,30 @@ import axios from 'axios';
 
 class User extends Component {
     state = {
-        firstname: 'ayush',
-        lastname: 'agarwal',
-        username: 'ayush',
+        username: '',
         user: [],
         num_plants: '',
-        num_gardens: ''
+        num_gardens: '',
+        avg_health: ''
     }
 
     componentDidMount() {
+        this.state.username = this.props.username; 
         this.getNumGardens();
         this.getNumPlants();
+        this.getUserInfo(); 
     }
     
     getUserInfo() {
-
+        axios.get(`http://localhost:3000/users/user-info?user=`+this.state.username)
+            .then(res => {
+            const user = res.data.results[0];
+            this.setState({ user });
+        }).catch(
+            error => console.log(error)
+        )
     }
+
     getNumGardens() {
         axios.get(`http://localhost:3000/gardens/num-gardens?username=`+this.state.username)
             .then(res => {
@@ -44,15 +52,23 @@ class User extends Component {
         )
     }
 
+    findAvgPlantHealth() {
+        axios.get(`http://localhost:3000/plants/avg-health?username=`+this.state.username)
+            .then(res => {
+            const avg_health = res.data.avg_health;
+            this.setState({ avg_health });
+        }).catch(
+            error => console.log(error)
+        )
+    }
+    
     render(){
-        // var user = this.state.user; 
-        // var num_plants = this.state.num_plants;
-        // var num_gardens = this.state.num_gardens; 
-        console.log(this.state.num_plants);
+        var user = this.state.user; 
+
         return (
             <ScrollView> 
                 <View style={styles.container}>
-                    <Text style={styles.textHeader}>{this.state.firstname} {this.state.lastname}</Text>
+                    <Text style={styles.textHeader}>{user.first_name} {user.last_name}</Text>
                     {/* <Text style={styles.textSubheader}>@{this.state.username}</Text> */}
                     <View style={styles.circle}>
                     <Image
@@ -67,16 +83,18 @@ class User extends Component {
                             'username',
                             'about',
                             'gardens',
-                            'plants'
+                            'plants',
+                            'email'
                         ]}/>
                     </Table>
                     <View style={styles.divider} />
                     <Table >
                         <Col data={[
                             this.state.username, 
-                            'tired cs student', 
+                            user.biography, 
                             this.state.num_gardens,
-                            this.state.num_plants
+                            this.state.num_plants,
+                            user.email
                         ]}/>
                     </Table>
                 </View>
