@@ -5,23 +5,49 @@ import SubmitButton from './SubmitButton';
 class PlantRelationship2 extends Component {
   state = {
     plant1: '',
-    plant2: ''
+    plant2: '',
+    plant1Info: [],
+    plant2Info: []
   }
 
   componentDidMount() {
-    plant1 = this.props.plant1;
-    plant2 = this.props.plant2; 
+    plant1 = this.props.route.params.plant1;
+    plant2 = this.props.route.params.plant2; 
+    this.findRelationship(); 
   }
 
+  findRelationship () {
+    event.preventDefault();
+    
+    const gardenvals = this.create_garden_form.getValue(); 
+
+    const new_garden = {
+      username: this.state.username,
+      garden: gardenvals.garden_name,
+      climate: gardenvals.climate
+    };
+
+    // Plant 1
+    axios.get(`http://localhost:3000/plants/relationships?plant_id=`+plant1)
+      .then(res => {
+        const plant1Info = res;
+        this.setState({ plant1Info });
+    })
+
+    // Plant 2
+    axios.get(`http://localhost:3000/plants/relationships?plant_id=`+plant2)
+      .then(res => {
+        const plant1Info = res;
+        this.setState({ plant2Info });
+    })
+  
+    this.forceUpdate();
+  }
+  
   render() {
     var nav = this.props.navigation;
     return(
       <View style={styles.container}>
-        {/* <SubmitButton
-          style={styles.submitButton}
-          title="delete!"
-          onPress={this.handleDeleteSubmit}
-        /> */}
         <TouchableOpacity
               style={styles.buttons} 
               >

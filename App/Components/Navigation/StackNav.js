@@ -35,17 +35,6 @@ const screenOptionStyle = {
     
 };
 
-const SignInNav = () => {
-    return(
-        <Stack.Navigator screenOptions={screenOptionStyle}>
-            <Stack.Screen 
-                name="garden" 
-                component={Garden}
-                />
-        </Stack.Navigator>
-    )
-}
-
 const GardenStackNav = ({username}) => {
     return (
         <Stack.Navigator screenOptions={screenOptionStyle}>
@@ -61,10 +50,12 @@ const GardenStackNav = ({username}) => {
                         </TouchableOpacity>
                     )
                 })} />
-            <Stack.Screen name='update gardens' component={GardenManipulation}/>
+            <Stack.Screen 
+                name='update gardens' 
+                component={props => <GardenManipulation {...props} username={username}/>}/>
             <Stack.Screen 
                 name="plant" 
-                component={Plant} 
+                component={props => <Plant {...props} username={username}/>} 
                 options={({ navigation }) => ({
                     headerRight: () => (
                         <TouchableOpacity onPress={() => navigation.navigate('add a new plant')} >
@@ -74,18 +65,22 @@ const GardenStackNav = ({username}) => {
                         </TouchableOpacity>
                     )
                 })} />
-            <Stack.Screen name="add a new plant" component={NewPlant} />
-            <Stack.Screen name="plant information" component={PlantInfo} />
+            <Stack.Screen 
+                name="add a new plant" 
+                component={props => <NewPlant {...props} username={username}/>} />
+            <Stack.Screen 
+                name="plant information" 
+                component={props => <PlantInfo {...props} username={username}/>} />
         </Stack.Navigator>
     );
 }
 
-const SocialStackNav = () => {
+const SocialStackNav = ({username}) => {
     return (
       <Stack.Navigator screenOptions={screenOptionStyle}>
             <Stack.Screen 
                 name="social" 
-                component={Social}
+                component={props => <Social {...props} username={username}/>}
                 options={({ navigation }) => ({
                     headerRight: () => (
                         <TouchableOpacity onPress={() => navigation.navigate('create post')} >
@@ -97,29 +92,34 @@ const SocialStackNav = () => {
                 })} />
             <Stack.Screen 
                 name="create post" 
-                component={SocialPost} 
+                component={props => <SocialPost {...props} username={username}/>} 
                 />
       </Stack.Navigator>
     );
 }
 
-const SearchStackNav = () => {
+const SearchStackNav = ({username}) => {
     return (
       <Stack.Navigator screenOptions={screenOptionStyle}>
-            <Stack.Screen name="search" component={Search} />
-            <Stack.Screen name="identify mystery plant" component={MysteryPlant} />
-            <Stack.Screen name="identify plant relationship" component={PlantRelationship} />
-            <Stack.Screen name="plant relationship" component={PlantRelationship2} />
+            <Stack.Screen 
+                name="search" 
+                component={props => <Search {...props} username={username}/>} />
+            <Stack.Screen name="identify mystery plant" 
+                component={MysteryPlant} />
+            <Stack.Screen name="identify plant relationship" 
+                component={props => <PlantRelationship {...props} username={username}/>} />
+            <Stack.Screen name="plant relationship" 
+                component={PlantRelationship2} />
       </Stack.Navigator>
     );
 }
 
-const UserStackNav = () => {
+const UserStackNav = ({username}) => {
     return (
       <Stack.Navigator screenOptions={screenOptionStyle}>
             <Stack.Screen 
                 name=" " 
-                component={User}
+                component={props => <User {...props} username={username}/>}
                 options={({ navigation }) => ({
                     headerRight: () => (
                         <TouchableOpacity onPress={() => navigation.navigate('settings')} >
@@ -129,7 +129,7 @@ const UserStackNav = () => {
                         </TouchableOpacity>
                     )
                 })} />
-            <Stack.Screen name="settings" component={Settings} />
+            <Stack.Screen name="settings" component={props => <Settings {...props} username={username}/>} />
       </Stack.Navigator>
     );
 }

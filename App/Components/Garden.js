@@ -13,13 +13,13 @@ import t from 'tcomb-form-native';
 class Garden extends React.Component {
     state = {
         gardens: [],
-        username: ''
+        username: '',
+        avg_health: ''
     }
 
     componentDidMount() {
         const username = this.props.username;
-        this.state.username = username; 
-        console.log(username);
+        this.state.username = username;
         this.refreshGardens(); 
     }
 
@@ -33,6 +33,16 @@ class Garden extends React.Component {
         )
     }
     
+    // findAvgHealth() {
+    //   axios.get(`http://localhost:3000/gardens/health-per-garden?username=`+this.state.username)
+    //         .then(res => {
+    //         const gardens = res.data;
+    //         this.setState({ gardens });
+    //     }).catch(
+    //         error => console.log(error)
+    //     )
+    // }
+
     render() {
         var nav = this.props.navigation;
         var gardens = this.props.gardens;

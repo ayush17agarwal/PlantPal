@@ -7,8 +7,8 @@ router.get('/signin', (req, res) => {
   let sql =
     'SELECT username FROM user WHERE username = ? AND passwd = MD5(?)';
   db.query(sql, [req.query.user, req.query.passwd], (err, results) => {
-    if (err || results.length == 0) {
-      return res.send({success: false, errror: err});
+    if (err) {
+      return res.send({success: false, error: err});
     } else {
       res.send({success: true, results: results});
       console.log('User fetched...');
@@ -42,7 +42,7 @@ router.get('/user-info', (req, res) => {
     'SELECT * FROM user WHERE username = ?';
   db.query(sql, [req.query.user], (err, results) => {
     if (err) {
-      return res.send({success: false});
+      return res.send({success: false, error: err});
     } else {
       res.send({success: true, results: results});
       console.log('User fetched...');
@@ -55,7 +55,7 @@ router.post('/update-username', (req, res) => {
   const {curr_username, new_username} = req.body;
   db.query(sql, [new_username, curr_username], (err, results) => {
     if (err) {
-      return res.send({success: false});
+      return res.send({success: false, error: err});
     } else {
       res.send({success: true, results: results});
       console.log('Updated Username...');
@@ -68,7 +68,7 @@ router.post('/update-bio', (req, res) => {
   const {username, biography} = req.body;
   db.query(sql, [biography, username], (err, results) => {
     if (err) {
-      return res.send({success: false});
+      return res.send({success: false, error: err});
     } else {
       res.send({success: true, results: results});
       console.log('Updated bio...');
@@ -81,7 +81,7 @@ router.post('/update-email', (req, res) => {
   const {email, username} = req.body;
   db.query(sql, [email, username], (err, results) => {
     if (err) {
-      return res.send({success: false});
+      return res.send({success: false, error: err});
     } else {
       res.send({success: true, results: results});
       console.log('Updated Email...');
@@ -94,7 +94,7 @@ router.post('/update-password', (req, res) => {
   const {password, username} = req.body;
   db.query(sql, [password, username], (err, results) => {
     if (err) {
-      return res.send({success: false});
+      return res.send({success: false, error: err});
     } else {
       res.send({success: true, results: results});
       console.log('Updated password...');
@@ -108,7 +108,7 @@ router.get('/all-gardens-and-plants', (req, res) => {
           'WHERE user_id IN (SELECT user_id FROM user WHERE username = ?)';
   db.query(sql, [username], (err, results) => {
     if (err) {
-      return res.send({success: false});
+      return res.send({success: false, error: err});
     } else {
       res.send({success: true, results: results});
       console.log('Fetched all gardens and plants for ' + username);

@@ -13,11 +13,12 @@ router.post('/create', (req, res) => {
   db.query(sql2, [username], (err, results) => {
     const user_id = results[0].user_id;
     db.query(sql, [user_id, garden, climate], (err, results) => {
-      if (err) {
-        throw err;
-      }
-      res.send(results);
-      console.log('Garden created...');
+     if (err) {
+      return res.send({success: false, error: err});
+    } else {
+      res.send({success: true, results: results});
+      console.log('Garden Created...');
+    }
     });
   });
 });
@@ -31,12 +32,12 @@ router.delete('/remove', (req, res) => {
   let username = req.body.username
 
   db.query(sql0, [garden_name, username], (err, results) => {
-    if(err) return res.status(400).json('Error: ' + err);
+    if(err) return res.send({success: false, error: err});
     db.query(sql, [garden_name, username], (err1, results1) => {
         if (err1) {
-          return res.status(400).json('Error: ' + err1);
+          return res.send({success: false, error: err1});
         }
-        res.send(results1);
+        res.send({success: true, results: results1});
         console.log('Garden deleted...');
     });
   });
@@ -50,9 +51,9 @@ router.get('', (req, res) => {
 
   db.query(sql, [username], (err, results) => {
     if (err) {
-      return res.status(400).json('Error: ' + err);
+      return res.send({success: false, error: err});
     }
-    res.send(results);
+    res.send({success: true, results: results});
     console.log('Gardens fetched...');
   });
 });
@@ -65,9 +66,9 @@ router.post('/change-name', (req, res) => {
 
   db.query(sql, [new_name, username, garden_name], (err, results) => {
     if (err) {
-      return res.status(400).json('Error: ' + err);
+      return res.send({success: false, error: err});
     }
-    res.send(results);
+    res.send({success: true, results: results});
     console.log('Updated garden...');
   });
 });
@@ -78,9 +79,9 @@ router.get('/identify-climate', (req,res) => {
 
   db.query(sql, [req.query.climate], (err, results) => {
     if(err) {
-      return res.status(400).json('Error: ' + err);
+      return res.send({success: false, error: err});
     }
-    res.send(results);
+    res.send({success: true, results: results});
     console.log('fetched emails with gardens of climate ' + req.query.climate);
   })
 })
@@ -91,9 +92,9 @@ router.get('/num-gardens', (req,res) => {
   const {username} = req.query;
   
   db.query(sql, username, (err, results) => {
-    if(err) return res.status(400).json('Error: ' + err);
+    if(err) return res.send({success: false, error: err});
      
-    res.send(results[0]);
+    res.send({success: true, results: results[0]});
     console.log('fetched number of gardens');
   })
 });

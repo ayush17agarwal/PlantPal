@@ -1,17 +1,26 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, Button} from 'react-native';
-// import t from 'tcomb-form-native';
+import { View, Text, Image, StyleSheet, ScrollView, Button, TouchableOpacity} from 'react-native';
+import t from 'tcomb-form-native';
+import { Card, Divider, Input } from 'react-native-elements'
 
 import axios from 'axios';
 import SubmitButton from './SubmitButton';
 
+let Form = t.form.Form; 
+
+let gardens_as_enum = {};
+let NewPlantForm = t.struct(gardens_as_enum); 
+
 class NewPlant extends Component {
     state = {
-        username: 'Megiscool'
+        username: '',
+        plants: [], 
+        gardens: []
     }
 
     componentDidMount() {
-        // this.state.username = this.props.username; 
+        this.state.username = this.props.username; 
+        this.getAllGardens(); 
     }
 
     handleCreateSubmit = event => {
@@ -44,7 +53,66 @@ class NewPlant extends Component {
         this.forceUpdate();
     }
 
+    findPossiblePlants = event => {
+        event.preventDefault(); 
+
+        const formvals = this.find_new_plant_form.getValue(); 
+        
+        this.state.garden_name = formvals.garden_name; 
+
+        axios.get(`http://localhost:3000/plants/search?common=`+formvals.common_name)
+            .then(res => {
+            const plants = res.data.results.data;
+            console.log(plants);
+            this.setState({ plants });
+        }).catch(
+            error => console.log(error)
+        )
+
+        this.forceUpdate();
+    }
+
+    getAllGardens() {
+        axios.get(`http://localhost:3000/gardens?username=`+this.state.username)
+            .then(res => {
+            const gardens = res.data.results;
+            this.setState({ gardens });
+        })
+    }
+
+    PlantCard = ({plant}) => {
+        return(
+          <Card containerStyle={styles.card}>
+            <View style={styles.cardView}>
+              <Card.Title style={styles.cardTitle}>{plant.common_name}</Card.Title> 
+              <TouchableOpacity onPress={this.handleCreateSubmit} >
+                    <Image 
+                        style={styles.icons} 
+                        source={require('../Assets/plus.png')}
+                        />
+                  </TouchableOpacity>
+            </View>
+        </Card>
+        );
+    }
+    
     render(){
+        var nav = this.props.navigation; 
+
+        var user_gardens = {};
+
+        for (var i = 0; i < this.state.gardens.length; i++) {
+            var garden = this.state.gardens[i]; 
+            user_gardens[ i ] = garden.garden_name;
+        }
+
+        var gardens_as_enum = t.enums(user_gardens); 
+        
+        NewPlantForm = t.struct({
+            common_name: t.String,
+            garden: gardens_as_enum
+        }); 
+
         return (
             <ScrollView style={styles.container}> 
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -53,18 +121,27 @@ class NewPlant extends Component {
                 </View>
                 <View style={styles.dividerStyle} />
                 <View>
-                    <Form type={NewPlantForm} ref={c => this.create_plant_form = c}/>
+                    <Form type={NewPlantForm} ref={c => this.find_new_plant_form = c}/>
                 </View>
                 <SubmitButton
-                    title="Submit!"
-                    onPress={this.handleCreateSubmit}
+                    title="find plants!"
+                    onPress={this.findPossiblePlants}
                 />
+                <View>
+                    {
+                        this.state.plants.map((new_plant, i) => {
+                            return( 
+                                <this.PlantCard plant={new_plant}/>
+                            )
+                        }) 
+                    }
+                </View>
             </ScrollView>
         );
     }
 }
 
-var t = require('tcomb-form-native');
+// var t = require('tcomb-form-native');
 var _ = require('lodash');
 
 // clone the default stylesheet
@@ -80,16 +157,20 @@ const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
 //       }
 // }
 
+
 // Creating a new plant - Form 
-const Form = t.form.Form; 
+// const Form = t.form.Form; 
 
-const NewPlantForm = t.struct({ 
-    plant_name: t.String, 
-    common_name: t.String,
-    garden_name: t.String
-})
-
-
+// var Gender = t.enums({
+//     M: 'Male',
+//     F: 'Female'
+//   });
+  
+// const NewPlantForm = t.struct({ 
+//     plant_nickname: t.String, 
+//     common_name: t.String,
+//     garden_name: Gender
+// })
 
 const styles = StyleSheet.create({
     container: {

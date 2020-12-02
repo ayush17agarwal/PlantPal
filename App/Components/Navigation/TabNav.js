@@ -15,7 +15,7 @@ const TabNav = ({username}) => {
         inactiveTintColor: '#FFFFFF'}} >
       <Tab.Screen 
         name="social"
-        component={SocialStackNav}
+        component={() => <SocialStackNav username={username}/>}
         options={{
           tabBarLabel: 'social',
           tabBarIcon: ({ focused }) => {
@@ -24,7 +24,7 @@ const TabNav = ({username}) => {
             : require('../../Assets/globe.png')
             return (
               <Image source={image} style={{height:25, width:25}}/> )}}} 
-        username={username}/>
+       />
       <Tab.Screen
         name="garden"
         component={() => <GardenStackNav username={username}/>}
@@ -38,7 +38,7 @@ const TabNav = ({username}) => {
        />
       <Tab.Screen
         name="search"
-        component={SearchStackNav}
+        component={() => <SearchStackNav username={username}/>}
         options={{
           tabBarLabel: 'search',
           tabBarIcon: ({ focused }) => {
@@ -46,10 +46,10 @@ const TabNav = ({username}) => {
             ? require('../../Assets/loupe_sky.png')
             : require('../../Assets/loupe.png')
             return ( <Image source={image} style={{height:25, width:25}}/> )}}}
-        username-={username} />
+        />
       <Tab.Screen
         name="user"
-        component={UserStackNav}
+        component={() => <UserStackNav username={username}/>}
         options={{
           tabBarLabel: 'user',
           tabBarIcon: ({ focused }) => {
@@ -57,7 +57,7 @@ const TabNav = ({username}) => {
             ? require('../../Assets/user_sky.png')
             : require('../../Assets/user.png')
             return ( <Image source={image} style={{height:25, width:25}}/> )}}} 
-        username-={username}/>
+        />
     </Tab.Navigator>
   );
 };
