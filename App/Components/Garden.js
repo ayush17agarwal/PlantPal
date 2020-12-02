@@ -26,7 +26,7 @@ class Garden extends React.Component {
     refreshGardens() {
         axios.get(`http://localhost:3000/gardens?username=`+this.state.username)
             .then(res => {
-            const gardens = res.data;
+            const gardens = res.data.results;
             this.setState({ gardens });
         }).catch(
             error => console.log(error)
@@ -45,7 +45,7 @@ class Garden extends React.Component {
 
     render() {
         var nav = this.props.navigation;
-        var gardens = this.props.gardens;
+        // var gardens = this.props.gardens;
         
         return(
             <ScrollView>

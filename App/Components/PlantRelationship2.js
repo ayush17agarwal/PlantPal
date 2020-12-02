@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import SubmitButton from './SubmitButton';
 
+import axios from 'axios';
+
 class PlantRelationship2 extends Component {
   state = {
     plant1: '',
@@ -17,15 +19,14 @@ class PlantRelationship2 extends Component {
   }
 
   findRelationship () {
-    event.preventDefault();
     
-    const gardenvals = this.create_garden_form.getValue(); 
+    // const gardenvals = this.create_garden_form.getValue(); 
 
-    const new_garden = {
-      username: this.state.username,
-      garden: gardenvals.garden_name,
-      climate: gardenvals.climate
-    };
+    // const new_garden = {
+    //   username: this.state.username,
+    //   garden: gardenvals.garden_name,
+    //   climate: gardenvals.climate
+    // };
 
     // Plant 1
     axios.get(`http://localhost:3000/plants/relationships?plant_id=`+plant1)
@@ -46,6 +47,7 @@ class PlantRelationship2 extends Component {
   
   render() {
     var nav = this.props.navigation;
+
     return(
       <View style={styles.container}>
         <TouchableOpacity

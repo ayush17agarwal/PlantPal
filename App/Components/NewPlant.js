@@ -15,7 +15,9 @@ class NewPlant extends Component {
     state = {
         username: '',
         plants: [], 
-        gardens: []
+        gardens: [],
+        garden_name: '',
+        nickname
     }
 
     componentDidMount() {
@@ -23,21 +25,23 @@ class NewPlant extends Component {
         this.getAllGardens(); 
     }
 
-    handleCreateSubmit = event => {
-        event.preventDefault();
+    handleCreateSubmit = (plant) => {
+        // event.preventDefault();
         
-        const plantvals = this.create_plant_form.getValue(); 
-    
+        // console.log(plant);
+        // const plantvals = this.find_new_plant_form.getValue(); 
+        
+        // console.log(this.state.garden_name); 
         const new_plant = {
+          garden_name: this.state.garden_name,
           username: this.state.username,
-          garden_name: plantvals.garden_name,
-          common_name: plantvals.common_name,
-          trefle_id: '186403'
+          common_name: plant.common_name,
+          trefle_id: plant.id,
+          nickname: this.state.nickname
         };
-    
+
         axios.post(`http://localhost:3000/plants/add`, new_plant)
           .then(res => {
-            console.log(res.data);
             Alert.alert(
                 "Success!",
                 "You added a new plant to your garden",
@@ -46,10 +50,9 @@ class NewPlant extends Component {
                 ],
                 { cancelable: false }
               );
-          }).catch(
-            error => console.log(error)
-          )
+          })
         
+        this.props.navigation.navigate('garden'); 
         this.forceUpdate();
     }
 
@@ -58,12 +61,12 @@ class NewPlant extends Component {
 
         const formvals = this.find_new_plant_form.getValue(); 
         
-        this.state.garden_name = formvals.garden_name; 
+        this.state.garden_name = formvals.garden;
+        this.state.nickname = formvals.nickname; 
 
         axios.get(`http://localhost:3000/plants/search?common=`+formvals.common_name)
             .then(res => {
             const plants = res.data.results.data;
-            console.log(plants);
             this.setState({ plants });
         }).catch(
             error => console.log(error)
@@ -85,7 +88,7 @@ class NewPlant extends Component {
           <Card containerStyle={styles.card}>
             <View style={styles.cardView}>
               <Card.Title style={styles.cardTitle}>{plant.common_name}</Card.Title> 
-              <TouchableOpacity onPress={this.handleCreateSubmit} >
+              <TouchableOpacity onPress={() => this.handleCreateSubmit(plant)} >
                     <Image 
                         style={styles.icons} 
                         source={require('../Assets/plus.png')}
@@ -103,13 +106,14 @@ class NewPlant extends Component {
 
         for (var i = 0; i < this.state.gardens.length; i++) {
             var garden = this.state.gardens[i]; 
-            user_gardens[ i ] = garden.garden_name;
+            user_gardens[ garden.garden_name ] = garden.garden_name;
         }
 
         var gardens_as_enum = t.enums(user_gardens); 
         
         NewPlantForm = t.struct({
             common_name: t.String,
+            nickname: t.String,
             garden: gardens_as_enum
         }); 
 
@@ -193,7 +197,27 @@ const styles = StyleSheet.create({
         color: '#86B58F',
         fontSize: 20,
         fontFamily: 'Roboto'
-    }
+    },
+    card: {
+        backgroundColor: '#7CA784',
+        borderRadius: 20,
+    }, 
+    cardView: {
+        flexDirection: 'row', 
+        justifyContent:'space-between'
+    },
+    cardTitle: {
+        color: '#FFFFFF',
+        fontSize: 22,
+        fontWeight: 'normal',
+        marginLeft: 15,
+        marginTop: 5
+    },
+    cardText: {
+        color: '#FFFFFF',
+        fontSize: 15,
+        marginLeft: 20
+    },
 });
 
 export default NewPlant;

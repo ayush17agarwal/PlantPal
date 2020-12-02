@@ -88,8 +88,8 @@ class User extends Component {
                     <Text style={styles.col2}>
                         {this.state.username}{'\n\n'}
                         tired cs student{'\n\n'} 
-                        {this.state.num_gardens.length}{'\n\n'}
-                        {this.state.num_plants.length}
+                        {this.state.num_gardens}{'\n\n'}
+                        {this.state.num_plants}
                     </Text>
                 </View>
             </ScrollView>
