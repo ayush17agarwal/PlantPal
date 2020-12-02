@@ -44,8 +44,6 @@ class PlantRelationship extends Component {
     // Get the id's for the plants and pass to next screen 
     const plantone = this.plant_picker_form_one.getValue(); 
     const planttwo = this.plant_picker_form_two.getValue(); 
-    console.log(plantone); 
-    console.log(planttwo.plant); 
     
     this.state.plant1 = plantone; 
     this.state.plant2 = planttwo; 
