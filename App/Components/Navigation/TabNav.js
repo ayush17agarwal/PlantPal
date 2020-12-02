@@ -5,7 +5,7 @@ import { GardenStackNav, SocialStackNav, SearchStackNav, UserStackNav } from "./
 
 const Tab = createBottomTabNavigator();
 
-const TabNav = () => {
+const TabNav = ({username}) => {
   return (
     <Tab.Navigator
       initialRouteName="garden"
@@ -13,9 +13,9 @@ const TabNav = () => {
         style: { backgroundColor: '#769CB9'},
         activeTintColor: '#C8E3F9',
         inactiveTintColor: '#FFFFFF'}} >
-      <Tab.Screen
+      <Tab.Screen 
         name="social"
-        component={SocialStackNav}
+        component={() => <SocialStackNav username={username}/>}
         options={{
           tabBarLabel: 'social',
           tabBarIcon: ({ focused }) => {
@@ -23,37 +23,41 @@ const TabNav = () => {
             ? require('../../Assets/globe_sky.png')
             : require('../../Assets/globe.png')
             return (
-              <Image source={image} style={{height:25, width:25}}/> )}}} />
+              <Image source={image} style={{height:25, width:25}}/> )}}} 
+       />
       <Tab.Screen
         name="garden"
-        component={GardenStackNav}
+        component={() => <GardenStackNav username={username}/>}
         options={{
           tabBarLabel: 'garden',
           tabBarIcon: ({ focused }) => {
             const image = focused
             ? require('../../Assets/leaf_sky.png')
             : require('../../Assets/leaf.png')
-            return ( <Image source={image} style={{height:25, width:25}}/> )}}} />
+            return ( <Image source={image} style={{height:25, width:25}}/> )}}}
+       />
       <Tab.Screen
         name="search"
-        component={SearchStackNav}
+        component={() => <SearchStackNav username={username}/>}
         options={{
           tabBarLabel: 'search',
           tabBarIcon: ({ focused }) => {
             const image = focused
             ? require('../../Assets/loupe_sky.png')
             : require('../../Assets/loupe.png')
-            return ( <Image source={image} style={{height:25, width:25}}/> )}}} />
+            return ( <Image source={image} style={{height:25, width:25}}/> )}}}
+        />
       <Tab.Screen
         name="user"
-        component={UserStackNav}
+        component={() => <UserStackNav username={username}/>}
         options={{
           tabBarLabel: 'user',
           tabBarIcon: ({ focused }) => {
             const image = focused
             ? require('../../Assets/user_sky.png')
             : require('../../Assets/user.png')
-            return ( <Image source={image} style={{height:25, width:25}}/> )}}} />
+            return ( <Image source={image} style={{height:25, width:25}}/> )}}} 
+        />
     </Tab.Navigator>
   );
 };

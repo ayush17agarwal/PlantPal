@@ -92,7 +92,7 @@ router.post('/add', (req, res) => {
         .then(() => {
             return res.send({
                 success: true,
-                message: 'Added a post'
+                message: 'Added a post...'
             });
         })
         .catch((err) => res.status(400).json('Error: ' + err));

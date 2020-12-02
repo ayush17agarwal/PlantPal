@@ -3,9 +3,23 @@ import { TouchableOpacity, Image, StyleSheet, Button, Text, View} from "react-na
 import { createStackNavigator } from "@react-navigation/stack";
 // import MenuButton from 'react-native-menu-button'
 
+// Social Screens
 import Social from '../Social';
+import SocialPost from '../SocialPost'
+
+// Garden Screens 
 import Garden from "../Garden";
+import GardenManipulation from "../GardenManipulation"
 import Plant from '../Plant';
+import NewPlant from "../NewPlant"
+import PlantInfo from "../PlantInfo"
+
+// Identification Screens
+import MysteryPlant from '../MysteryPlant';
+import PlantRelationship from '../PlantRelationship';
+import PlantRelationship2 from '../PlantRelationship2';
+
+// Other 
 import Search from '../Search';
 import User from '../User';
 import Settings from '../Settings';
@@ -18,73 +32,94 @@ const screenOptionStyle = {
     },
     headerTintColor: "#FFFFFF",
     headerBackTitle: " ",
+    
 };
 
-// const DropGardenMenu = ({ navigation }) => {
-//     menuGroup= [
-//         {key:"0",value:"menu1",text:"menu1"},
-//         {key:"1",value:"menu2",text:"menu2"},
-//         {key:"2",value:"菜单3",text:"菜单3"},
-//         {key:"3",value:"菜单4",text:"菜单4"},
-//       ]
-//     return (
-//         <View>
-//         <View style={styles.top}>
-//           <MenuButton  
-//             buttonStyle={[styles.rightButton]} 
-//             menuGroup={menuGroup}
-//             onSelect={this._handleOnSelect.bind(this)} 
-//             optionSelectedStyle={{backgroundColor:"red"}}
-//           />
-//         </View>
-//         <Text style={styles.text}>{`select ${this.state.selectData}`}</Text>
-//       </View>
-//     );
-// }
-
-const GardenStackNav = () => {
+const GardenStackNav = ({username}) => {
     return (
         <Stack.Navigator screenOptions={screenOptionStyle}>
             <Stack.Screen 
                 name="garden" 
-                component={Garden}
+                component={props => <Garden {...props} username={username}/>}
                 options={({ navigation }) => ({
                     headerRight: () => (
-                        // <TouchableOpacity onPress={this.DropGardenMenu} >
-                        <TouchableOpacity onPress={() => navigation.navigate('settings')} >
+                        <TouchableOpacity onPress={() => navigation.navigate('update gardens')} >
                             <Image 
                                 style={styles.icons} 
-                                source={require('../../Assets/down-arrow.png')} />
+                                source={require('../../Assets/right-arrow.png')} />
                         </TouchableOpacity>
                     )
                 })} />
-            <Stack.Screen name="Plant" component={Plant} />
+            <Stack.Screen 
+                name='update gardens' 
+                component={props => <GardenManipulation {...props} username={username}/>}/>
+            <Stack.Screen 
+                name="plant" 
+                component={props => <Plant {...props} username={username}/>} 
+                options={({ navigation }) => ({
+                    headerRight: () => (
+                        <TouchableOpacity onPress={() => navigation.navigate('add a new plant')} >
+                            <Image 
+                                style={styles.icons} 
+                                source={require('../../Assets/plus.png')} />
+                        </TouchableOpacity>
+                    )
+                })} />
+            <Stack.Screen 
+                name="add a new plant" 
+                component={props => <NewPlant {...props} username={username}/>} />
+            <Stack.Screen 
+                name="plant information" 
+                component={props => <PlantInfo {...props} username={username}/>} />
         </Stack.Navigator>
     );
 }
 
-const SocialStackNav = () => {
-    return (
-      <Stack.Navigator screenOptions={screenOptionStyle}>
-            <Stack.Screen name="social" component={Social} />
-      </Stack.Navigator>
-    );
-}
-
-const SearchStackNav = () => {
-    return (
-      <Stack.Navigator screenOptions={screenOptionStyle}>
-            <Stack.Screen name="search" component={Search} />
-      </Stack.Navigator>
-    );
-}
-
-const UserStackNav = () => {
+const SocialStackNav = ({username}) => {
     return (
       <Stack.Navigator screenOptions={screenOptionStyle}>
             <Stack.Screen 
-                name="user" 
-                component={User}
+                name="social" 
+                component={props => <Social {...props} username={username}/>}
+                options={({ navigation }) => ({
+                    headerRight: () => (
+                        <TouchableOpacity onPress={() => navigation.navigate('create post')} >
+                            <Image 
+                                style={styles.icons} 
+                                source={require('../../Assets/plus.png')} />
+                        </TouchableOpacity>
+                    )
+                })} />
+            <Stack.Screen 
+                name="create post" 
+                component={props => <SocialPost {...props} username={username}/>} 
+                />
+      </Stack.Navigator>
+    );
+}
+
+const SearchStackNav = ({username}) => {
+    return (
+      <Stack.Navigator screenOptions={screenOptionStyle}>
+            <Stack.Screen 
+                name="search" 
+                component={props => <Search {...props} username={username}/>} />
+            <Stack.Screen name="identify mystery plant" 
+                component={MysteryPlant} />
+            <Stack.Screen name="identify plant relationship" 
+                component={props => <PlantRelationship {...props} username={username}/>} />
+            <Stack.Screen name="plant relationship" 
+                component={PlantRelationship2} />
+      </Stack.Navigator>
+    );
+}
+
+const UserStackNav = ({username}) => {
+    return (
+      <Stack.Navigator screenOptions={screenOptionStyle}>
+            <Stack.Screen 
+                name=" " 
+                component={props => <User {...props} username={username}/>}
                 options={({ navigation }) => ({
                     headerRight: () => (
                         <TouchableOpacity onPress={() => navigation.navigate('settings')} >
@@ -94,16 +129,16 @@ const UserStackNav = () => {
                         </TouchableOpacity>
                     )
                 })} />
-            <Stack.Screen name="settings" component={Settings} />
+            <Stack.Screen name="settings" component={props => <Settings {...props} username={username}/>} />
       </Stack.Navigator>
     );
 }
 
 const styles = StyleSheet.create({
     icons: {
-        width: 25,
-        height: 25,
-        right: 10,
+        width: 20,
+        height: 20,
+        right: 20,
     },
     top:{
         backgroundColor: '#FFFFFF',
@@ -118,6 +153,7 @@ const styles = StyleSheet.create({
       },
       text:{
         marginTop:20,
+        fontSize: 18
       },
       rightButton: {
         width: 100,

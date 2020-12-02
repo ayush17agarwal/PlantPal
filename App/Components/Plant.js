@@ -1,125 +1,140 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
 
-// import { StyleSheet, ScrollView, View, Text, Image } from 'react-native';
+import { Header, LearnMoreLinks, Colors, DebugInstructions, ReloadInstructions, } from 'react-native/Libraries/NewAppScreen';
 import { Card } from 'react-native-elements'
 import { Container, Content, Body, Title, Tab} from 'native-base';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 import { color } from 'react-native-reanimated';
 
-const Plants = [
-    {
-      name: "Hydrangea", 
-      nickname: "Hydrogen Plant", 
-      health: "4",
-      datePlanted: "may 20 2001",
-      lastWatered: "oct 1 2020"
-    }, 
-    {
-      name: "Hemlock",
-      nickname: "Hemlock Holmes", 
-      health: "39",
-      datePlanted: "may 20 2001",
-      lastWatered: "oct 1 2020"
-    },
-    {
-      name: "Sabelle's Plant",
-      nickname: "bell pepper", 
-      health: "39",
-      datePlanted: "may 20 2001",
-      lastWatered: "oct 1 2020"
-    }
-  ]
+import axios from 'axios';
 
-const Plant = () => {
-    return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Plant Screen</Text>
-            {/* <Content>
+class Plant extends React.Component {
+    constructor() {
+        super(); 
+    }
+
+    state = {
+        garden_name: '',
+        plants: []
+    }
+
+    componentDidMount() {
+        const garden_name = this.props.route.params.garden_name; 
+        this.state.garden_name = garden_name; 
+        this.refreshPlants()
+    }
+
+    refreshPlants() {
+        const garden = {
+            garden_name: this.state.garden_name
+        };
+
+        axios.get(`http://localhost:3000/plants/all-plants?garden_name=`+ garden.garden_name)
+            .then(res => {
+            const plants = res.data;
+            this.setState({ plants });
+        })
+    }
+
+    render() {
+        var nav = this.props.navigation;
+        var plants = this.props.plants;
+        var garden_name = this.props.garden_name; 
+
+        return(
+            <>
+            <ScrollView>
+                <View>
                 {
-                    Plants.map((plantItem) => {
-                    
-                        return ( <PlantCard plant={plantItem}/> );
-                    })
+                    this.state.plants.map((new_plant) => {
+                        return( 
+                            <PlantCard plant={new_plant} navComponent={nav} garden_name={garden_name}/>
+                        )
+                    }) 
                 }
-            </Content> */}
-        </View>
-    );
+                </View>
+            </ScrollView>
+            </>
+        )
+    }
 }
 
 
-// const PlantCard = (props) => {
-//     return(
-//       <Card containerStyle={card_styles.Card}>
-//         <Card.Title>{props.plant.nickname}</Card.Title>
-//         <Card.Divider/>
-//         <Text>Name: {props.plant.name}</Text>
-//         <View>
-//         <Image
-//             source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
-//             resizeMode={'contain'} 
-//             style={{width: 50, height: 50}}/>
-//         </View>
-//         <View>
-//         <Table>
-//             <TableWrapper>
-//             <Row data={["date planted", props.plant.datePlanted]}></Row>
-//             <Row data={["last watered", props.plant.lastWatered]}></Row>
-//             <Row data={["health", props.plant.health]}></Row>
-//             </TableWrapper>
-//         </Table>
-//         </View>
-//     </Card>
-//     );
-// }
+const PlantCard = ({plant, navComponent, garden_name}) => {
+    return(
+      <Card containerStyle={styles.card}>
+        <View style={styles.cardView}>
+          <Card.Title style={styles.cardTitle}>{plant.nickname}</Card.Title> 
+          <TouchableOpacity onPress={() => navComponent.navigate('plant information', {plant_id: plant.plant_id, garden_name: garden_name})} >
+                <Image 
+                    style={styles.icons} 
+                    source={require('../Assets/right-arrow.png')}
+                    />
+              </TouchableOpacity>
+        </View>
+        <Card.Divider style={styles.divider}/>
+        <Text style={styles.cardText}>
+            <Image
+                source={require('../Assets/plant.png')}
+                style={styles.image} />
+            {'\t'}type: {plant.common_name}{'\n'}
 
-const style = StyleSheet.create({
+            <Image
+                source={require('../Assets/love_outline.png')}
+                style={styles.image} />
+            {'\t'}health: {plant.health+'%'}{'\n'}
+            
+
+            <Image
+                source={require('../Assets/clock.png')}
+                style={styles.image} />
+            {'\t'}date planted: {plant.date_planted.substring(0,10)}{'\n'}
+
+            <Image
+                source={require('../Assets/water.png')}
+                style={styles.image} />
+            {'\t'}last watered: {plant.date_last_watered.substring(0,10)}{'\n'}
+        </Text>
+    </Card>
+    );
+}
+
+const styles = StyleSheet.create({
     container: {
         flex: 1
-    }
+    },
+    card: {
+        backgroundColor: '#7CA784',
+        borderRadius: 20,
+        marginHorizontal: 20
+    }, 
+    cardView: {
+        flexDirection: 'row', 
+        justifyContent:'space-between'
+    },
+    cardTitle: {
+        color: '#FFFFFF',
+        fontSize: 22,
+        fontWeight: 'normal',
+        marginLeft: 15,
+        marginTop: 5
+    },
+    cardText: {
+        color: '#FFFFFF',
+        fontSize: 15,
+        marginLeft: 20
+    },
+    icons: {   
+        width: 20,
+        height: 20,
+        right: 10,
+        marginTop: 10
+    },
+    image: {
+        width: 18,
+        height: 18
+    },
 });
 
-// const card_styles = StyleSheet.create({
-//     Card: {
-//       backgroundColor: '#7CA784'
-//     },
-//     scrollView: {
-//       backgroundColor: '#E8EDF0',
-//     },
-//     engine: {
-//       position: 'absolute',
-//       right: 0,
-//     },
-//     body: {
-//       backgroundColor: '#FFFFFF',
-//     },
-//     sectionContainer: {
-//       marginTop: 32,
-//       paddingHorizontal: 24,
-//     },
-//     sectionTitle: {
-//       fontSize: 24,
-//       fontWeight: '600',
-//       color: '#000000',
-//     },
-//     sectionDescription: {
-//       marginTop: 8,
-//       fontSize: 18,
-//       fontWeight: '400',
-//     //   color: Colors.dark,
-//     },
-//     highlight: {
-//       fontWeight: '700',
-//     },
-//     footer: {
-//     //   color: Colors.dark,
-//       fontSize: 12,
-//       fontWeight: '600',
-//       padding: 4,
-//       paddingRight: 12,
-//       textAlign: 'right',
-//     },
-//   });
-  
-// export { Plant, PlantCard};
 export default Plant;

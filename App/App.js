@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Header, LearnMoreLinks, Colors, DebugInstructions, ReloadInstructions, } from 'react-native/Libraries/NewAppScreen';
-import { NavigationContainer, useNavigationBuilder } from '@react-navigation/native';
-import TabNav from "./Components/Navigation/TabNav";
+import { NavigationContainer, useNavigationBuilder, DefaultTheme } from '@react-navigation/native';
 
-import { StyleSheet, ScrollView, View, Text, Image, Button } from 'react-native';
+import { StyleSheet, ScrollView, View, Text, Image, Button, Alert} from 'react-native';
 import { Card, Divider, Input } from 'react-native-elements'
 import { Container, Content, Body, Title, Tab} from 'native-base';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
@@ -11,230 +10,157 @@ import { color } from 'react-native-reanimated';
 import axios from 'axios';
 import t from 'tcomb-form-native';
 
-const Form = t.form.Form; 
 
-const CreateGarden = t.struct({ 
-  garden_name: t.String, 
-  climate: t.String
-})
+// Custom Components
+import TabNav from "./Components/Navigation/TabNav";
+import Login from "./Components/Login";
+import SubmitButton from './Components/SubmitButton';
 
-const DeleteGarden = t.struct({
-  garden_id: t.Integer
-})
-
-const UpdateGarden = t.struct({
-  garden_id: t.Integer,
-  garden_name: t.String
-})
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log notifications
 
 class App extends React.Component {
   state = {
-    gardens: []
+    gardens: [],
+    loginSuccessful: false, 
+    username: ''
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:3000/gardens?user=7`)
+    // this.refreshGardens()
+  }
+
+  handleLoginSubmit = event => {
+    event.preventDefault();
+    
+    const loginvals = this.login_form.getValue(); 
+
+    const login_info = {
+      username: loginvals.username, 
+      password: loginvals.password
+    };
+    
+    axios.get('http://localhost:3000/users/signin?user=' + login_info.username + '&passwd=' + login_info.password)
       .then(res => {
-        const gardens = res.data;
-        this.setState({ gardens });
+        console.log(res.data.success); 
+        console.log(res.data.results[0]);
+        
+        if (res.data.success) {
+          var usernameCondition = res.data.results[0].username.toUpperCase() == login_info.username.toUpperCase();
+
+          if (usernameCondition) {
+            this.state.username = login_info.username;
+            return this.loginEvent(); 
+          }
+        } else {
+          this.loginFailure();
+        }
       })
   }
 
-  handleCreateSubmit = event => {
-    event.preventDefault();
-    
-    const gardenvals = this.create_garden_form.getValue(); 
+  
 
-    const new_garden = {
-      user_id: "7",
-      garden: gardenvals.garden_name,
-      climate: gardenvals.climate
-    };
-
-    axios.post(`http://localhost:3000/gardens/create`, new_garden)
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      }).catch(
-        error => console.log(error)
-      )
+  loginEvent() {
+    this.state.loginSuccessful = true; 
+    this.forceUpdate()
   }
 
-  handleDeleteSubmit = event => {
-    event.preventDefault();
-    
-    const gardenvals = this.delete_garden_form.getValue(); 
-
-    const garden_to_delete = {
-      garden_id: gardenvals.garden_id
-    };
-    
-    axios.delete(`http://localhost:3000/gardens/remove`, {data: {garden_id: garden_to_delete.garden_id}})
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      }).catch(
-        error => console.log(error)
-      )
+  loginFailure() {
+    this.state.loginSuccessful = false; 
+    Alert.alert(
+      "incorrect login information ",
+      "try again",
+      [
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ],
+      { cancelable: false }
+    );
   }
 
-  handleUpdateSubmit = event => {
-    event.preventDefault();
-    
-    const gardenvals = this.update_garden_form.getValue(); 
+  LoginPage = () => {
+    return( 
+      <ScrollView style={styles.container}> 
+          <View style={styles.viewContainer}>
+            <Text style={styles.textHeader1}>
+              plant
+              <Text style={styles.textHeader2}>pal</Text>
+            </Text>
+            <Image
+              source={require('./Assets/potted_plant.png')}
+              style={styles.pottedPlant} />
+          </View>
 
-    const garden_to_update = {
-      id: gardenvals.garden_id,
-      name: gardenvals.garden_name
-    };
-    
-    axios.post(`http://localhost:3000/gardens/change-name`, garden_to_update)
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      }).catch(
-        error => console.log(error)
-      )
+          <View style={styles.form}>
+            <Form 
+              type={LoginForm} 
+              ref={c => this.login_form = c} />
+          </View>
+
+          <SubmitButton
+            title="sign in"
+            onPress={this.handleLoginSubmit} />
+      </ScrollView>
+    )
   }
-
-  // refreshPage = event => {
-  //   this.forceUpdate()
-  // }
 
   render() {
+    let page; 
+    if (this.state.loginSuccessful) {
+      page = <TabNav username={this.state.username}/> 
+    } else {
+      page = <this.LoginPage/>
+    }
     return(
       <>
       <NavigationContainer>
-      
-      <Content>
-      
-      
-        {
-          this.state.gardens.map((garden) => {
-            return( 
-              <Card containerStyle={styles.Card}>
-              <Card.Title>{garden.garden_name}</Card.Title>
-              <Card.Divider/>
-              <Text>Climate: {garden.climate}</Text>
-              <Text>ID: {garden.garden_id}</Text>
-            </Card>
-            )
-          })
-        }
-        <Divider></Divider>
-        <View>
-          <Text style={styles.title}>
-            Add a new garden
-          </Text>
-          <Form type={CreateGarden} ref={c => this.create_garden_form = c}/>
-          <Button
-            title="Submit!"
-            onPress={this.handleCreateSubmit}
-          />
-        </View>
-        <Divider/>
-        <View>
-          <Text style={styles.title}>
-            Delete a Garden (Enter an ID)
-          </Text>
-          <Form type={DeleteGarden} ref={c => this.delete_garden_form = c}/>
-          <Button
-            title="Submit!"
-            onPress={this.handleDeleteSubmit}
-          />
-        </View>
-        <View>
-          <Text style={styles.title}>
-            Update a Garden (Enter an ID and name for the garden)
-          </Text> 
-          <Form type={UpdateGarden} ref={c => this.update_garden_form = c}/>
-          <Button
-            title="update"
-            onPress={this.handleUpdateSubmit}
-          />
-        </View>
-        {/* <View>
-          <Text style={styles.title}>
-            refresh page 
-          </Text>
-          <Button
-            title="refresh"
-            onPress={this.refreshPage}
-          />
-        </View> */}
-      </Content>
-      {/* <TabNav></TabNav> */}
+        {page}
       </NavigationContainer>
       </>
     )
   }
 }
 
-const PlantCard = (props) => {
-  return(
-    <Card containerStyle={styles.Card}>
-      <Card.Title>{props.plant.nickname}</Card.Title>
-      <Card.Divider/>
-      <Text>Name: {props.plant.name}</Text>
-      <View>
-      <Image
-          source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
-          resizeMode={'contain'} 
-          style={{width: 50, height: 50}}/>
-      </View>
-      <View>
-      <Table>
-          <TableWrapper>
-          <Row data={["date planted", props.plant.datePlanted]}></Row>
-          <Row data={["last watered", props.plant.lastWatered]}></Row>
-          <Row data={["health", props.plant.health]}></Row>
-          </TableWrapper>
-      </Table>
-      </View>
-  </Card>
-  );
-}
+const Form = t.form.Form; 
+
+const LoginForm = t.struct({ 
+    username: t.String, 
+    password: t.String
+  })
 
 const styles = StyleSheet.create({
-  Card: {
-    backgroundColor: '#7CA784'
+  container: {
+    backgroundColor: '#F2F2F2'
   },
-  scrollView: {
-    backgroundColor: Colors.lighter,
+  viewContainer: {
+    marginTop: 150,
+    marginHorizontal: 50,
+    alignContent: 'center'
   },
-  engine: {
-    position: 'absolute',
-    right: 0,
+  textHeader1: {
+    color: '#86B58F',
+    fontSize: 35,
+    fontFamily: 'Roboto',
+    fontWeight: 'bold',
+    padding: 12,
+    alignSelf: 'center'
   },
-  body: {
-    backgroundColor: Colors.white,
+  textHeader2: {
+    color: '#B2D1D1',
+    fontSize: 35,
+    fontFamily: 'Roboto',
+    padding: 12
   },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  pottedPlant: {
+    marginVertical: 10,
+    width: 150,
+    height: 200,
+    alignSelf: 'center'
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
+  form: {
+    marginVertical: 20,
+    marginHorizontal: 50,
+  }
 });
 
 export default App;
