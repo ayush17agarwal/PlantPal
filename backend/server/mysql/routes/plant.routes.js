@@ -130,21 +130,22 @@ router.post('/nickname', (req, res) => {
 
 router.post('/water', (req, res) => {
   let sql = 'UPDATE plant SET date_last_watered = CURDATE() WHERE plant_id = ?';
+  let sql2 = 'UPDATE plant SET health = CASE WHEN health * 1.15 >= 100 THEN 100 ELSE health * 1.15 END WHERE plant_id = ?';
   const {plant_id} = req.body;
 
   db.query(sql, plant_id, (err, results) => {
     if(err) return res.send({success: false, error: err});
-
-    res.send({success: true, results: results});
     console.log('updated date_last_watered');
-  });
 
-  let sql2 = 'UPDATE plant SET health = CASE WHEN health * 1.15 >= 100 THEN 100 ELSE health * 1.15 END WHERE plant_id = ?';
-  db.query(sql2, plant_id, (err, results) => {
-    if(err) return res.send({success: false, error: err});
+    if(results.changedRows === 1) {
+      db.query(sql2, plant_id, (err1, results1) => {
+        if(err) return res.send({success: false, error: err1});
 
-    res.send({success: true, results: results});
-    console.log('added health for watering :)');
+        return res.send({success: true, results: results, results1: results1});
+        console.log('added health for watering :)');
+      });
+    }
+    return res.send({success: true, results: results});
   });
 });
 
@@ -165,7 +166,7 @@ router.post('/health', (req, res) => {
             'WHEN ((12 - DATEDIFF(CURDATE(), date_last_watered))/12) * 100 < 0 THEN 0 ' + 
             'ELSE ((12 - DATEDIFF(CURDATE(), date_last_watered))/12) * 100 END ' + 
             'WHERE user_id IN (SELECT user_id FROM user WHERE username=?)';
-  const {username} = req.query;
+  const {username} = req.body;
 
   db.query(sql, username, (err, results) => {
     if(err) return res.send({success: false, error: err});
