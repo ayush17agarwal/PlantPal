@@ -59,7 +59,7 @@ class PlantInfo extends Component {
 
     render(){
         const plant = this.state.plant_info; 
-        // console.log(plant);
+        console.log(plant.nickname);
         return (
             <ScrollView> 
                 <View style={styles.container}>
