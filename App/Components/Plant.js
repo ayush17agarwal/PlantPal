@@ -72,16 +72,15 @@ const PlantCard = ({plant, navComponent, garden_name}) => {
                     source={require('../Assets/right-arrow.png')}
                     />
               </TouchableOpacity>
-        </View>        
-        <Card.Title style={styles.cardTitle}>{plant.nickname}</Card.Title>
+        </View>
         <Card.Divider style={styles.divider}/>
-        <Text style={styles.cardText}>Name: {plant.name}</Text>
+        <Text style={styles.cardText}>type: {plant.common_name}</Text>
         <View>
         <Table>
             <TableWrapper>
-            <Row data={["date planted", plant.datePlanted]}></Row>
-            <Row data={["last watered", plant.lastWatered]}></Row>
-            <Row data={["health", plant.health]}></Row>
+            <Row data={['date planted', plant.date_planted.substring(0,10)]}></Row>
+            <Row data={['last watered', plant.date_last_watered.substring(0,10)]}></Row>
+            <Row data={['health', plant.health+'%']}></Row>
             </TableWrapper>
         </Table>
         </View>
@@ -113,13 +112,11 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginLeft: 20
     },
-    scrollView: {
-        backgroundColor: Colors.lighter,
-    }, 
     icons: {   
         width: 20,
         height: 20,
-        right: 10
+        right: 10,
+        marginTop: 10
     }
 });
 

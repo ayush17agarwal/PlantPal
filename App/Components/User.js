@@ -59,23 +59,19 @@ class User extends Component {
                     </View>
                 </View>
                 <View style={styles.tableContainer}>
-                    <Table >
-                        <Col data={[
-                            'username',
-                            'about',
-                            'gardens',
-                            'plants'
-                        ]}/>
-                    </Table>
+                    <Text style={styles.col1}>
+                            username{'\n\n'}
+                            about{'\n\n'}
+                            gardens{'\n\n'}
+                            plants
+                    </Text>
                     <View style={styles.divider} />
-                    <Table >
-                        <Col data={[
-                            this.state.username, 
-                            'tired cs student', 
-                            this.state.num_gardens.length,
-                            this.state.num_plants.length
-                        ]}/>
-                    </Table>
+                    <Text style={styles.col2}>
+                        {this.state.username}{'\n\n'}
+                        tired cs student{'\n\n'} 
+                        {this.state.num_gardens.length}{'\n\n'}
+                        {this.state.num_plants.length}
+                    </Text>
                 </View>
             </ScrollView>
         );
@@ -122,7 +118,14 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     col1: {
+        marginTop: 10,
         color: '#769CB9',
+        fontSize: 15
+    },
+    col2: {
+        marginTop: 10,
+        color: '#356487',
+        fontSize: 15
     },
     divider: {
         borderRightColor: '#769CB9',
