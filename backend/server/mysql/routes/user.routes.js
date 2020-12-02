@@ -7,7 +7,7 @@ router.get('/signin', (req, res) => {
   let sql =
     'SELECT username FROM user WHERE username = ? AND passwd = MD5(?)';
   db.query(sql, [req.query.user, req.query.passwd], (err, results) => {
-    if (err) {
+    if (err || results.length == 0) {
       return res.send({success: false, errror: err});
     } else {
       res.send({success: true, results: results});
