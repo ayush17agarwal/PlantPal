@@ -157,14 +157,6 @@ router.post('/water', (req, res) => {
     if(err) return res.send({success: false, error: err});
     console.log('updated date_last_watered');
 
-    if(results.changedRows === 1) {
-      db.query(sql2, plant_id, (err1, results1) => {
-        if(err) return res.send({success: false, error: err1});
-
-        return res.send({success: true, results: results, results1: results1});
-        console.log('added health for watering :)');
-      });
-    }
     return res.send({success: true, results: results});
   });
 });
