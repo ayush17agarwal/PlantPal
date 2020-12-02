@@ -8,12 +8,12 @@ class MysteryPlant extends Component {
     render() {
       return(
         <View style={styles.container}>
-          <RNCamera
+          {/* <RNCamera
             style={{ flex: 1, alignItems: 'center' }}
             ref={ref => {
               this.camera = ref
             }}
-          />
+          /> */}
         </View>
       )
     }
