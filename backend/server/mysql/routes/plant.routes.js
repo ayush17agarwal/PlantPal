@@ -173,27 +173,42 @@ router.post('/health', (req, res) => {
 
 //TODO algorithm to determine plant relationships
 router.get('/relationships', (req, res) => {
+ 
   const token = process.env.TREFLE_TOKEN;
-  const plant1 = req.query.plant_one;
-  const plant2 = req.query.plant_two;
+  const plant_id = req.query.plant_id;
 
-  let sql = 'SELECT trefle_id FROM plant WHERE plant_id = ? OR plant_id = ?';
-  db.query(sql, [plant1, plant2], (err, results) => {
+  let sql = 'SELECT trefle_id FROM plant WHERE plant_id = ?';
+  db.query(sql, [plant_id], (err, results) => {
     if(err) return res.send({success: false, error: err});
     const trefle1 = '' + results[0].trefle_id;
-    const trefle2 = '' + results[1].trefle_id;
+    let final = {};
     (async () => {
-      const response = await fetch('https://trefle.io/api/v1/plants/search?token=' + token + '&q=' + search);
+      const response = await fetch('https://trefle.io/api/v1/plants/' + trefle1 + '?token=' + token);
       const json = await response.json();
-      console.log(json);
-    })();
-
-    (async () => {
-      const response = await fetch('https://trefle.io/api/v1/plants/search?token=YOUR_TREFLE_TOKEN&q=coconut');
-      const json = await response.json();
-      console.log(json);
+      const data = json.data.main_species;
+      for(key in data) {
+        if(key == 'author' || key == 'bibliography') {
+          continue;
+        }
+        if(key != 'images') {
+          final[key] = data[key];
+        } else {
+          break;
+        }
+      }
+      return res.send(final);
     })();
   });
 });
+
+router.get('/all-user-plants', (req, res) =>{
+  const {username} = req.query;
+
+  let sql = 'SELECT plant.plant_id, plant.common_name FROM plant NATURAL JOIN user WHERE user.username = ?'; 
+  db.query(sql, username, (err, results) => {
+    res.send('' + results[0].plant_id);
+    console.log('Fetched all plants for this user...');
+  })
+})
 
 module.exports = router;
