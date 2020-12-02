@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, Button} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, Button, Alert} from 'react-native';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 
 import SubmitButton from './SubmitButton';
@@ -34,32 +34,33 @@ class PlantInfo extends Component {
     }
 
     handlePlantWaterEvent = event => {
-        // event.preventDefault();
+        event.preventDefault();
         
-        // const plant_to_water = {
-        //     plant_id: this.state.plant_id
-        // };
+        const plant_to_water = {
+            plant_id: this.state.plant_id
+        };
         
-        // axios.post(`http://localhost:3000/plants/water`, plant_to_water)
-        //     .then(res => {
-        //     // console.log(res);
-        //     console.log(res.data);
-        //     Alert.alert(
-        //         "you have successfully watered your plant!",
-        //         "great job (:",
-        //         [
-        //             { text: "OK", onPress: () => console.log("OK Pressed") }
-        //         ],
-        //         { cancelable: false }
-        //         );
-        // })
+        console.log(this.state.plant_id);
+        axios.post(`http://localhost:3000/plants/water`, plant_to_water)
+            .then(res => {
+            Alert.alert(
+                "you have successfully watered your plant!",
+                "great job (:",
+                [
+                    { text: "OK", onPress: () => console.log("OK Pressed") }
+                ],
+                { cancelable: false }
+            );
+        }).catch(err => {
+            console.log(err);
+        })
         
-        // this.refreshPlant();
+        this.refreshPlant();
     }
 
     render(){
         const plant = this.state.plant_info; 
-        console.log(plant.nickname);
+        // console.log(plant.nickname);
         return (
             <ScrollView> 
                 <View style={styles.container}>
