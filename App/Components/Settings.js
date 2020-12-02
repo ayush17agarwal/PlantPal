@@ -7,6 +7,7 @@ class Settings extends Component {
     state = {
         username: '',
         password: '********',
+        email: '',
         phone_number: '123-456-7890',
         birthday: '2000-01-01',
         user: [],
@@ -43,8 +44,8 @@ class Settings extends Component {
                         {this.state.user.username}{'\n\n'}
                         {this.state.password}{'\n\n'} 
                         {this.state.user.email}{'\n\n'}
-                        {this.state.user.phone_number}{'\n\n'}
-                        {this.state.user.birthday}
+                        {this.state.phone_number}{'\n\n'}
+                        {this.state.birthday}
                     </Text>
                 </View>
                 <Image

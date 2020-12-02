@@ -15,7 +15,6 @@ import NewPlant from "../NewPlant"
 import PlantInfo from "../PlantInfo"
 
 // Identification Screens
-import MysteryPlant from '../MysteryPlant';
 import PlantRelationship from '../PlantRelationship';
 import PlantRelationship2 from '../PlantRelationship2';
 
@@ -104,8 +103,6 @@ const SearchStackNav = ({username}) => {
             <Stack.Screen 
                 name="search" 
                 component={props => <Search {...props} username={username}/>} />
-            <Stack.Screen name="identify mystery plant" 
-                component={MysteryPlant} />
             <Stack.Screen name="identify plant relationship" 
                 component={props => <PlantRelationship {...props} username={username}/>} />
             <Stack.Screen name="plant relationship" 

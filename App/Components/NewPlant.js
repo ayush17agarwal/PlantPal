@@ -125,8 +125,12 @@ class NewPlant extends Component {
                 </View>
                 <View style={styles.dividerStyle} />
                 <View>
-                    <Form type={NewPlantForm} ref={c => this.find_new_plant_form = c}/>
+                    <Form 
+                        type={NewPlantForm} 
+                        ref={c => this.find_new_plant_form = c}
+                        options={options}/>
                 </View>
+                <Text>{'\n'}</Text>
                 <SubmitButton
                     title="find plants!"
                     onPress={this.findPossiblePlants}
@@ -147,34 +151,29 @@ class NewPlant extends Component {
 
 // var t = require('tcomb-form-native');
 var _ = require('lodash');
+this.options = {
+    auto: 'placeholder',
+    fields: {
+        common_name: {
+            placeholder: 'common name',
+            autoCapitalize: 'none',
+            autoCorrect: false,
+        },
+        nickname: {
+            placeholder: 'nickname',
+            autoCapitalize: 'none',
+            autoCorrect: false,
+        },
+        garden: {
+            placeholder: 'garden',
+            autoCapitalize: 'none',
+            autoCorrect: false,
+        }
+    },
+  };
 
 // clone the default stylesheet
 const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
-
-//override text color globally
-// t.form.Form.stylesheet.textbox.normal.color = '#9FA4A7';
-// const formOptions = {
-//     fields: {
-//         name: {
-//           stylesheet: stylesheet // overriding the style of the textbox
-//         }
-//       }
-// }
-
-
-// Creating a new plant - Form 
-// const Form = t.form.Form; 
-
-// var Gender = t.enums({
-//     M: 'Male',
-//     F: 'Female'
-//   });
-  
-// const NewPlantForm = t.struct({ 
-//     plant_nickname: t.String, 
-//     common_name: t.String,
-//     garden_name: Gender
-// })
 
 const styles = StyleSheet.create({
     container: {
@@ -191,7 +190,8 @@ const styles = StyleSheet.create({
     dividerStyle: {
         borderBottomColor: '#86B58F',
         borderBottomWidth: 2,
-        padding: 11
+        padding: 11,
+        marginBottom: 20,
     },
     textSubheader: {
         color: '#86B58F',

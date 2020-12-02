@@ -13,7 +13,6 @@ import t from 'tcomb-form-native';
 
 // Custom Components
 import TabNav from "./Components/Navigation/TabNav";
-import Login from "./Components/Login";
 import SubmitButton from './Components/SubmitButton';
 
 import { LogBox } from 'react-native';
@@ -91,7 +90,8 @@ class App extends React.Component {
           <View style={styles.form}>
             <Form 
               type={LoginForm} 
-              ref={c => this.login_form = c} />
+              ref={c => this.login_form = c}
+              options={options} />
           </View>
 
           <SubmitButton
@@ -123,7 +123,24 @@ const Form = t.form.Form;
 const LoginForm = t.struct({ 
     username: t.String, 
     password: t.String
-  })
+  });
+this.options = {
+  auto: 'placeholder',
+  fields: {
+    username: {
+      placeholder: 'username',
+      autoCapitalize: 'none',
+      autoCorrect: false,
+    },
+    password: {
+      placeholder: 'password',
+      autoCapitalize: 'none',
+      autoCorrect: false,
+      password: true,
+      secureTextEntry: true,
+    },
+  },
+};
 
 const styles = StyleSheet.create({
   container: {

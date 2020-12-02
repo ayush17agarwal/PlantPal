@@ -46,14 +46,7 @@ class PlantRelationship extends Component {
     const planttwo = this.plant_picker_form_two.getValue(); 
     
     this.state.plant1 = plantone; 
-    this.state.plant2 = planttwo; 
-    // for (var i = 0; i < this.state.plants.length; i++) {
-    //   if (this.state.plants[i].common_name == plantone.common_name) {
-    //     this.state.plant1 = this.state.plants[i]; 
-    //   } else if (this.state.plants[i].common_name == planttwo.common_name) {
-    //     this.state.plant2 = this.state.plants[i]; 
-    //   }
-    // }
+    this.state.plant2 = planttwo;
 
     nav.navigate('plant relationship', {plant1: this.state.plant1.plant, plant2: this.state.plant2.plant}); 
   }
@@ -80,6 +73,9 @@ class PlantRelationship extends Component {
       plant: plant_enums
     });
 
+    this.options = {
+    };
+
     return(
       <ScrollView>
         <View style={styles.container}>
@@ -93,7 +89,10 @@ class PlantRelationship extends Component {
             </Text>
           </View>
           <View style={styles.forms}>
-            <Form type={PlantPickerFormOne} ref={c => this.plant_picker_form_one = c} />
+            <Form 
+              type={PlantPickerFormOne} 
+              ref={c => this.plant_picker_form_one = c}
+              options={options} />
           </View>
 
           <View style={styles.heading}>
@@ -106,7 +105,10 @@ class PlantRelationship extends Component {
             </Text>
           </View>
           <View style={styles.forms}>
-            <Form type={PlantPickerFormTwo} ref={c => this.plant_picker_form_two = c} />
+            <Form 
+              type={PlantPickerFormTwo} 
+              ref={c => this.plant_picker_form_two = c}
+              options={options} />
           </View>
 
           <Text>{'\n\n'}</Text>
