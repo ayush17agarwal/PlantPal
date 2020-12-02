@@ -12,6 +12,7 @@ let Form = t.form.Form;
 
 let plant_as_enum = {}; 
 let PlantPickerFormOne = t.struct(plant_as_enum); 
+let PlantPickerFormTwo = t.struct(plant_as_enum); 
 
 class PlantRelationship extends Component {
   state = {
@@ -77,7 +78,7 @@ class PlantRelationship extends Component {
       plant: plant_enums
     });
     
-    let PlantPickerFormTwo = t.struct({ 
+    PlantPickerFormTwo = t.struct({ 
       plant: plant_enums
     });
 
