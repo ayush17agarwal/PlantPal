@@ -152,7 +152,7 @@ class NewPlant extends Component {
 // var t = require('tcomb-form-native');
 var _ = require('lodash');
 this.options = {
-    auto: 'placeholder',
+    auto: 'placeholders',
     fields: {
         common_name: {
             placeholder: 'common name',

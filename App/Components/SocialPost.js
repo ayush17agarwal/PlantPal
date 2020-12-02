@@ -120,7 +120,7 @@ const CreateSocialMediaPost = t.struct({
     caption: t.String
 })
 this.options = {
-    auto: 'placeholder',
+    auto: 'placeholders',
     fields: {
         caption: {
             placeholder: 'caption',

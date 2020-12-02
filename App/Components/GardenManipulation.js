@@ -153,7 +153,7 @@ const UpdateGarden = t.struct({
 
 
 this.options = {
-  auto: 'placeholder',
+  auto: 'placeholders',
   fields: {
     garden_name: {
       placeholder: 'garden name',
