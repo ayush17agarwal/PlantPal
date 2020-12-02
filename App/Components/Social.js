@@ -59,10 +59,10 @@ class Social extends Component {
 
 const SocialCard = ({username, post, nav}) => {
     return(
-      <Card containerStyle={styles.Card}>
-        <Card.Title>@{username}</Card.Title>
-        <Card.Divider/>
-        <Text>{post.caption}</Text>
+      <Card containerStyle={styles.card}>
+        <Card.Title style={styles.cardUsername}>@{username}</Card.Title>
+        {/* <Card.Divider style={styles.divider}/> */}
+        <Text style={styles.cardText}>{post.caption}</Text>
         <View>
             <TouchableOpacity> 
               <Image 
@@ -85,9 +85,19 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     },
-    Card: {
-        backgroundColor: '#B2D1D1'
+    card: {
+        backgroundColor: '#B2D1D1',
+        borderRadius: 20,
     }, 
+    cardUsername: {
+        fontSize: 18,
+        color: '#FFFFFF',
+        alignSelf: 'flex-start'
+    },
+    cardText: {
+        fontSize: 18,
+        color: '#FFFFFF',
+    },
     scrollView: {
         backgroundColor: Colors.lighter,
     },
@@ -96,9 +106,11 @@ const styles = StyleSheet.create({
       height: 20,
       right: 10
     },
-    Divider: {
-        padding: 32
-    }
+    divider: {
+        borderBottomColor: '#FFFFFF',
+        borderBottomWidth: 1,
+        marginHorizontal: 10
+    },
 });
 
 export default Social;
