@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Header, LearnMoreLinks, Colors, DebugInstructions, ReloadInstructions, } from 'react-native/Libraries/NewAppScreen';
-import { StyleSheet, ScrollView, View, Text, Image, Button, Aler, TouchableOpacity} from 'react-native';
+import { StyleSheet, ScrollView, View, Text, Image, Button, Alert, TouchableOpacity} from 'react-native';
 import { Card, Divider, Input } from 'react-native-elements'
 import { color } from 'react-native-reanimated';
 
@@ -9,8 +9,8 @@ import t from 'tcomb-form-native';
 
 class Social extends Component {
     state = {
-        posts: [],
         username: '',
+        posts: [],
         likes: []
     }
 
@@ -25,16 +25,7 @@ class Social extends Component {
             .then(res => {
             const posts = res.data;
             this.setState({ posts });
-        })
-    }
-
-    getNumLikes = (post_id) =>{
-        // let num_likes = ''; 
-        axios.get(`http://localhost:3000/posts/num-likes?post_id=`+post_id)
-            .then(res => {
-            // console.log(res.data); 
-            return res.data; 
-        })
+        });
     }
 
     likeAPost = (post_id) => {
@@ -47,7 +38,6 @@ class Social extends Component {
           .then(res => {
             
             if (res.data.success) {
-                // console.log(res.data); 
                 // Alert.alert(
                 //     "liked ! ",
                 //     "keep spreading the love",
@@ -58,8 +48,9 @@ class Social extends Component {
                 // );
             }
           })
+        // this.forceUpdate();
         this.refreshPosts();
-        this.forceUpdate();
+        
     }
 
 
@@ -70,7 +61,7 @@ class Social extends Component {
                 <TouchableOpacity onPress={ () => this.likeAPost(post._id) } > 
                   <Image 
                       style={styles.icons} 
-                      source={require('../Assets/love_outline.png')}
+                      source={require('../Assets/love_filled.png')}
                     //   onPress={ () => this.setState({ showSoundImg: !this.state.showSoundImg }) } 
                     
                       />
@@ -78,9 +69,8 @@ class Social extends Component {
                 </TouchableOpacity>
             </View>
             <Card.Title style={styles.cardUsername}>@{post.username}</Card.Title>
-            {/* <Card.Divider style={styles.divider}/> */}
             <Text style={styles.cardText}>{post.caption}</Text>
-            <Text style={styles.cardText}>{num_likes}</Text>
+            <Text style={styles.cardLikes}>{post.likes.length}</Text>
           </Card>
         ); 
     }
@@ -90,22 +80,15 @@ class Social extends Component {
         var num_likes = '';
 
         return (
-            
             <ScrollView>
                 <View>
                     <View>
                     {
                         this.state.posts.map((new_post, i) => {
-                            // console.log(new_post._id);
-                            // var num_likes = this.getNumLikes(new_post._id);
-                            // console.log(num_likes); 
-                            num_likes = this.getNumLikes(new_post._id);
-                            // console.log(this.getNumLikes(new_post._id)); 
                             return( 
                                 <>
                                 <this.SocialCard username={this.state.username} 
                                             post={new_post} 
-                                            // num_likes={data}
                                             navComponent={nav} key={i}/>
                                 </>
                             )
@@ -145,6 +128,13 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: '#FFFFFF',
         marginLeft: 20
+    },
+    cardLikes: {
+        fontSize: 18,
+        color: '#FFFFFF',
+        position: 'absolute',
+        top: 3,
+        left: 275
     },
     scrollView: {
         backgroundColor: Colors.lighter,

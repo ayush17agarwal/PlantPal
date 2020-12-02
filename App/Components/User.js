@@ -93,7 +93,7 @@ class User extends Component {
                             about{'\n\n'}
                             gardens{'\n\n'}
                             plants{'\n\n'}
-                            num posts
+                            posts
                     </Text>
                     <View style={styles.divider} />
                     <Text style={styles.col2}>

@@ -55,7 +55,10 @@ class SocialPost extends Component {
                 </View>
                 <View style={styles.dividerStyle} />
                 <View>
-                    <Form type={CreateSocialMediaPost} ref={c => this.create_post = c}/>
+                    <Form 
+                        type={CreateSocialMediaPost} 
+                        ref={c => this.create_post = c}
+                        options={options} />
                     <SubmitButton title="post!" onPress={this.handleCreateSubmit}/>
                     
                 </View>
@@ -116,5 +119,15 @@ const Form = t.form.Form;
 const CreateSocialMediaPost = t.struct({ 
     caption: t.String
 })
+this.options = {
+    auto: 'placeholders',
+    fields: {
+        caption: {
+            placeholder: 'caption',
+        autoCapitalize: 'none',
+        autoCorrect: false,
+      },
+    },
+};
 
 export default SocialPost;

@@ -7,6 +7,7 @@ class Settings extends Component {
     state = {
         username: '',
         password: '********',
+        email: '',
         phone_number: '123-456-7890',
         birthday: '2000-01-01',
         user: [],
@@ -43,28 +44,17 @@ class Settings extends Component {
                         {this.state.user.username}{'\n\n'}
                         {this.state.password}{'\n\n'} 
                         {this.state.user.email}{'\n\n'}
-                        {this.state.user.phone_number}{'\n\n'}
-                        {this.state.user.birthday}
+                        {this.state.phone_number}{'\n\n'}
+                        {this.state.birthday}
                     </Text>
                 </View>
                 <Image
                     source={require('../Assets/potted_plant.png')}
                     style={styles.pottedPlant} />
                 <Text style={styles.textHeader1}>
-                plant
-                <Text style={styles.textHeader2}>pal</Text>
+                    plant
+                    <Text style={styles.textHeader2}>pal</Text>
                 </Text>
-            {/* <View>
-                <Table>
-                    <TableWrapper>
-                    <Row data={["username", user.username]}></Row>
-                    <Row data={["password", '........']}></Row>
-                    <Row data={["email", user.email]}></Row>
-                    <Row data={["phone", user.phone_number]}></Row>
-                    <Row data={["birthday", user.birthday]}></Row>
-                    </TableWrapper>
-                </Table>
-            </View> */}
             </View>
             </ScrollView>
         )
