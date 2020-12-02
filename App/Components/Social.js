@@ -10,7 +10,8 @@ import t from 'tcomb-form-native';
 class Social extends Component {
     state = {
         posts: [],
-        username: ''
+        username: '',
+        likes: []
     }
 
     componentDidMount() {
@@ -59,18 +60,20 @@ class Social extends Component {
 
 const SocialCard = ({username, post, nav}) => {
     return(
-      <Card containerStyle={styles.Card}>
-        <Card.Title>@{username}</Card.Title>
-        <Card.Divider/>
-        <Text>{post.caption}</Text>
-        <View>
+      <Card containerStyle={styles.card}>
+          <View>
             <TouchableOpacity> 
               <Image 
                   style={styles.icons} 
                   source={require('../Assets/love_outline.png')}
+                  onPress={ () => this.setState({ showSoundImg: !this.state.showSoundImg }) } 
+          
                   />
-          </TouchableOpacity>
+            </TouchableOpacity>
         </View>
+        <Card.Title style={styles.cardUsername}>@{username}</Card.Title>
+        {/* <Card.Divider style={styles.divider}/> */}
+        <Text style={styles.cardText}>{post.caption}</Text>
       </Card>
     ); 
 }
@@ -85,20 +88,37 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     },
-    Card: {
-        backgroundColor: '#B2D1D1'
+    card: {
+        backgroundColor: '#B2D1D1',
+        borderRadius: 20,
+        marginHorizontal: 20
     }, 
+    cardUsername: {
+        fontSize: 18,
+        color: '#FFFFFF',
+        alignSelf: 'flex-start',
+        marginLeft: 20
+    },
+    cardText: {
+        fontSize: 18,
+        color: '#FFFFFF',
+        marginLeft: 20
+    },
     scrollView: {
         backgroundColor: Colors.lighter,
     },
-    icons: {   
-      width: 20,
-      height: 20,
-      right: 10
+    icons: {
+        position: 'absolute',
+        width: 20,
+        height: 20,
+        top: 5,
+        right: 10
     },
-    Divider: {
-        padding: 32
-    }
+    divider: {
+        borderBottomColor: '#FFFFFF',
+        borderBottomWidth: 1,
+        marginHorizontal: 10
+    },
 });
 
 export default Social;

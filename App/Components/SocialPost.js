@@ -35,8 +35,8 @@ class SocialPost extends Component {
         return (
             <ScrollView style={styles.container}> 
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                    <Text style={styles.textHeader}>create a new plant post!</Text>
-                    <Text style={styles.textSubheader}>share your plants with your friends!</Text>
+                    <Text style={styles.textHeader}>create a new post!</Text>
+                    <Text style={styles.textSubheader}>share updates with your friends!</Text>
                 </View>
                 <View style={styles.dividerStyle} />
                 <View>
@@ -70,7 +70,8 @@ const styles = StyleSheet.create({
     dividerStyle: {
         borderBottomColor: '#86B58F',
         borderBottomWidth: 2,
-        padding: 11
+        padding: 11,
+        marginBottom: 20
     },
     textSubheader: {
         color: '#86B58F',
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
 const Form = t.form.Form; 
 
 const CreateSocialMediaPost = t.struct({ 
-    caption: t.String
+    message: t.String
 })
 
 export default SocialPost;

@@ -72,19 +72,30 @@ const PlantCard = ({plant, navComponent, garden_name}) => {
                     source={require('../Assets/right-arrow.png')}
                     />
               </TouchableOpacity>
-        </View>        
-        <Card.Title style={styles.cardTitle}>{plant.nickname}</Card.Title>
-        <Card.Divider style={styles.divider}/>
-        <Text style={styles.cardText}>Name: {plant.name}</Text>
-        <View>
-        <Table>
-            <TableWrapper>
-            <Row data={["date planted", plant.datePlanted]}></Row>
-            <Row data={["last watered", plant.lastWatered]}></Row>
-            <Row data={["health", plant.health]}></Row>
-            </TableWrapper>
-        </Table>
         </View>
+        <Card.Divider style={styles.divider}/>
+        <Text style={styles.cardText}>
+            <Image
+                source={require('../Assets/plant.png')}
+                style={styles.image} />
+            {'\t'}type: {plant.common_name}{'\t'}
+
+            <Image
+                source={require('../Assets/love_outline.png')}
+                style={styles.image} />
+            {'\t'}health: {plant.health+'%'}{'\n\n'}
+            
+
+            <Image
+                source={require('../Assets/clock.png')}
+                style={styles.image} />
+            {'\t'}date planted: {plant.date_planted.substring(0,10)}{'\n'}
+
+            <Image
+                source={require('../Assets/water.png')}
+                style={styles.image} />
+            {'\t'}last watered: {plant.date_last_watered.substring(0,10)}{'\n'}
+        </Text>
     </Card>
     );
 }
@@ -96,6 +107,7 @@ const styles = StyleSheet.create({
     card: {
         backgroundColor: '#7CA784',
         borderRadius: 20,
+        marginHorizontal: 20
     }, 
     cardView: {
         flexDirection: 'row', 
@@ -113,14 +125,16 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginLeft: 20
     },
-    scrollView: {
-        backgroundColor: Colors.lighter,
-    }, 
     icons: {   
         width: 20,
         height: 20,
-        right: 10
-    }
+        right: 10,
+        marginTop: 10
+    },
+    image: {
+        width: 18,
+        height: 18
+    },
 });
 
 export default Plant;

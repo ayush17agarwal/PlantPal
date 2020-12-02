@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
     card: {
         backgroundColor: '#7CA784',
         borderRadius: 20,
+        marginHorizontal: 20
     }, 
     cardView: {
         flexDirection: 'row', 

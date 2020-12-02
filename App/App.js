@@ -44,6 +44,7 @@ class App extends React.Component {
     axios.get('http://localhost:3000/users/signin?user=' + login_info.username + '&passwd=' + login_info.password)
       .then(res => {
         console.log(res.data.success); 
+        console.log(res.data.results[0]);
         
         if (res.data.success) {
           var usernameCondition = res.data.results[0].username.toUpperCase() == login_info.username.toUpperCase();
@@ -53,10 +54,12 @@ class App extends React.Component {
             return this.loginEvent(); 
           }
         } else {
-          this.loginFailure()
+          this.loginFailure();
         }
       })
   }
+
+  
 
   loginEvent() {
     this.state.loginSuccessful = true; 
@@ -77,7 +80,6 @@ class App extends React.Component {
 
   LoginPage = () => {
     return( 
-      <View style={styles.bkgrnd}>
       <ScrollView style={styles.container}> 
           <View style={styles.viewContainer}>
             <Text style={styles.textHeader1}>
@@ -99,7 +101,6 @@ class App extends React.Component {
             title="sign in"
             onPress={this.handleLoginSubmit} />
       </ScrollView>
-      </View>
     )
   }
 
@@ -114,7 +115,6 @@ class App extends React.Component {
       <>
       <NavigationContainer>
         {page}
-        {/* <TabNav/> */}
       </NavigationContainer>
       </>
     )
@@ -129,13 +129,13 @@ const LoginForm = t.struct({
   })
 
 const styles = StyleSheet.create({
-  bkgrnd: {
+  container: {
     backgroundColor: '#F2F2F2'
   },
-  container: {
+  viewContainer: {
     marginTop: 150,
     marginHorizontal: 50,
-    alignContent: 'center',
+    alignContent: 'center'
   },
   textHeader1: {
     color: '#86B58F',
@@ -158,7 +158,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   form: {
-    marginVertical: 20
+    marginVertical: 20,
+    marginHorizontal: 50,
   }
 });
 
