@@ -16,7 +16,9 @@ import TabNav from "./Components/Navigation/TabNav";
 import Login from "./Components/Login";
 import SubmitButton from './Components/SubmitButton';
 
-
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log notifications
 
 class App extends React.Component {
   state = {
@@ -41,17 +43,19 @@ class App extends React.Component {
     
     axios.get('http://localhost:3000/users/signin?user=' + login_info.username + '&passwd=' + login_info.password)
       .then(res => {
-        console.log(res);
+        console.log(res.data.success); 
+        
         if (res.data.success) {
-          this.state.username = login_info.username;
-          return this.loginEvent(); 
+          var usernameCondition = res.data.results[0].username.toUpperCase() == login_info.username.toUpperCase();
+
+          if (usernameCondition) {
+            this.state.username = login_info.username;
+            return this.loginEvent(); 
+          }
         } else {
           this.loginFailure()
         }
       })
-      // .catch(error => {
-      //   console.log(error);
-      // })
   }
 
   loginEvent() {
@@ -94,7 +98,8 @@ class App extends React.Component {
           <SubmitButton
             title="sign in"
             onPress={this.handleLoginSubmit} />
-      </ScrollView></View>
+      </ScrollView>
+      </View>
     )
   }
 
