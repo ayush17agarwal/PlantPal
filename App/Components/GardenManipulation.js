@@ -30,8 +30,11 @@ class GardenManipulation extends Component {
     
         axios.post(`http://localhost:3000/gardens/create`, new_garden)
           .then(res => {
-            console.log(res);
-            console.log(res.data);
+            // console.log(res);
+            // console.log(res.data);
+            var nav = this.props.navigation;
+
+            nav.navigate('garden'); 
           }).catch(
             error => console.log(error)
           )
@@ -51,19 +54,12 @@ class GardenManipulation extends Component {
         axios.delete(`http://localhost:3000/gardens/remove`, {data: {garden_name: garden_to_delete.garden_name, 
                                                                     username: this.state.username}})
           .then(res => {
+            
             console.log(res);
             console.log(res.data);
             this.refreshGardens(); 
           }).catch(
             error => console.log(error)
-            // Alert.alert(
-            //   "cannot delete garden :(",
-            //   "you seem to have entered an invalid garden id. try again!",
-            //   [
-            //     { text: "OK", onPress: () => console.log("OK Pressed") }
-            //   ],
-            //   { cancelable: false }
-            // )
           )
         
         this.forceUpdate();
@@ -72,30 +68,21 @@ class GardenManipulation extends Component {
       handleUpdateSubmit = event => {
         event.preventDefault();
         
-        const gardenvals = this.delete_garden_form.getValue(); 
+        const gardenvals = this.update_garden_form.getValue(); 
     
         const garden_to_update = {
-          old_garden_name: gardenvals.garden_name,
-          new_garden_name: gardenvals.new_garden_name
+          garden_name: gardenvals.old_garden_name,
+          username: this.state.username,
+          new_name: gardenvals.new_garden_name
         };
         
-        axios.post(`http://localhost:3000/gardens/change-name`, {data: {garden_name: garden_to_update.old_garden_name, 
-                                                                    new_name: garden_to_update.new_garden_name, 
-                                                                    username: this.state.username}})
+        axios.post(`http://localhost:3000/gardens/change-name`, garden_to_update)
           .then(res => {
-            // console.log(res);
-            // console.log(res.data);
-            this.refreshGardens(); 
+            var nav = this.props.navigation;
+
+            nav.navigate('garden'); 
           }).catch(
             error => console.log(error)
-            // Alert.alert(
-            //   "cannot delete garden :(",
-            //   "you seem to have entered an invalid garden id. try again!",
-            //   [
-            //     { text: "OK", onPress: () => console.log("OK Pressed") }
-            //   ],
-            //   { cancelable: false }
-            // )
           )
       }
 

@@ -12,6 +12,14 @@ class Settings extends Component {
         user: [],
     }
 
+    componentDidMount() {
+        this.getUserInfo(); 
+    }
+
+    getUserInfo() {
+
+    }
+    
     render() {
         var user = this.state.user; 
         return (
