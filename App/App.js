@@ -41,6 +41,7 @@ class App extends React.Component {
       password: loginvals.password
     };
     
+    // console.log
     axios.get('http://localhost:3000/users/signin?user=' + login_info.username + '&passwd=' + login_info.password)
       .then(res => {
         if (res.data.success) {
@@ -49,14 +50,14 @@ class App extends React.Component {
           if (usernameCondition) {
             this.state.username = login_info.username;
             return this.loginEvent(); 
+          } else {
+            return this.loginFailure();
           }
         } else {
-          this.loginFailure();
+          return this.loginFailure();
         }
       })
   }
-
-  
 
   loginEvent() {
     this.state.loginSuccessful = true; 
@@ -64,6 +65,7 @@ class App extends React.Component {
   }
 
   loginFailure() {
+    console.log('here');
     this.state.loginSuccessful = false; 
     Alert.alert(
       "incorrect login information ",
@@ -73,6 +75,8 @@ class App extends React.Component {
       ],
       { cancelable: false }
     );
+
+    this.forceUpdate();
   }
 
   LoginPage = () => {
