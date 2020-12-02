@@ -58,6 +58,7 @@ router.post('/add', (req, res) => {
   const garden_name = req.body.garden_name;
   const username = req.body.username;
   const common_name = req.body.common_name;
+  const nickname = req.body.nickname;
   let num_plant = 0;
   let user_id = '';
 
@@ -69,9 +70,9 @@ router.post('/add', (req, res) => {
   db.query(exists_plant, trefle_id, (err, results) => {
     num_plant = results[0].numPlant;
       if(num_plant > 0) {
-        let insert_plant = 'INSERT INTO plant(garden_name, trefle_id, user_id, common_name, date_planted, date_last_watered)' +
-                            'VALUES(?, ?, ?, ?, CURDATE(), CURDATE())';
-        db.query(insert_plant, [garden_name, trefle_id, user_id, common_name], (err, results) => {
+        let insert_plant = 'INSERT INTO plant(garden_name, trefle_id, user_id, common_name, date_planted, date_last_watered, nickname)' +
+                            'VALUES(?, ?, ?, ?, CURDATE(), CURDATE(), ?)';
+        db.query(insert_plant, [garden_name, trefle_id, user_id, common_name, nickname], (err, results) => {
                 if(err) return res.send({success: false, error: err});
                 
                 console.log('Added the plant...');
@@ -88,10 +89,10 @@ router.post('/add', (req, res) => {
             const common_trefle = json.data.common_name;
             let insert_trefle = 'INSERT INTO trefle_info(trefle_id, common_name, scientific_name) VALUES(?, ?, ?)';
             db.query(insert_trefle, [trefle_id, common_trefle, scientific_name], (err, results) => {
-              let insert_plant = 'INSERT INTO plant(garden_name, trefle_id, user_id, common_name, date_planted, date_last_watered)' +
-                            'VALUES(?, ?, ?, ?, CURDATE(), CURDATE())';
+              let insert_plant = 'INSERT INTO plant(garden_name, trefle_id, user_id, common_name, date_planted, date_last_watered, nickname)' +
+                            'VALUES(?, ?, ?, ?, CURDATE(), CURDATE(), ?)';
 
-              db.query(insert_plant, [garden_name, trefle_id, user_id, common_name], (err, results) => {
+              db.query(insert_plant, [garden_name, trefle_id, user_id, common_name, nickname], (err, results) => {
                 if(err) return res.send({success: false, error: err});
                 
                 console.log('Added the ******* plant...');
@@ -208,7 +209,19 @@ router.get('/all-user-plants', (req, res) =>{
   db.query(sql, username, (err, results) => {
     res.send('' + results[0].plant_id);
     console.log('Fetched all plants for this user...');
-  })
-})
+  });
+});
+
+router.post('/trefle', (req, res) => {
+  const {trefle_id, common_name, scientific_name} = req.body;
+  console.log(req.body);
+  console.log(trefle_id);
+  console.log(common_name);
+  console.log(scientific_name);
+  db.query('INSERT INTO trefle_info(trefle_id, common_name, scientific_name) VALUES(?,?,?)', [trefle_id, common_name, scientific_name], (err, results) => {
+    console.log('done');
+    res.send({success: true});
+  });
+});
 
 module.exports = router;
