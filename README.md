@@ -2,8 +2,8 @@
 
 CS411 Group Project
 
+* [Video Demo](https://youtu.be/u9UIUmF2chI?si=0ZUyUTrE0FqJo742) on YouTube
 * [Mockup](https://www.figma.com/file/DJW5U2bwGkPzGSnr5CLgtN/PlantPal?node-id=0%3A1) created with Figma 
-
 * Use [setup link](https://reactnative.dev/docs/environment-setup) to setup your environment. Be sure to click the 'React Native CLI Quickstart' tab
 
 
